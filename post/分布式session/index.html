@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>分布式session - 想自由的Punk 1u</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="punk1u" /><meta name="description" content="分布式session 传统Session 传统Session实现 传统单机Session实现方式： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 @RestController @RequestMapping(&amp;#34;/user&amp;#34;) public class" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.79.0 with theme even" />
+
+
+<link rel="canonical" href="https://punk1u.github.io/post/%E5%88%86%E5%B8%83%E5%BC%8Fsession/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="分布式session" />
+<meta property="og:description" content="分布式session 传统Session 传统Session实现 传统单机Session实现方式： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 @RestController @RequestMapping(&#34;/user&#34;) public class" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://punk1u.github.io/post/%E5%88%86%E5%B8%83%E5%BC%8Fsession/" />
+<meta property="article:published_time" content="2021-01-06T12:29:39+08:00" />
+<meta property="article:modified_time" content="2021-01-06T12:29:39+08:00" />
+<meta itemprop="name" content="分布式session">
+<meta itemprop="description" content="分布式session 传统Session 传统Session实现 传统单机Session实现方式： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 @RestController @RequestMapping(&#34;/user&#34;) public class">
+<meta itemprop="datePublished" content="2021-01-06T12:29:39+08:00" />
+<meta itemprop="dateModified" content="2021-01-06T12:29:39+08:00" />
+<meta itemprop="wordCount" content="3151">
+
+
+
+<meta itemprop="keywords" content="分布式,笔记,JAVA," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="分布式session"/>
+<meta name="twitter:description" content="分布式session 传统Session 传统Session实现 传统单机Session实现方式： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 @RestController @RequestMapping(&#34;/user&#34;) public class"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Punk Lu</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Punk Lu</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">分布式session</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-01-06 </span>
+        <div class="post-category">
+            <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/"> 分布式 </a>
+            <a href="/categories/%E7%AC%94%E8%AE%B0/"> 笔记 </a>
+            <a href="/categories/java/"> JAVA </a>
+            </div>
+          <span class="more-meta"> 约 3151 字 </span>
+          <span class="more-meta"> 预计阅读 7 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#分布式session">分布式session</a>
+      <ul>
+        <li><a href="#传统session">传统Session</a>
+          <ul>
+            <li><a href="#传统session实现">传统Session实现</a></li>
+            <li><a href="#cookie的跨域问题">Cookie的跨域问题</a></li>
+          </ul>
+        </li>
+        <li><a href="#spring-session实践">Spring-Session实践</a></li>
+        <li><a href="#tokenredis自定义session组件">Token+Redis自定义Session组件</a></li>
+        <li><a href="#jwt实现">JWT实现</a>
+          <ul>
+            <li><a href="#header">Header</a></li>
+            <li><a href="#payload">Payload</a></li>
+            <li><a href="#signature">Signature</a></li>
+            <li><a href="#jwt工作方式">JWT工作方式</a></li>
+            <li><a href="#jwt和session的差异">JWT和Session的差异</a></li>
+            <li><a href="#代码实现">代码实现</a></li>
+          </ul>
+        </li>
+        <li><a href="#类似的oauth2技术">类似的OAuth2技术</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="分布式session">分布式session</h1>
+<h2 id="传统session">传统Session</h2>
+<h3 id="传统session实现">传统Session实现</h3>
+<p>传统单机Session实现方式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RestController</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/user&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserController</span> <span class="o">{</span>
+
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/login&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">login</span><span class="o">(</span><span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">username</span><span class="o">,</span>
+                        <span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">password</span><span class="o">,</span>
+                        <span class="n">HttpSession</span> <span class="n">session</span><span class="o">){</span>
+        <span class="c1">// 账号密码正确
+</span><span class="c1"></span>        <span class="n">session</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">&#34;login_user&#34;</span><span class="o">,</span><span class="n">username</span><span class="o">);</span>
+        <span class="k">return</span> <span class="s">&#34;登录成功&#34;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/info&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">info</span><span class="o">(</span><span class="n">HttpSession</span> <span class="n">session</span><span class="o">){</span>
+        <span class="k">return</span> <span class="s">&#34;当前登录的是：&#34;</span> <span class="o">+</span> <span class="n">session</span><span class="o">.</span><span class="na">getAttribute</span><span class="o">(</span><span class="s">&#34;login_user&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>访问<code>http://127.0.0.1:8080/user/login?username=admin&amp;password=admin</code>接口登录，可以在浏览器开发工具中的Network中看到请求中的<code>Response Headers</code>列中发现下面的key-value值：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Set-Cookie: JSESSIONID=EB47B8EC38FBA2E7974DFC0F8C2C9ABA; Path=/; HttpOnly
+</code></pre></td></tr></table>
+</div>
+</div><p>这条响应即是服务器端返回的用于标识Session的Cookie-Id。</p>
+<p>登录后再访问<code>http://127.0.0.1:8080/user/info</code>，可以在请求的<code>Request Headers</code> 中发现:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Cookie: JSESSIONID=EB47B8EC38FBA2E7974DFC0F8C2C9ABA
+</code></pre></td></tr></table>
+</div>
+</div><p>即为登录时服务器返回的Cookie-Id，此Cookie和对应的Session在服务器端同样有所记录，便于后续前台请求发送到后台时，后台可以确定Session是否存在。</p>
+<h3 id="cookie的跨域问题">Cookie的跨域问题</h3>
+<p>在使用<code>http://127.0.0.1:8080/user/login?username=admin&amp;password=admin</code>接口登录后，使用<code>http://127.0.0.1:8080/user/info</code>可以看到对应的登录信息，但是当使用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">http:/localhost:8080/user/info
+</code></pre></td></tr></table>
+</div>
+</div><p>访问时却获取不到之前的登录信息，在浏览器开发工具的Application项中的Storage下的Cookies中可以选择对应的Cookie项看到，此时的Domain值是<code>localhost</code>，而之前<code>127.0.0.1</code>的请求中的Domain则是<code>127.0.0.1</code>，也就是说，虽然是在同一个浏览器下，但是Cookie只能被相同Domain（域名）下的请求访问到。如果是不同的Domain发起的请求，各个请求携带的Cookie-Id是不一样的。也就导致了Session的不同。可以在前台Application中的Storage下的Cookies修改Cookie值模拟对应的Session。</p>
+<h2 id="spring-session实践">Spring-Session实践</h2>
+<p>引入Spring-Session依赖和对应的Redis依赖：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-data-redis<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.session<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-session-data-redis<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>配置对应的Spring-Session和Redis的配置:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">spring.redis.host=127.0.0.1
+spring.redis.port=6379
+
+# 定义Spring-Session使用的存储工具
+spring.session.store-type=redis
+# Spring Session自定义过期时间
+spring.session.timeout=3600
+# Spring Session自定义在Redis中的key的前缀,默认值:spring-session
+spring.session.redis.namespace=login_user
+</code></pre></td></tr></table>
+</div>
+</div><p>然后启动项目后访问<code>http://127.0.0.1:8080/user/login?username=admin&amp;password=1</code>登录后，再访问<code>http://127.0.0.1:8080/user/info</code>可以看到正常的登录信息。此时在Redis中可以看到如下的三个值：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">spring:session:expirations:1610427360000
+spring:session:sessions:e4ce5829-d85f-455e-acf9-5b53c7c35a26
+spring:session:sessions:expires:e4ce5829-d85f-455e-acf9-5b53c7c35a26
+</code></pre></td></tr></table>
+</div>
+</div><p>代表此登录用户的Session信息已存入Redis中，此时重启应用，再次访问<code>http://127.0.0.1:8080/user/info</code>依然可以访问到之前的登录信息，因为此时Session信息不是存在Tomcat容器中，而是存在第三方的Redis中。</p>
+<h2 id="tokenredis自定义session组件">Token+Redis自定义Session组件</h2>
+<p>在移动端等领域，基于Cookie的Session解决方案并不适用，且<code>Token+Redis</code>实现的方案自由度更高。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Autowired</span>
+<span class="kd">private</span> <span class="n">StringRedisTemplate</span> <span class="n">stringRedisTemplate</span><span class="o">;</span>
+
+<span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/loginWithToken&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">loginWithToken</span><span class="o">(</span><span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">username</span><span class="o">,</span>
+							<span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">password</span><span class="o">){</span>
+    <span class="c1">// 账号密码正确
+</span><span class="c1"></span>    <span class="n">String</span> <span class="n">key</span> <span class="o">=</span> <span class="s">&#34;token_&#34;</span> <span class="o">+</span> <span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
+    <span class="n">stringRedisTemplate</span><span class="o">.</span><span class="na">opsForValue</span><span class="o">().</span><span class="na">set</span><span class="o">(</span><span class="n">key</span><span class="o">,</span><span class="n">username</span><span class="o">,</span><span class="n">3600</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">key</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/infoWithToken&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">infoWithToken</span><span class="o">(</span><span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">token</span><span class="o">){</span>
+    <span class="k">return</span> <span class="s">&#34;当前登录的是：&#34;</span> <span class="o">+</span> <span class="n">stringRedisTemplate</span><span class="o">.</span><span class="na">opsForValue</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="n">token</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="jwt实现">JWT实现</h2>
+<p>前面的分布式Session实现方式都依赖于Redis中间件，会增加系统复杂性，且如果要使用对应的加密信息还需手动编写对应的加密逻辑。可以使用JWT解决这两个问题</p>
+<p>JSON Web Token (JWT)是一个开放标准(RFC 7519)，它定义了一种紧凑的、自包含的方式，用于作为JSON对象在各方之间安全地传输信息。该信息可以被验证和信任，因为它是数字签名的。</p>
+<p>JSON Web Token由三部分组成，它们之间用圆点(.)连接。这三部分分别是：</p>
+<ol>
+<li>Header</li>
+<li>Payload</li>
+<li>Signature</li>
+</ol>
+<p>因此，一个典型的JWT看起来是这个样子的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">xxxxx.yyyyy.zzzzz
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="header">Header</h3>
+<p>header典型的由两部分组成：token的类型（“JWT”）和算法名称（比如：HMAC SHA256或者RSA等等）。</p>
+<p>例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;typ&#34;</span><span class="p">:</span> <span class="s2">&#34;JWT&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;alg&#34;</span><span class="p">:</span> <span class="s2">&#34;HS256&#34;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后，用Base64对这个JSON编码就得到JWT的第一部分</p>
+<h3 id="payload">Payload</h3>
+<p>JWT的第二部分是payload，它包含声明（要求）。声明是关于实体(通常是用户)和其他数据的声明。声明有三种类型: registered, public 和 private。</p>
+<ul>
+<li>Registered claims : 这里有一组预定义的声明，它们不是强制的，但是推荐。比如：iss (issuer), exp (expiration time), sub (subject), aud (audience)等。</li>
+<li>Public claims : 可以随意定义。</li>
+<li>Private claims : 用于在同意使用它们的各方之间共享信息，并且不是注册的或公开的声明。</li>
+</ul>
+<p>例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;login_user&#34;</span><span class="p">:</span> <span class="s2">&#34;admin&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;user_id&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="nt">&#34;exp&#34;</span><span class="p">:</span> <span class="mi">1610465947</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>对payload进行Base64编码就得到JWT的第二部分</p>
+<p>注意，不要在JWT的payload或header中放置敏感信息，除非它们是加密的。</p>
+<h3 id="signature">Signature</h3>
+<p>为了得到签名部分，你必须有编码过的header、编码过的payload、一个秘钥，签名算法是header中指定的那个，然对它们签名即可。</p>
+<p>例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">HMACSHA256(base64UrlEncode(header) + &#34;.&#34; + base64UrlEncode(payload), secret)
+</code></pre></td></tr></table>
+</div>
+</div><p>签名是用于验证消息在传递过程中有没有被更改，并且，对于使用私钥签名的token，它还可以验证JWT的发送方是否为它所称的发送方。</p>
+<h3 id="jwt工作方式">JWT工作方式</h3>
+<p>在认证的时候，当用户用他们的凭证成功登录以后，一个JSON Web Token将会被返回。此后，token就是用户凭证了，你必须非常小心以防止出现安全问题。一般而言，你保存令牌的时候不应该超过你所需要它的时间。</p>
+<p>无论何时用户想要访问受保护的路由或者资源的时候，用户代理（通常是浏览器）都应该带上JWT，服务器会根据设置好的密钥检查<code>Header</code>和<code>Signature</code>是否是正确的。</p>
+<p>如果JWT的token是在授权头（Authorization header）中发送的，那么跨源资源共享(CORS)将不会成为问题，因为它不使用cookie。</p>
+<h3 id="jwt和session的差异">JWT和Session的差异</h3>
+<p>相同点是，它们都是存储用户信息；然而，Session是在服务器端的，而JWT是在客户端的。</p>
+<p>Session方式存储用户信息的最大问题在于要占用大量服务器内存，增加服务器的开销。</p>
+<p>而JWT方式将用户状态分散到了客户端中，可以明显减轻服务端的内存压力，服务器只需要根据传入的token进行计算即可，不再需要保留大量的Session信息。</p>
+<p>Session的状态是存储在服务器端，客户端只有session id；而Token的状态是存储在客户端。</p>
+<h3 id="代码实现">代码实现</h3>
+<p>引入JWT依赖：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.auth0<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>java-jwt<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>3.10.3<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">JWT_KEY</span> <span class="o">=</span> <span class="s">&#34;encryt_key&#34;</span><span class="o">;</span>
+
+<span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/loginWithJwt&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">loginWithJwt</span><span class="o">(</span><span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">username</span><span class="o">,</span>
+							<span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">password</span><span class="o">){</span>
+    <span class="c1">// 账号密码正确
+</span><span class="c1"></span>    <span class="c1">// 指定JWT使用的算法和对应的密钥key
+</span><span class="c1"></span>    <span class="n">Algorithm</span> <span class="n">algorithm</span> <span class="o">=</span> <span class="n">Algorithm</span><span class="o">.</span><span class="na">HMAC256</span><span class="o">(</span><span class="n">JWT_KEY</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">JWT</span><span class="o">.</span><span class="na">create</span><span class="o">()</span>
+    <span class="c1">// 向JWT中存入数据
+</span><span class="c1"></span>    <span class="o">.</span><span class="na">withClaim</span><span class="o">(</span><span class="s">&#34;login_user&#34;</span><span class="o">,</span><span class="n">username</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">withClaim</span><span class="o">(</span><span class="s">&#34;user_id&#34;</span><span class="o">,</span><span class="n">1</span><span class="o">)</span>
+    <span class="c1">// 设置token过期时间
+</span><span class="c1"></span>    <span class="o">.</span><span class="na">withExpiresAt</span><span class="o">(</span><span class="k">new</span> <span class="n">Date</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">+</span> <span class="n">3600000</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">sign</span><span class="o">(</span><span class="n">algorithm</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">token</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/infoWithJwt&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">infoWithJwt</span><span class="o">(</span><span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">token</span><span class="o">){</span>
+    <span class="c1">// 指定JWT使用的算法和对应的密钥key
+</span><span class="c1"></span>    <span class="n">Algorithm</span> <span class="n">algorithm</span> <span class="o">=</span> <span class="n">Algorithm</span><span class="o">.</span><span class="na">HMAC256</span><span class="o">(</span><span class="n">JWT_KEY</span><span class="o">);</span>
+    <span class="n">JWTVerifier</span> <span class="n">verifier</span> <span class="o">=</span> <span class="n">JWT</span><span class="o">.</span><span class="na">require</span><span class="o">(</span><span class="n">algorithm</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+    <span class="k">try</span> <span class="o">{</span>
+    <span class="n">DecodedJWT</span> <span class="n">jwt</span> <span class="o">=</span> <span class="n">verifier</span><span class="o">.</span><span class="na">verify</span><span class="o">(</span><span class="n">token</span><span class="o">);</span>
+    <span class="c1">// 返回该token对应的用户名
+</span><span class="c1"></span>    <span class="k">return</span> <span class="n">jwt</span><span class="o">.</span><span class="na">getClaim</span><span class="o">(</span><span class="s">&#34;login_user&#34;</span><span class="o">).</span><span class="na">asString</span><span class="o">();</span>
+    <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">TokenExpiredException</span> <span class="n">e</span><span class="o">){</span>
+    <span class="c1">// token过期
+</span><span class="c1"></span>    <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">JWTDecodeException</span> <span class="n">e</span><span class="o">){</span>
+    <span class="c1">// 解码失败，token错误
+</span><span class="c1"></span>    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="s">&#34;error&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>启动项目后，访问<code>http://127.0.0.1:8080/user/loginWithJwt?username=admin&amp;password=1</code>之后，返回的token是一个类似于下面的值：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbl91c2VyIjoiYWRtaW4iLCJ1c2VyX2lkIjoxLCJleHAiOjE2MTA0NjU1MTh9.SnoRFLwj-ITZBZz41h0rZiUaEAMGI5HKvaByMjWajJA
+</code></pre></td></tr></table>
+</div>
+</div><p>再使用这个token作为参数访问：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">http://127.0.0.1:8080/user/infoWithJwt?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbl91c2VyIjoiYWRtaW4iLCJ1c2VyX2lkIjoxLCJleHAiOjE2MTA0NjU1MTh9.SnoRFLwj-ITZBZz41h0rZiUaEAMGI5HKvaByMjWajJA
+</code></pre></td></tr></table>
+</div>
+</div><p>可以得到登陆时在JWT中保存的变量值（用户的名字），同理也可获得对应的过期时间及其他值。</p>
+<h2 id="类似的oauth2技术">类似的OAuth2技术</h2>
+<p>使用OAuth2的场景：</p>
+<ol>
+<li>授权数据给第三方</li>
+<li>权限管理</li>
+</ol>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">punk1u</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-01-06
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+          <a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a>
+          <a href="/tags/java/">JAVA</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">分布式任务调度</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/%E5%88%86%E5%B8%83%E5%BC%8Fid/">
+            <span class="next-text nav-default">分布式ID</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:punk1u@protonmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://www.github.com/punk1u" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/u/7493916413" class="iconfont icon-weibo" title="weibo"></a>
+  <a href="https://punk1u.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>punk1u<br/>版权所有ICP证：<a href='http://beian.miit.gov.cn' target='_blank'>浙ICP备19032348号-1</a></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
