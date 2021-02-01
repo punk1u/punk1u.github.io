@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Spring Cloud Alibaba实践——使用Ribbon - 想自由的Punk 1u</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="punk1u" /><meta name="description" content="Spring Cloud Alibaba实践——使用Ribbon 使用Ribbon实现负载均衡 为内容中心引入Ribbon 因为Nacos的服务发现组件spring-c" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.79.0 with theme even" />
+
+
+<link rel="canonical" href="https://punk1u.github.io/post/spring-cloud-alibaba%E5%AE%9E%E8%B7%B5%E4%BD%BF%E7%94%A8ribbon/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Spring Cloud Alibaba实践——使用Ribbon" />
+<meta property="og:description" content="Spring Cloud Alibaba实践——使用Ribbon 使用Ribbon实现负载均衡 为内容中心引入Ribbon 因为Nacos的服务发现组件spring-c" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://punk1u.github.io/post/spring-cloud-alibaba%E5%AE%9E%E8%B7%B5%E4%BD%BF%E7%94%A8ribbon/" />
+<meta property="article:published_time" content="2021-01-27T12:29:39+08:00" />
+<meta property="article:modified_time" content="2021-01-27T12:29:39+08:00" />
+<meta itemprop="name" content="Spring Cloud Alibaba实践——使用Ribbon">
+<meta itemprop="description" content="Spring Cloud Alibaba实践——使用Ribbon 使用Ribbon实现负载均衡 为内容中心引入Ribbon 因为Nacos的服务发现组件spring-c">
+<meta itemprop="datePublished" content="2021-01-27T12:29:39+08:00" />
+<meta itemprop="dateModified" content="2021-01-27T12:29:39+08:00" />
+<meta itemprop="wordCount" content="5921">
+
+
+
+<meta itemprop="keywords" content="Spring Cloud,笔记,JAVA," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Spring Cloud Alibaba实践——使用Ribbon"/>
+<meta name="twitter:description" content="Spring Cloud Alibaba实践——使用Ribbon 使用Ribbon实现负载均衡 为内容中心引入Ribbon 因为Nacos的服务发现组件spring-c"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Punk 1u</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Punk 1u</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Spring Cloud Alibaba实践——使用Ribbon</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-01-27 </span>
+        <div class="post-category">
+            <a href="/categories/spring-cloud/"> Spring Cloud </a>
+            <a href="/categories/%E7%AC%94%E8%AE%B0/"> 笔记 </a>
+            <a href="/categories/java/"> JAVA </a>
+            </div>
+          <span class="more-meta"> 约 5921 字 </span>
+          <span class="more-meta"> 预计阅读 12 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#spring-cloud-alibaba实践使用ribbon">Spring Cloud Alibaba实践——使用Ribbon</a>
+      <ul>
+        <li><a href="#使用ribbon实现负载均衡">使用Ribbon实现负载均衡</a>
+          <ul>
+            <li><a href="#为内容中心引入ribbon">为内容中心引入Ribbon</a></li>
+            <li><a href="#span-id--ribbontoolribbon组成span"><span id = "RibbonTool">Ribbon组成</span></a></li>
+            <li><a href="#span-id--ribbonbalanceruleribbon负载均衡规则span"><span id = "RibbonBalanceRule">Ribbon负载均衡规则</span></a></li>
+            <li><a href="#java代码配置ribbon负载均衡规则">Java代码配置Ribbon负载均衡规则</a></li>
+            <li><a href="#span-id--ribbonpropconfig属性配置ribbon负载均衡规则span"><span id = "RibbonPropConfig">属性配置Ribbon负载均衡规则</span></a></li>
+            <li><a href="#代码配置和属性配置的区别">代码配置和属性配置的区别</a></li>
+            <li><a href="#设置ribbon全局负载均衡规则">设置Ribbon全局负载均衡规则</a></li>
+            <li><a href="#ribbon支持的配置项">Ribbon支持的配置项</a></li>
+            <li><a href="#ribbon延迟加载问题">Ribbon延迟加载问题</a></li>
+            <li><a href="#用nacos为ribbon配置服务权重">用Nacos为Ribbon配置服务权重</a></li>
+            <li><a href="#使ribbon优先调用同一集群">使Ribbon优先调用同一集群</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="spring-cloud-alibaba实践使用ribbon">Spring Cloud Alibaba实践——使用Ribbon</h1>
+<h2 id="使用ribbon实现负载均衡">使用Ribbon实现负载均衡</h2>
+<h3 id="为内容中心引入ribbon">为内容中心引入Ribbon</h3>
+<p>因为Nacos的服务发现组件<code>spring-cloud-starter-alibaba-nacos-discovery</code>内已经包含了<code>Ribbon</code>，所以不需要再另外添加Ribbon的依赖。</p>
+<p>在内容中心的启动类里声明<code>RestTemplate</code>bean对象的方法上添加<code>@LoadBalanced</code>注解，即可实现<code>RestTemplate</code>与<code>Ribbon</code>负载均衡的整合，从而实现内容中心调用用户中心时负载均衡的效果。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.cloud.client.loadbalancer.LoadBalanced</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.client.RestTemplate</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">tk.mybatis.spring.annotation.MapperScan</span><span class="o">;</span>
+
+<span class="nd">@MapperScan</span><span class="o">(</span><span class="s">&#34;tech.punklu.contentcenter.dao&#34;</span><span class="o">)</span>
+<span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ContentCenterApplication</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">ContentCenterApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+    <span class="o">}</span>
+
+
+    <span class="cm">/**
+</span><span class="cm">     * 在Spring容器中，创建一个对象，类型是RestTemplate，
+</span><span class="cm">     * 名称/id是方法名
+</span><span class="cm">     * @return
+</span><span class="cm">     */</span>
+    <span class="nd">@Bean</span>
+    <span class="nd">@LoadBalanced</span>
+    <span class="kd">public</span> <span class="n">RestTemplate</span> <span class="nf">restTemplate</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">RestTemplate</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>启用Ribbon不需要额外的配置信息。</p>
+<p>将下面这段内容中心中的ShareService中的查找内容的代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
+</span><span class="cm">* 根据内容id获取分享内容的详情
+</span><span class="cm">* @param id
+</span><span class="cm">* @return
+</span><span class="cm">*/</span>
+<span class="kd">public</span> <span class="n">ShareDTO</span> <span class="nf">findById</span><span class="o">(</span><span class="n">Integer</span> <span class="n">id</span><span class="o">){</span>
+    <span class="c1">// 获取分享详情
+</span><span class="c1"></span>    <span class="n">Share</span> <span class="n">share</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">shareMapper</span><span class="o">.</span><span class="na">selectByPrimaryKey</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+    <span class="c1">// 获取发布人id
+</span><span class="c1"></span>    <span class="n">Integer</span> <span class="n">userId</span> <span class="o">=</span> <span class="n">share</span><span class="o">.</span><span class="na">getUserId</span><span class="o">();</span>
+    <span class="c1">// 获取用户中心所有实例的信息
+</span><span class="c1"></span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">ServiceInstance</span><span class="o">&gt;</span> <span class="n">instances</span> <span class="o">=</span> <span class="n">discoveryClient</span><span class="o">.</span><span class="na">getInstances</span><span class="o">(</span><span class="s">&#34;user-center&#34;</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">targetUrl</span> <span class="o">=</span> <span class="n">instances</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">map</span><span class="o">(</span><span class="n">instance</span><span class="o">-&gt;</span><span class="n">instance</span><span class="o">.</span><span class="na">getUri</span><span class="o">().</span><span class="na">toString</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;/users/{id}&#34;</span><span class="o">).</span><span class="na">findFirst</span><span class="o">().</span><span class="na">orElseThrow</span><span class="o">(()-&gt;</span><span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">(</span><span class="s">&#34;当前没有用户中心实例&#34;</span><span class="o">));</span>
+    <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;请求的目标地址:{}&#34;</span><span class="o">,</span><span class="n">targetUrl</span><span class="o">);</span>
+    <span class="c1">// 调用用户微服务查询对应的用户信息
+</span><span class="c1"></span>    <span class="n">UserDTO</span> <span class="n">userDTO</span> <span class="o">=</span> <span class="n">restTemplate</span><span class="o">.</span><span class="na">getForObject</span><span class="o">(</span><span class="n">targetUrl</span><span class="o">,</span><span class="n">UserDTO</span><span class="o">.</span><span class="na">class</span><span class="o">,</span><span class="n">userId</span><span class="o">);</span>
+    <span class="c1">// 消息装备
+</span><span class="c1"></span>    <span class="n">ShareDTO</span> <span class="n">shareDTO</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ShareDTO</span><span class="o">();</span>
+    <span class="n">BeanUtils</span><span class="o">.</span><span class="na">copyProperties</span><span class="o">(</span><span class="n">share</span><span class="o">,</span><span class="n">shareDTO</span><span class="o">);</span>
+    <span class="n">shareDTO</span><span class="o">.</span><span class="na">setWxNickname</span><span class="o">(</span><span class="n">userDTO</span><span class="o">.</span><span class="na">getWxNickname</span><span class="o">());</span>
+    <span class="k">return</span> <span class="n">shareDTO</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><span id = "RibbonUseCode">&gt;替换为:&lt;/span</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
+</span><span class="cm">* 根据内容id获取分享内容的详情
+</span><span class="cm">* @param id
+</span><span class="cm">* @return
+</span><span class="cm">*/</span>
+<span class="kd">public</span> <span class="n">ShareDTO</span> <span class="nf">findById</span><span class="o">(</span><span class="n">Integer</span> <span class="n">id</span><span class="o">){</span>
+    <span class="c1">// 获取分享详情
+</span><span class="c1"></span>    <span class="n">Share</span> <span class="n">share</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">shareMapper</span><span class="o">.</span><span class="na">selectByPrimaryKey</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+    <span class="c1">// 获取发布人id
+</span><span class="c1"></span>    <span class="n">Integer</span> <span class="n">userId</span> <span class="o">=</span> <span class="n">share</span><span class="o">.</span><span class="na">getUserId</span><span class="o">();</span>
+
+    <span class="c1">// 从ribbon负载均衡中心获得用户中心的地址
+</span><span class="c1"></span>
+    <span class="n">UserDTO</span> <span class="n">userDTO</span> <span class="o">=</span> <span class="n">restTemplate</span><span class="o">.</span><span class="na">getForObject</span><span class="o">(</span><span class="s">&#34;http://user-center/users/{userId}&#34;</span><span class="o">,</span><span class="n">UserDTO</span><span class="o">.</span><span class="na">class</span><span class="o">,</span><span class="n">userId</span><span class="o">);</span>
+    <span class="c1">// 消息装备
+</span><span class="c1"></span>    <span class="n">ShareDTO</span> <span class="n">shareDTO</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ShareDTO</span><span class="o">();</span>
+    <span class="n">BeanUtils</span><span class="o">.</span><span class="na">copyProperties</span><span class="o">(</span><span class="n">share</span><span class="o">,</span><span class="n">shareDTO</span><span class="o">);</span>
+    <span class="n">shareDTO</span><span class="o">.</span><span class="na">setWxNickname</span><span class="o">(</span><span class="n">userDTO</span><span class="o">.</span><span class="na">getWxNickname</span><span class="o">());</span>
+    <span class="k">return</span> <span class="n">shareDTO</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这样，当RestTemplate发起请求的时候，Ribbon会自动把<code>http://user-center/users/{userId}</code>中的<code>user-center</code>替换为用户中心在<code>Nacos</code>上的地址并进行负载均衡。</p>
+<p>启动两个用户中心服务，并启动内容中心服务，访问内容中心服务的<code>http://127.0.0.1:8082/shares/1</code>接口，可以发现，Ribbon已实现了自动寻找用户中心地址并负载均衡地访问的功能。</p>
+<h3 id="span-id--ribbontoolribbon组成span"><span id = "RibbonTool">Ribbon组成</span></h3>
+<p>Ribbon内部接口及其作用：</p>
+<table>
+<thead>
+<tr>
+<th>接口</th>
+<th>作用</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IClientConfig</td>
+<td>读取配置</td>
+<td>DefaultClientConfigImpl</td>
+</tr>
+<tr>
+<td>IRule</td>
+<td>负载均衡规则，选择实例</td>
+<td>ZoneAvoidanceRule</td>
+</tr>
+<tr>
+<td>IPing</td>
+<td>筛选掉ping不通的实例</td>
+<td>DummyPing</td>
+</tr>
+<tr>
+<td>ServerList<Server></td>
+<td>交给Ribbon的实例列表</td>
+<td>Ribbon：ConfigurationBasedServerList<br />Spring Cloud Alibaba：NacosServerList</td>
+</tr>
+<tr>
+<td>ServerListFilter<Server></td>
+<td>过滤掉不符合条件的实例</td>
+<td>ZonePreferenceServerListFilter</td>
+</tr>
+<tr>
+<td>ILoadBalancer</td>
+<td>Ribbon的入口</td>
+<td>ZoneAwareLoadBalancer</td>
+</tr>
+<tr>
+<td>ServerListUpdater</td>
+<td>更新交给Ribbon的List的策略</td>
+<td>PollingServerListUpdater</td>
+</tr>
+</tbody>
+</table>
+<p>如果对Ribbon的默认处理策略不满意，可以自己实现对应的接口并实现相应的逻辑。</p>
+<h3 id="span-id--ribbonbalanceruleribbon负载均衡规则span"><span id = "RibbonBalanceRule">Ribbon负载均衡规则</span></h3>
+<table>
+<thead>
+<tr>
+<th>规则名称</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AvailabilityFilteringRule</td>
+<td>过滤掉一直连接失败的被标记为circuit tripped的后端Server，并过滤掉那些高并发的后端Server或者使用一个AvailabilityPredicate来包含过滤server的逻辑，其实就是检查status里记录的各个Server的运行状态</td>
+</tr>
+<tr>
+<td>BestAvailableRule</td>
+<td>选择一个最小的并发请求的Server，逐个考察Server，如果Server被tripped了，则跳过</td>
+</tr>
+<tr>
+<td>RandomRule</td>
+<td>随机选择一个Server</td>
+</tr>
+<tr>
+<td>ResponseTimeWeightedRule</td>
+<td>已废弃，作用同WeightedResponseTimeRule</td>
+</tr>
+<tr>
+<td>RetryRule</td>
+<td>对选定的负载均衡策略机上重试机制，在一个配置时间段内当选择Server不成功，则一直尝试使用subRule的方式选择一个可用的Server</td>
+</tr>
+<tr>
+<td>RoundRobinRule</td>
+<td>轮询选择，轮询index，选择index对应位置的Server</td>
+</tr>
+<tr>
+<td>WeightedResponseTimeRule</td>
+<td>根据响应时间加权，响应时间越长，权重越小，被选中的可能性越低</td>
+</tr>
+<tr>
+<td>ZoneAvoidanceRule</td>
+<td>复合判断Server所Zone的性能和Server的可用性选择Server，在没有Zone的环境下，类似于轮询（RoundRobinRule）</td>
+</tr>
+</tbody>
+</table>
+<p>默认负载均衡规则是<code>ZoneAvoidanceRule</code>。</p>
+<h3 id="java代码配置ribbon负载均衡规则">Java代码配置Ribbon负载均衡规则</h3>
+<p>Ribbon可以实现细粒度的负载均衡规则配置，比如A服务需要调用B服务和C服务的接口，可以为A调用B服务的接口配置一个负载均衡规则，再为A调用C服务的接口配置另一个不同的负载均衡规则。</p>
+<p>以内容中心调用用户中心为例，在内容中心中增加如下配置类：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.contentcenter.configuration</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.cloud.netflix.ribbon.RibbonClient</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">ribbonconfiguration.RibbonConfiguration</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="nd">@RibbonClient</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;user-center&#34;</span><span class="o">,</span><span class="n">configuration</span> <span class="o">=</span> <span class="n">RibbonConfiguration</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserCenterRibbonConfiguration</span> <span class="o">{</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到，在RibbonClient这个注解中，指定了使用这个规则的被调用服务。以及要使用的规则为<code>自定义的</code>RibbonConfiguration配置类里指定的规则。</p>
+<p>自定义RibbonConfiguration：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">ribbonconfiguration</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.netflix.loadbalancer.IRule</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.netflix.loadbalancer.RandomRule</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RibbonConfiguration</span> <span class="o">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">IRule</span> <span class="nf">ribbonRule</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">RandomRule</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><em><strong>需要特别注意的是，这里的自定义负载均衡规则类RibbonConfiguration不能在Spring Boot启动类所在的包下面，而要在和Spring Boot启动类所在的包平级的包下面创建。层级关系如下：</strong></em></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">tech.punklu.contentcenter.configuration
+	ContentCenterApplication (Spring Boot启动类)
+ribbonconfiguration
+	RibbonConfiguration (自定义Ribbon负载均衡规则类)
+</code></pre></td></tr></table>
+</div>
+</div><p><em><strong>原因在于Spring的父子上下文问题，如果将自定义的Ribbon负载均衡规则放到了和Spring Boot启动类同层级的目录下，就会被Spring Boot扫描到自定义类上的<code>@Configuration</code>注解，从而导致最后一个被扫描到的自定义Ribbon规则类被当成全局自定义负载均衡规则。因此，为了实现细粒度的负载均衡规则，必须确保自定义的Ribbon负载均衡规则类处于独立的子上下文中而不是Spring默认的父上下文中。</strong></em></p>
+<p>启动两个用户中心，并在用户中心查询用户的接口中添加被调用时的日志信息，再多次访问<code>http://127.0.0.1:8082/shares/1</code>，可以发现，此时已经实现了自定义规则中的随机负载均衡规则，而不是Ribbon默认的<code>ZoneAvoidanceRule</code>规则。</p>
+<h3 id="span-id--ribbonpropconfig属性配置ribbon负载均衡规则span"><span id = "RibbonPropConfig">属性配置Ribbon负载均衡规则</span></h3>
+<p>除了上面的通过代码方式配置Ribbon负载均衡规则的方法，还可以通过属性配置的方式指定内容中心访问用户中心的负载均衡规则。如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">user-center</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">ribbon</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">NFLoadBalancerRuleClassName</span><span class="p">:</span><span class="w"> </span><span class="l">com.netflix.loadbalancer.RandomRule</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>在内容中心配置类<code>application.yml</code>中添加上述配置后，去掉代码方式的配置类注解，如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="cm">/*
+</span><span class="cm">@Configuration
+</span><span class="cm">@RibbonClient(name = &#34;user-center&#34;,configuration = RibbonConfiguration.class)*/</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserCenterRibbonConfiguration</span> <span class="o">{</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>再次重新启动两个用户中心服务和内容中心服务，可以发现依然实现了和代码配置负载均衡规则一样的随机访问用户中心的效果。</p>
+<h3 id="代码配置和属性配置的区别">代码配置和属性配置的区别</h3>
+<table>
+<thead>
+<tr>
+<th>配置方式</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>代码配置</td>
+<td>基于代码，更加灵活</td>
+<td>有小坑（父子上下文）<br />线上修改需要重新打包发布</td>
+</tr>
+<tr>
+<td>属性配置</td>
+<td>易上手<br />配置更加直观<br />线上修改无需重新打包、发布<br /><strong>优先级比代码配置更高</strong></td>
+<td>极端场景下没有代码配置方式灵活（但基本上属性配置都可满足要求）</td>
+</tr>
+</tbody>
+</table>
+<p>应该尽量使用属性配置，属性配置实现不了的情况再考虑代码配置。</p>
+<h3 id="设置ribbon全局负载均衡规则">设置Ribbon全局负载均衡规则</h3>
+<p>如果不需要细粒度的负载均衡规则配置，只需要将项目配置里的细粒度配置去除掉，然后将 ：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Configuration</span>
+<span class="nd">@RibbonClient</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;user-center&#34;</span><span class="o">,</span><span class="n">configuration</span> <span class="o">=</span> <span class="n">RibbonConfiguration</span><span class="o">.</span><span class="na">class</span><span class="o">)*/</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserCenterRibbonConfiguration</span> <span class="o">{</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这个ribbon负载规则配置类中的：</p>
+<ol>
+<li>将@RibbonClient注解替换成@RibbonClients注解</li>
+<li>将注解中的configuration属性设置为自定义的负载均衡规则类RibbonConfiguration即可</li>
+</ol>
+<p>如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Configuration</span>
+<span class="nd">@RibbonClients</span><span class="o">(</span><span class="n">defaultConfiguration</span> <span class="o">=</span> <span class="n">RibbonConfiguration</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserCenterRibbonConfiguration</span> <span class="o">{</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="ribbon支持的配置项">Ribbon支持的配置项</h3>
+<p>上面只配置了Ribbon的负载均衡规则，实际上，上方的<a href="#RibbonTool">Ribbon组成</a>所展示的Ribbon内部接口，都可以按照配置负载均衡规则方式进行配置，比如，可以配置<code>Ping</code>的方式为<code>PingUrl</code>，与配置负载均衡规则一样，也要避免和Spring Boot的主上下文放在一起，在配置负载均衡规则的代码下面跟着继续配置即可：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">ribbonconfiguration</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.netflix.loadbalancer.IPing</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.netflix.loadbalancer.IRule</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.netflix.loadbalancer.PingUrl</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.netflix.loadbalancer.RandomRule</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RibbonConfiguration</span> <span class="o">{</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * 自定义内容中心调用用户中心时的Ribbon负载均衡规则为随机
+</span><span class="cm">     * @return
+</span><span class="cm">     */</span>
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">IRule</span> <span class="nf">ribbonRule</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">RandomRule</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * 自定义Ping的方式
+</span><span class="cm">     */</span>
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">IPing</span> <span class="nf">ping</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">PingUrl</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>也可以使用项目配置文件的属性完成所有的Ribbon配置，使用方式如下：</p>
+<p><code>&lt;clientName&gt;.ribbon.如下属性：</code></p>
+<ul>
+<li><code>NFLoadBalancerClassName</code>：<code>ILoadBalancer</code>实现类</li>
+<li><code>NFLoadBalancerRuleClassName</code>：<code>IRule</code>实现类</li>
+<li><code>NFLoadBalancerPingClassName</code>：<code>IPing</code>实现类</li>
+<li><code>NIWSServerListClassName</code>：<code>ServerList</code>实现类</li>
+<li><code>NIWSServerListFilterClassName</code>：<code>ServerListFilter</code>实现类</li>
+</ul>
+<p>如同上面的用项目配置文件配置负载均衡规则：<a href="#RibbonPropConfig">属性配置Ribbon负载均衡规则</a></p>
+<h3 id="ribbon延迟加载问题">Ribbon延迟加载问题</h3>
+<p>在上面的这段<a href="#RibbonUseCode">Ribbon使用代码</a>中，下面这行代码中的<code>user-center</code>会被Ribbon自动替换为一个用户中心的实例地址:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">UserDTO</span> <span class="n">userDTO</span> <span class="o">=</span> <span class="n">restTemplate</span><span class="o">.</span><span class="na">getForObject</span><span class="o">(</span><span class="s">&#34;http://user-center/users/{userId}&#34;</span><span class="o">,</span><span class="n">UserDTO</span><span class="o">.</span><span class="na">class</span><span class="o">,</span><span class="n">userId</span><span class="o">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>但是Ribbon的一个默认配置是延迟加载，也就是说，在上面这行代码第一次被执行到，即内容中心第一次调用用户中心时会被比较慢。为了解决这个问题，可以在内容中心的配置文件中指定加载策略为<code>饥饿加载</code>，即可显著提高第一次跨服务调用时的速度：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># 配置Ribbon加载策略为饥饿加载，提高第一次调用用户中心的速度(默认为延迟加载)，</span><span class="w">
+</span><span class="w"></span><span class="c"># clients配置项如果有多个，可以使用逗号分割</span><span class="w">
+</span><span class="w"></span><span class="nt">ribbon</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">eager-load</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">clients</span><span class="p">:</span><span class="w"> </span><span class="l">user-center</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>如果要指定多个其他服务被内容中心调用时均为饥饿加载，可以在clients属性中使用逗号分隔。</p>
+<h3 id="用nacos为ribbon配置服务权重">用Nacos为Ribbon配置服务权重</h3>
+<p>在Nacos的控制台可以为服务的每个实例配置权重，权重越大，被访问到的几率越大。可以为不同配置的机器配置不同的权重实现性能高的机器访问次数越多的功能。</p>
+<p><strong>但是，Ribbon内置的<a href="#RibbonBalanceRule">负载均衡规则</a>都不支持Nacos的权重，所以需要自己进行二次开发扩展实现自己的支持Nacos权重的Ribbon负载均衡规则。</strong></p>
+<p>首先定义自己的负载均衡规则类：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.contentcenter.configuration</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.alibaba.cloud.nacos.NacosDiscoveryProperties</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.alibaba.cloud.nacos.ribbon.NacosServer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.alibaba.nacos.api.exception.NacosException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.alibaba.nacos.api.naming.NamingService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.alibaba.nacos.api.naming.pojo.Instance</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.netflix.client.config.IClientConfig</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.netflix.loadbalancer.AbstractLoadBalancerRule</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.netflix.loadbalancer.BaseLoadBalancer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.netflix.loadbalancer.Server</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+
+<span class="cm">/**
+</span><span class="cm"> * 自定义的支持Nacos权重配置的Ribbon负载均衡规则类
+</span><span class="cm"> */</span>
+<span class="nd">@Slf4j</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">NacosWeightedRule</span>  <span class="kd">extends</span> <span class="n">AbstractLoadBalancerRule</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">NacosDiscoveryProperties</span> <span class="n">nacosDiscoveryProperties</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">initWithNiwsConfig</span><span class="o">(</span><span class="n">IClientConfig</span> <span class="n">iClientConfig</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 可用来读取配置文件，并初始化NacosWeightedRule
+</span><span class="c1"></span>    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Server</span> <span class="nf">choose</span><span class="o">(</span><span class="n">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">BaseLoadBalancer</span> <span class="n">loadBalancer</span> <span class="o">=</span> <span class="o">(</span><span class="n">BaseLoadBalancer</span><span class="o">)</span> <span class="k">this</span><span class="o">.</span><span class="na">getLoadBalancer</span><span class="o">();</span>
+        <span class="c1">// 获取想要请求的微服务的名称
+</span><span class="c1"></span>        <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">loadBalancer</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
+        <span class="c1">// 拿到服务发现的相关API
+</span><span class="c1"></span>        <span class="n">NamingService</span> <span class="n">namingService</span> <span class="o">=</span> <span class="n">nacosDiscoveryProperties</span><span class="o">.</span><span class="na">namingServiceInstance</span><span class="o">();</span>
+        <span class="c1">// nacos client自动通过基于权重的负载均衡算法，选择出一个可用的实例
+</span><span class="c1"></span>        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">Instance</span> <span class="n">instance</span> <span class="o">=</span> <span class="n">namingService</span><span class="o">.</span><span class="na">selectOneHealthyInstance</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+            <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;选择的实例是: port = {}, instance = {}&#34;</span><span class="o">,</span><span class="n">instance</span><span class="o">.</span><span class="na">getPort</span><span class="o">(),</span><span class="n">instance</span><span class="o">);</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="n">NacosServer</span><span class="o">(</span><span class="n">instance</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NacosException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>主要逻辑就是调用Nacos提供的接口，由Nacos根据要调用的服务名及服务下的各个实例的不同权重选择出一个可用的实例。</p>
+<p>然后再将这个类作为负载均衡规则类添加到Ribbon的配置类中去，调换掉原有的Ribbon定义好的规则类：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">ribbonconfiguration</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.netflix.loadbalancer.IPing</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.netflix.loadbalancer.IRule</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.netflix.loadbalancer.PingUrl</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.netflix.loadbalancer.RandomRule</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">tech.punklu.contentcenter.configuration.NacosWeightedRule</span><span class="o">;</span>
+
+
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RibbonConfiguration</span> <span class="o">{</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * 自定义内容中心调用用户中心时的Ribbon负载均衡规则为随机
+</span><span class="cm">     * @return
+</span><span class="cm">     */</span>
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">IRule</span> <span class="nf">ribbonRule</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">NacosWeightedRule</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>启动两个用户中心实例和内容中心实例，在Nacos上，将两个用户中心实例的权重一个置为0，一个置为1，多次访问<code>http://127.0.0.1:8082/shares/1</code>，可以发现此时只会访问到权重不为0的那个用户中心实例上，将两个全部设为1后，两个实例都可访问到，即实现了动态配置Nacos实例权重并负载均衡的功能。</p>
+<p>Nacos Client内置了基于权重的负载均衡算法，之所以还要整合Ribbon，是因为为了符合<code>Spring Cloud</code>的标准，<code>Spring Cloud</code>有一个子项目<code>Spring Cloud Commons</code>，定义了<code>Spring Cloud</code>的一些标准，<code>Spring Cloud Commons</code>下面又有一个子项目<code>Spring Cloud LoadBalancer</code>，定义了负载均衡的一些标准，但是并没有根据权重负载均衡的概念，所以<code>Spring Cloud Alibaba</code>遵循了这个标准，整合了Ribbon，因为Ribbon是符合这个标准的，并且是这个标准唯一的实现。</p>
+<h3 id="使ribbon优先调用同一集群">使Ribbon优先调用同一集群</h3>
+<p>为了容灾，会在多个地方的机房部署项目。但为了提升性能，会希望实现同机房优先调用，如果同机房找不到可用的实例，再跨机房调用。使用Nacos的Cluster可以很方便地实现。</p>
+<p>首先自定义优先调用同集群实例的负载均衡规则类：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.contentcenter.configuration</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.alibaba.cloud.nacos.NacosDiscoveryProperties</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.alibaba.cloud.nacos.ribbon.NacosServer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.alibaba.nacos.api.exception.NacosException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.alibaba.nacos.api.naming.NamingService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.alibaba.nacos.api.naming.pojo.Instance</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.alibaba.nacos.client.naming.core.Balancer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.netflix.client.config.IClientConfig</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.netflix.loadbalancer.AbstractLoadBalancerRule</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.netflix.loadbalancer.BaseLoadBalancer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.netflix.loadbalancer.Server</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.util.CollectionUtils</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Objects</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.stream.Collectors</span><span class="o">;</span>
+
+<span class="nd">@Slf4j</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">NacosSameClusterWeightedRule</span> <span class="kd">extends</span> <span class="n">AbstractLoadBalancerRule</span> <span class="o">{</span>
+
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">NacosDiscoveryProperties</span> <span class="n">nacosDiscoveryProperties</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">initWithNiwsConfig</span><span class="o">(</span><span class="n">IClientConfig</span> <span class="n">iClientConfig</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Server</span> <span class="nf">choose</span><span class="o">(</span><span class="n">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 从配置文件获取当前服务(内容中心)所在的机房(集群)名称
+</span><span class="c1"></span>        <span class="n">String</span> <span class="n">clusterName</span> <span class="o">=</span> <span class="n">nacosDiscoveryProperties</span><span class="o">.</span><span class="na">getClusterName</span><span class="o">();</span>
+
+        <span class="n">BaseLoadBalancer</span> <span class="n">loadBalancer</span> <span class="o">=</span> <span class="o">(</span><span class="n">BaseLoadBalancer</span><span class="o">)</span> <span class="k">this</span><span class="o">.</span><span class="na">getLoadBalancer</span><span class="o">();</span>
+        <span class="c1">// 获取想要请求的微服务的名称
+</span><span class="c1"></span>        <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">loadBalancer</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
+        <span class="c1">// 拿到服务发现的相关API
+</span><span class="c1"></span>        <span class="n">NamingService</span> <span class="n">namingService</span> <span class="o">=</span> <span class="n">nacosDiscoveryProperties</span><span class="o">.</span><span class="na">namingServiceInstance</span><span class="o">();</span>
+
+
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="c1">// 找到指定服务的所有实例 A，true表示只查找健康的可用的实例
+</span><span class="c1"></span>            <span class="n">List</span><span class="o">&lt;</span><span class="n">Instance</span><span class="o">&gt;</span> <span class="n">instances</span> <span class="o">=</span> <span class="n">namingService</span><span class="o">.</span><span class="na">selectInstances</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+            <span class="c1">// 过滤出相同集群下的所有实例 B
+</span><span class="c1"></span>            <span class="n">List</span><span class="o">&lt;</span><span class="n">Instance</span><span class="o">&gt;</span> <span class="n">sameClusterInstances</span> <span class="o">=</span>
+                    <span class="n">instances</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">filter</span><span class="o">(</span><span class="n">instance</span> <span class="o">-&gt;</span> <span class="n">Objects</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">instance</span><span class="o">.</span><span class="na">getClusterName</span><span class="o">(),</span> <span class="n">clusterName</span><span class="o">)).</span><span class="na">collect</span><span class="o">(</span><span class="n">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
+            <span class="c1">// 如果B是空，就用A
+</span><span class="c1"></span>            <span class="n">List</span><span class="o">&lt;</span><span class="n">Instance</span><span class="o">&gt;</span> <span class="n">instancesToBeChosen</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">CollectionUtils</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">(</span><span class="n">sameClusterInstances</span><span class="o">)){</span>
+                <span class="n">instancesToBeChosen</span> <span class="o">=</span> <span class="n">instances</span><span class="o">;</span>
+                <span class="n">log</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">&#34;发生跨集群的调用,name= {}, clusterName = {}, instances = {}&#34;</span><span class="o">,</span>
+                        <span class="n">name</span><span class="o">,</span><span class="n">clusterName</span><span class="o">,</span><span class="n">instances</span><span class="o">);</span>
+            <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+                <span class="n">instancesToBeChosen</span> <span class="o">=</span> <span class="n">sameClusterInstances</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="c1">// 基于权重的负载均衡算法，返回一个实例，需要使用Nacos提供的接口二次封装调用，达到从指定的实例中根据权重选择一个可用的实例的效果
+</span><span class="c1"></span>            <span class="n">Instance</span> <span class="n">instance</span> <span class="o">=</span> <span class="n">ExtendBalancer</span><span class="o">.</span><span class="na">getHostByRandomWeight2</span><span class="o">(</span><span class="n">instancesToBeChosen</span><span class="o">);</span>
+            <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;选择的实例是 port = {},instance = {}&#34;</span><span class="o">,</span><span class="n">instance</span><span class="o">.</span><span class="na">getPort</span><span class="o">(),</span><span class="n">instance</span><span class="o">);</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="n">NacosServer</span><span class="o">(</span><span class="n">instance</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NacosException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">log</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">&#34;发生异常了&#34;</span><span class="o">,</span><span class="n">e</span><span class="o">);</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">ExtendBalancer</span> <span class="kd">extends</span> <span class="n">Balancer</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Instance</span> <span class="nf">getHostByRandomWeight2</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Instance</span><span class="o">&gt;</span> <span class="n">hosts</span><span class="o">){</span>
+        <span class="k">return</span> <span class="n">getHostByRandomWeight</span><span class="o">(</span><span class="n">hosts</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>然后将该负载均衡类设置为Ribbon的默认负载均衡规则类：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.contentcenter.configuration</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.cloud.netflix.ribbon.RibbonClient</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.cloud.netflix.ribbon.RibbonClients</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">ribbonconfiguration.RibbonConfiguration</span><span class="o">;</span>
+
+
+<span class="nd">@Configuration</span>
+<span class="nd">@RibbonClient</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;user-center&#34;</span><span class="o">,</span><span class="n">configuration</span> <span class="o">=</span> <span class="n">NacosSameClusterWeightedRule</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserCenterRibbonConfiguration</span> <span class="o">{</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>将内容中心的配置文件中的Nacos cluster-name改为BJ（北京）:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">cloud</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">nacos</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">discovery</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="c"># 指定nacos server的地址</span><span class="w">
+</span><span class="w">        </span><span class="nt">server-addr</span><span class="p">:</span><span class="w"> </span><span class="l">localhost:8848</span><span class="w">
+</span><span class="w">        </span><span class="nt">cluster-name</span><span class="p">:</span><span class="w"> </span><span class="l">BJ</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>然后启动一个cluster-name为BJ的用户中心实例，一个cluster-name为NJ的用户中心实例，多次访问<code>http://127.0.0.1:8082/shares/1</code>，可以发现全都访问到了cluster-name为BJ的用户中心实例上了，说明已经实现了访问同集群下服务的功能。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">punk1u</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-01-27
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/spring-cloud/">Spring Cloud</a>
+          <a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a>
+          <a href="/tags/java/">JAVA</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/spring-cloud-alibaba%E5%AE%9E%E8%B7%B5%E4%BD%BF%E7%94%A8feign/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Spring Cloud Alibaba实践——使用Feign</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/spring-cloud-alibaba%E5%AE%9E%E8%B7%B5%E4%BD%BF%E7%94%A8nacos/">
+            <span class="next-text nav-default">Spring Cloud Alibaba实践——使用Nacos</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:punk1u@protonmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://www.github.com/punk1u" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/u/7541495676" class="iconfont icon-weibo" title="weibo"></a>
+  <a href="https://punk1u.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>punk1u<br/>版权所有ICP证：<a href='http://beian.miit.gov.cn' target='_blank'>浙ICP备19032348号-1</a></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
