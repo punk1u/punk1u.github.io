@@ -249,7 +249,7 @@ spring:
    ```
 
    运行上述代码，可以发现虽然`common`的`QPS`阈值只有1，但是这个循环里的后续请求并未直接失败，而是排队执行，通过这种方式保证了不会因为突然特别多的线程而导致微服务挂掉的情况，也实现了不直接丢弃请求的功能。
-   
+
 
    匀速排队相关讲解文档：[限流-匀速排队](https://github.com/alibaba/Sentinel/wiki/%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6-%E5%8C%80%E9%80%9F%E6%8E%92%E9%98%9F%E6%A8%A1%E5%BC%8F)
 
@@ -333,6 +333,633 @@ public String testHot(@RequestParam(required = false)String a,
 
 
 相关源码：`com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowChecker#passCheck`
+
+
+
+
+
+### Sentinel系统规则
+
+Sentinel系统规则支持五种阈值类型：
+
+1. LOAD
+
+   当系统一分钟的负载超过阈值，且并发线程数超过**系统容量**时触发，建议设置为CPU核心数*2.5（**仅对Linux/Unix-like机器生效，可以使用`uptime命令查看load负载`**）。
+
+   系统容量 = maxQps * minRt
+
+   1. maxQps
+
+      Sentinel秒级统计出来的最大QPS
+
+   2. minRt
+
+      Sentinel秒级统计出来的最小响应时间
+
+
+   相关源码：`com.alibaba.csp.sentinel.slots.system.SystemRuleManager#checkBbr`
+
+2. RT
+
+   所有入口流量的平均RT达到阈值触发
+
+3. 线程数
+
+   所有入口流量的并发线程数达到阈值触发
+
+4. 入口QPS
+
+   所有入口流量的QPS达到阈值触发
+
+
+   相关源码：`com.alibaba.csp.sentinel.slots.system.SystemRuleManager#checkSystem`
+
+5. CPU使用率
+
+
+
+### Sentinel授权规则
+
+授权规则可用来对其他微服务进行授权，比如对`/shares/{id}`这个接口增加授权规则，设置`流控应用`为test，授权类型为白名单，即意味着这个接口对名为`test`的微服务开放调用，同理，还可设置黑名单，禁止某个服务调用。
+
+
+
+### 代码配置规则
+
+前面的规则设置都是通过`Sentinel`的控制台进行的，`Sentinel`也支持通过代码配置的形式设置规则。
+
+```java
+@GetMapping("/test-add-flow-rule")
+public String testAddFlowRule(){
+    this.initFlowQpsRule();
+    return "success";
+}
+    
+private void initFlowQpsRule(){
+    List<FlowRule> rules = new ArrayList<>();
+    FlowRule rule = new FlowRule("/shares/1");
+    // 设置QPS阈值
+    rule.setCount(20);
+    // 设置阈值类型
+    rule.setGrade(RuleConstant.FLOW_GRADE_QPS);
+    rule.setLimitApp("default");
+    rules.add(rule);
+    FlowRuleManager.loadRules(rules);
+}
+```
+
+
+
+### Sentinel与控制台通信原理
+
+微服务会集成`sentinel-transport-simple-http`模块，通过这个模块把微服务集成到`Sentinel控制台`上，并定时给`Sentinel控制台`发送心跳。此时`Sentinel控制台`可以知道各个微服务的地址，在`Sentinel控制台`的机器列表里可以看到对应的微服务机器信息（ip、端口号等）。`Sentinel`也就可以获取到各个微服务的监控信息（通过调用微服务的监控API），也可以通过调用微服务上的接收`Sentinel`规则的接口将设置好的规则推送过去。
+
+
+
+- 注册/心跳发送
+
+  `com.alibaba.csp.sentinel.transport.heartbeat.SimpleHttpHeartbeatSender`
+
+- 通信API
+
+  `com.alibaba.csp.sentinel.command.CommandHandler`的实现类
+
+
+
+### 控制台相关配置项
+
+应用端连接控制台配置项：
+
+```properties
+spring.cloud.sentinel.transport:
+	# 指定控制台的地址
+	dashboard: localhost:8080
+	# 指定和控制台通信的IP
+	# 如不配置，会自动选择一个IP注册
+	client-ip: 127.0.0.1
+	# 指定和控制台通信的端口，默认值8719
+	# 如不设置，会自动从8719开始扫描，依次+1，直到找到未被占用的接口
+	port: 8719
+	# 心跳发送周期，默认值null
+	# 但在SimpleHttpHeartbeatSender会用默认值10秒
+	heartbeat-interval-ms: 10000
+```
+
+
+
+控制台启动时的可选配置项：
+
+| 配置项                                            | 默认值         | 描述                                                         |
+| ------------------------------------------------- | -------------- | ------------------------------------------------------------ |
+| server.port                                       | 8080           | 指定端口                                                     |
+| csp.sentinel.dashboard.server                     | localhost:8080 | 指定地址                                                     |
+| project.name                                      | -              | 指定程序的名称                                               |
+| sentinel.dashboard.auth.username[1.6版本开始支持] | sentinel       | Dashboard登录账号                                            |
+| sentinel.dashboard.auth.password[1.6版本开始支持] | sentinel       | Dashboard登录密码                                            |
+| server.servlet.session.timeout[1.6版本开始支持]   | 30分钟         | 登录Session过期时间<br />配置为7200表示7200秒<br />配置为60m表示60分钟 |
+
+
+
+例如，可以在启动时指定登录的账号密码:
+
+```shell
+java -jar -Dsentinel.dashboard.auth.username=punk1u -Dsentinel.dashboard.auth.password=punk1u sentinel-dashboard-1.8.0.jar
+```
+
+
+
+### Sentinel相关API
+
+在之前的例子中，`Sentinel`都是用来保护`Spring MVC`的接口，但是`Sentinel`不止可以保护`Spring MVC`定义的接口，也可保护其他资源。
+
+
+
+首先添加配置项禁用掉`Sentinel`对`Spring MVC`的监控和保护，防止干扰：
+
+```yaml
+spring:
+  cloud:
+    sentinel:
+      filter:
+        # 关闭掉对Spring MVC端点的保护
+        enabled: false
+```
+
+
+
+在`TestController`中增加如下测试代码：
+
+```java
+@GetMapping("/test-sentinel-api")
+public String testSentinelAPI(@RequestParam(required = false) String a){
+    // 定义一个sentinel保护的资源
+    Entry entry = null;
+    try {
+        entry = SphU.entry("test-sentinel-api");
+        // 被保护的业务逻辑
+        return a;
+    }
+    // 如果被保护的资源被限流或者降级了，就会抛BlockException
+    catch (BlockException e) {
+        log.warn("限流，或者降级了",e);
+        return "限流，或者降级了";
+    }
+    finally {
+        if (entry != null){
+            // 退出entry
+            entry.exit();
+        }
+    }
+}
+```
+
+
+
+启动内容中心，访问`http://127.0.0.1:8082/test-sentinel-api?a=2`接口，可以看到此时相关的`Spring MVC`接口已经不再出现在`Sentinel`控制台上了。此时可以对这个`非Spring MVC` 资源进行限流，设置QPS阈值为1，不停访问`http://127.0.0.1:8082/test-sentinel-api?a=2`就可以看到流控规则生效，直接报错了。
+
+
+
+在上面的代码中，通过使用`Sentinel`的`SphU`类保护被指定的名为`test-sentinel-api`的资源。当`QPS`、`线程数`、`RT`、`错误率`、`错误次数`等指标超过阈值时直接抛出`BlockException`。
+
+
+
+需要注意的是，这种用法对于抛出的其他类型的异常是不会进行捕获并返回相应的`Sentinel错误信息`的。要想使自己抛出的异常也被`Sentinel`降级，需要进行特殊处理：
+
+```java
+@GetMapping("/test-sentinel-api")
+public String testSentinelAPI(@RequestParam(required = false) String a){
+    // 定义一个sentinel保护的资源
+    Entry entry = null;
+    try {
+        entry = SphU.entry("test-sentinel-api");
+        // 被保护的业务逻辑
+        if (StringUtils.isBlank(a)){
+        	throw new IllegalArgumentException("a不能为空");
+        }
+    return a;
+    }
+    // 如果被保护的资源被限流或者降级了，就会抛BlockException
+    catch (BlockException e) {
+        log.warn("限流，或者降级了",e);
+        return "限流，或者降级了";
+    }catch (IllegalArgumentException e){
+        // 统计IllegalArgumentException发生的次数、占比...
+        Tracer.trace(e);
+        return "参数非法!";
+    }
+    finally {
+        if (entry != null){
+            // 退出entry
+            entry.exit();
+        }
+    }
+}
+```
+
+
+
+通过`Tracer`捕获其他类型的异常后，再重新启动应用，设置该接口的`QPS`的阈值为1，访问`http://127.0.0.1:8082/test-sentinel-api`，会发现此时`IllegalArgumentException`也可以触发流控规则了。
+
+
+
+之前简略提过可以对接口设置针对不同的微服务来源设置流控规则。可以通过`Sentinel`里的`ContextUtil`来完成对应的功能实现。
+
+
+
+修改代码：
+
+```java
+@GetMapping("/test-sentinel-api")
+public String testSentinelAPI(@RequestParam(required = false) String a){
+
+    String resourceName = "test-sentinel-api";
+    ContextUtil.enter(resourceName,"test-service");
+
+    // 定义一个sentinel保护的资源
+    Entry entry = null;
+    try {
+        entry = SphU.entry("test-sentinel-api");
+        // 被保护的业务逻辑
+        if (StringUtils.isBlank(a)){
+        	throw new IllegalArgumentException("a不能为空");
+        }
+        return a;
+    }
+    // 如果被保护的资源被限流或者降级了，就会抛BlockException
+    catch (BlockException e) {
+        log.warn("限流，或者降级了",e);
+        return "限流，或者降级了";
+    }catch (IllegalArgumentException e){
+        // 统计IllegalArgumentException发生的次数、占比...
+        Tracer.trace(e);
+        return "参数非法!";
+    }
+    finally {
+        if (entry != null){
+            // 退出entry
+            entry.exit();
+        }
+        ContextUtil.exit();
+    }
+}
+```
+
+
+
+定义一个名称为`test-sentinel-api`的资源，保护从`test-service`这个微服务来的请求。启动后，先访问`http://127.0.0.1:8082/test-sentinel-api`，会发现此时未触发流控规则，返回结果为`参数非法`，说明未被流控，对该接口新增流控规则，`针对来源`填写代码里声明的`test-service`，再多次访问`http://127.0.0.1:8082/test-sentinel-api`会发现此时已经被流控，将`针对来源`改为其他值再次访问，则不会触发流控。
+
+
+
+### SentinelResource注解
+
+上面的通过`ContextUtil`、`Tracer`、`SphU`的方式实现限流的方式会导致流控降级代码和业务代码耦合，所以应该使用`@Sentinel`注解实现相关功能。
+
+
+
+```java
+@GetMapping("/test-sentinel-resource")
+@SentinelResource(value = "test-sentinel-resource",
+        blockHandler = "block",
+        fallback = "fallback")
+public String testSentinelResource(@RequestParam(required = false) String a){
+
+    // 被保护的业务逻辑
+    if (StringUtils.isBlank(a)){
+        throw new IllegalArgumentException("a cannot be blank");
+    }
+    return a;
+}
+
+/**
+ * 处理限流或降级
+ * @param a
+ * @param e
+ * @return
+ */
+public String block( String a,BlockException e){
+    log.warn("限流，或者降级了 block",e);
+    return "限流，或者降级了 block";
+}
+
+/**
+ * 处理降级
+ * @param a
+ * @param e
+ * @return
+ */
+public String fallback( String a,BlockException e){
+    log.warn("限流，或者降级了 fallback",e);
+    return "限流，或者降级了 fallback";
+}
+```
+
+
+
+可以看到通过`@Sentinel`注解可以只在方法中关心业务代码，在注解的属性中指定对应的流控和降级处理方法。`1.6`以后还可以在注解属性中指定对应的`流控处理类`和`降级处理类`。**流控处理类和降级处理类里的方法必须使用static修饰符修饰。**
+
+
+
+相关源码：`com.alibaba.csp.sentinel.annotation.aspectj.SentinelResourceAspect`
+
+
+
+### Sentinel整合RestTemplate
+
+在启动类中的声明`RestTemplate`实例的方法上添加上`@SentinelRestTemplate`注解即可实现。之后在`Sentinel`控制台中即可看到对应的接口并设置相应规则。
+
+
+
+可通过开关关闭，便于本地调试：
+
+```yaml
+resttemplate:
+	sentinel:
+		# 关闭@SentinelRestTemplate注解
+		enabled: false
+```
+
+
+
+相关源码：`org.springframework.cloud.alibaba.sentinel.custom.SentinelBeanPostPrecessor`
+
+
+
+
+
+### Sentinel整合Feign
+
+首先添加配置项：
+
+```yaml
+feign:
+	sentinel:
+		# 为Feign整合Sentinel
+		enabled: true
+```
+
+
+
+启动项目，`http://127.0.0.1:8082/shares/1`。然后可以在`Sentinel`对控制台看到该接口依赖的用户中心的接口，对用户中心的该接口设置流控规则，设置`QPS`阈值为1。然后不停访问``http://127.0.0.1:8082/shares/1``，会发现已经被流控了。
+
+
+
+除此之外，还可为Feign设置当限流降级发生时的自己的处理逻辑：
+
+新建`UserCenterFeignClient`的对应异常处理类:
+
+```java
+package tech.punklu.contentcenter.feignclient.fallback;
+
+import org.springframework.stereotype.Component;
+import tech.punklu.contentcenter.domain.dto.user.UserDTO;
+import tech.punklu.contentcenter.feignclient.UserCenterFeignClient;
+
+@Component
+public class UserCenterFeignClientFallback implements UserCenterFeignClient {
+
+    @Override
+    public UserDTO findById(Integer id) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setWxNickname("一个默认用户");
+        return userDTO;
+    }
+}
+```
+
+
+
+即新建一个类实现之前的用户中心`Feign`代理接口，并实现对应的流控降级后的默认处理方法，然后在`UserCenterFeignClient`类上的`@FeignClient`注解上增加`fallback`属性，将fallback的默认兜底处理类指向刚才创建好的类：
+
+```java
+@FeignClient(name = "user-center",fallback = UserCenterFeignClientFallback.class)
+public interface UserCenterFeignClient {
+
+}
+```
+
+
+
+启动项目，设置流控规则后，重复访问`http://127.0.0.1:8082/shares/1`后，会发现虽然触发了流控规则，但是并没有直接抛出异常且`wxNickName`仍然有值，只是被替换为了兜底策略里的默认值。
+
+
+
+此时控制台里并没有打印进入兜底策略的相关日志，如果想要显示这样的日志，可以使用`@FeignClient`注解的`fallbackFactory`属性来指定对应的兜底类，首先新建兜底类：
+
+```java
+package tech.punklu.contentcenter.feignclient.fallback;
+
+import feign.hystrix.FallbackFactory;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+import tech.punklu.contentcenter.domain.dto.user.UserDTO;
+import tech.punklu.contentcenter.feignclient.UserCenterFeignClient;
+
+@Component
+@Slf4j
+public class UserCenterFeignClientFallbackFactory
+        implements FallbackFactory<UserCenterFeignClient> {
+
+    @Override
+    public UserCenterFeignClient create(Throwable throwable) {
+        return new UserCenterFeignClient() {
+            @Override
+            public UserDTO findById(Integer id) {
+                log.warn("远程调用被限流/降级了",throwable);
+                UserDTO userDTO = new UserDTO();
+                userDTO.setWxNickname("一个默认用户");
+                return userDTO;
+            }
+
+            @Override
+            public UserDTO testFeignParam(UserDTO userDTO) {
+                return null;
+            }
+        };
+    }
+}
+
+```
+
+
+
+然后在`UserCenterFeignClient`中通过`@FeignClient`的`fallbackFactory`注解指定新创建的兜底类即可：
+
+```java
+@FeignClient(name = "user-center",fallbackFactory = UserCenterFeignClientFallbackFactory.class)
+public interface UserCenterFeignClient {
+
+
+}
+```
+
+
+
+启动项目后重复上述测试、增加流控步骤，可以发现此时`wxNickName`依然有默认值，且控制台也打印出了对应的兜底日志。
+
+
+
+相关源码：`org.springframework.cloud.alibaba.sentinel.feign.SentinelFeign`
+
+
+
+
+
+### Sentinel错误页优化
+
+之前的代码中，不管是限流还是降级或是其他错误，都会统一返回同样的Sentinel默认错误信息，不能区分错误类型。为了实现根据不同的错误类型返回不同的信息，需要编写专门的处理逻辑：
+
+```java
+package tech.punklu.contentcenter.feignclient.blockhandler;
+
+import com.alibaba.csp.sentinel.adapter.spring.webmvc.callback.BlockExceptionHandler;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
+import com.alibaba.csp.sentinel.slots.block.authority.AuthorityException;
+import com.alibaba.csp.sentinel.slots.block.degrade.DegradeException;
+import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
+import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowException;
+import com.alibaba.csp.sentinel.slots.system.SystemBlockException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@Slf4j
+@Component
+public class MyUrlBlockHandler implements BlockExceptionHandler {
+
+    @Override
+    public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, BlockException e) throws Exception {
+        ErrorMsg errorMsg = null;
+        if (e instanceof FlowException){
+            // 限流异常
+            errorMsg = ErrorMsg.builder().
+                    status(100)
+                    .msg("限流了")
+                    .build();
+        }else if (e instanceof DegradeException){
+            // 降级异常
+            errorMsg = ErrorMsg.builder().
+                    status(101)
+                    .msg("降级了")
+                    .build();
+        }else if (e instanceof SystemBlockException ){
+            // 系统规则异常
+            errorMsg = ErrorMsg.builder().
+                    status(102)
+                    .msg("系统规则（负载/...不满足要求）了")
+                    .build();
+        }else if (e instanceof AuthorityException){
+            // 授权异常
+            errorMsg = ErrorMsg.builder().
+                    status(103)
+                    .msg("授权规则不通过")
+                    .build();
+        }else if (e instanceof ParamFlowException){
+            // 参数热点异常
+            errorMsg = ErrorMsg.builder().
+                    status(104)
+                    .msg("热点参数限流")
+                    .build();
+        }
+        // 设置HTTP状态码
+        httpServletResponse.setStatus(500);
+        httpServletResponse.setCharacterEncoding("utf-8");
+        httpServletResponse.setHeader("Content-Type","application/json;charset=utf-8");
+        httpServletResponse.setContentType("application/json;charset=utf-8");
+        new ObjectMapper().writeValue(httpServletResponse.getWriter(),errorMsg);
+    }
+}
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+class ErrorMsg{
+    private Integer status;
+
+    private String msg;
+}
+
+```
+
+
+
+如上所示，实现`Sentinel`的扩展接口`BlockExceptionHandler`，即可以实现对应的区分错误来源并做相应的限制。
+
+
+
+启动后分别设置流控、降级规则，并不停访问``http://127.0.0.1:8082/shares/1``接口，可以看到已经根据不同的错误返回了不同的错误信息了。
+
+
+
+### Sentinel区分来源
+
+在`Sentinel`控制台里的`流控规则`里的`针对来源`和`授权规则`里的`流控应用`都需要区分`调用者的来源`才能生效。为了区分调用者的来源，也需要进行二次开发。
+
+
+
+首先创建一个实现`Sentinel`的`RequestOriginParser`接口的实现类：
+
+```java
+package tech.punklu.contentcenter.feignclient.blockhandler;
+
+import com.alibaba.csp.sentinel.adapter.spring.webmvc.callback.RequestOriginParser;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Component;
+
+import javax.servlet.http.HttpServletRequest;
+
+@Component
+public class MyRequestOriginParser implements RequestOriginParser {
+
+
+
+    @Override
+    public String parseOrigin(HttpServletRequest httpServletRequest) {
+        // 从请求参数中获取名为origin的参数并返回
+        // 如果获取不到origin参数，直接抛出异常
+        // 实际使用时，来源信息最好放在header中
+        String origin = httpServletRequest.getParameter("origin");
+        if (StringUtils.isBlank(origin)){
+            throw new IllegalArgumentException("origin must be specified");
+        }
+        return origin;
+    }
+}
+
+```
+
+
+
+启动项目，直接访问`http://127.0.0.1:8082/shares/1`接口，因为没有指定`origin`参数，所以直接报错了。添加来源信息后`http://127.0.0.1:8082/shares/1?origin=browser`，可以正常访问。
+
+
+
+对该接口添加授权规则，指定`流控应用`为`browse`，授权类型为`browser`，代表该接口不对浏览器开发，再次访问`http://127.0.0.1:8082/shares/1?origin=browser`则显示被授权规则拦截了。
+
+
+
+对该接口添加流控规则，设置`针对来源`项为`browser`，QPS为1，多次访问`http://127.0.0.1:8082/shares/1?origin=browser`，发现会被限流。设置`针对来源`项为其他值比如`android`时，则不会被限流，说明流控规则起到了针对来源的效果。
+
+
+
+**不管是区分来源还是错误页优化，在底层都是通过`Sentinel`的`CommonFilter`过滤器实现的相关功能。在过滤器中对`来源信息`、抛出的异常等信息进行先行处理。获取到我们自定义的相关处理类并调用相关方法进行的。**
+
+
+
+
+
+
+
+
+
+
 
 
 

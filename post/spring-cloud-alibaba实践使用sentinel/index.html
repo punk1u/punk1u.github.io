@@ -49,7 +49,7 @@
 <meta itemprop="description" content="Spring Cloud Alibaba实践——使用Sentinel 使用Sentinel实现服务容错 当微服务调用链底部的一个被众多微服务实例调用的服务不可用时，很">
 <meta itemprop="datePublished" content="2021-01-31T12:29:39+08:00" />
 <meta itemprop="dateModified" content="2021-01-31T12:29:39+08:00" />
-<meta itemprop="wordCount" content="4000">
+<meta itemprop="wordCount" content="10293">
 
 
 
@@ -128,8 +128,8 @@
             <a href="/categories/%E7%AC%94%E8%AE%B0/"> 笔记 </a>
             <a href="/categories/java/"> JAVA </a>
             </div>
-          <span class="more-meta"> 约 4000 字 </span>
-          <span class="more-meta"> 预计阅读 8 分钟 </span>
+          <span class="more-meta"> 约 10293 字 </span>
+          <span class="more-meta"> 预计阅读 21 分钟 </span>
         
       </div>
     </header>
@@ -148,6 +148,17 @@
             <li><a href="#sentinel流控规则">Sentinel流控规则</a></li>
             <li><a href="#sentinel降级规则">Sentinel降级规则</a></li>
             <li><a href="#sentinel热点规则">Sentinel热点规则</a></li>
+            <li><a href="#sentinel系统规则">Sentinel系统规则</a></li>
+            <li><a href="#sentinel授权规则">Sentinel授权规则</a></li>
+            <li><a href="#代码配置规则">代码配置规则</a></li>
+            <li><a href="#sentinel与控制台通信原理">Sentinel与控制台通信原理</a></li>
+            <li><a href="#控制台相关配置项">控制台相关配置项</a></li>
+            <li><a href="#sentinel相关api">Sentinel相关API</a></li>
+            <li><a href="#sentinelresource注解">SentinelResource注解</a></li>
+            <li><a href="#sentinel整合resttemplate">Sentinel整合RestTemplate</a></li>
+            <li><a href="#sentinel整合feign">Sentinel整合Feign</a></li>
+            <li><a href="#sentinel错误页优化">Sentinel错误页优化</a></li>
+            <li><a href="#sentinel区分来源">Sentinel区分来源</a></li>
           </ul>
         </li>
       </ul>
@@ -493,6 +504,880 @@
 <p>除此之外，还可以在高级选项里设置<code>参数例外项</code>。例如<code>参数值</code>设为5，<code>限流阈值</code>设为<code>1000</code>，参数类型设置为<code>1000</code>，然后不停访问<code>http://127.0.0.1:8082/test-hot?a=5</code>，会发现不会被直接返回异常。也就是说，可以在对单个参数设置全局热点规则后，再对这个参数的<code>特殊值</code>设置另外的热点规则。</p>
 <p><strong>热点规则需要特别注意的是，参数类型必须是基本类型或<code>String</code>，否则不会生效。</strong></p>
 <p>相关源码：<code>com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowChecker#passCheck</code></p>
+<h3 id="sentinel系统规则">Sentinel系统规则</h3>
+<p>Sentinel系统规则支持五种阈值类型：</p>
+<ol>
+<li>
+<p>LOAD</p>
+<p>当系统一分钟的负载超过阈值，且并发线程数超过<strong>系统容量</strong>时触发，建议设置为CPU核心数*2.5（<strong>仅对Linux/Unix-like机器生效，可以使用<code>uptime命令查看load负载</code></strong>）。</p>
+<p>系统容量 = maxQps * minRt</p>
+<ol>
+<li>
+<p>maxQps</p>
+<p>Sentinel秒级统计出来的最大QPS</p>
+</li>
+<li>
+<p>minRt</p>
+<p>Sentinel秒级统计出来的最小响应时间</p>
+</li>
+</ol>
+<p>相关源码：<code>com.alibaba.csp.sentinel.slots.system.SystemRuleManager#checkBbr</code></p>
+</li>
+<li>
+<p>RT</p>
+<p>所有入口流量的平均RT达到阈值触发</p>
+</li>
+<li>
+<p>线程数</p>
+<p>所有入口流量的并发线程数达到阈值触发</p>
+</li>
+<li>
+<p>入口QPS</p>
+<p>所有入口流量的QPS达到阈值触发</p>
+<p>相关源码：<code>com.alibaba.csp.sentinel.slots.system.SystemRuleManager#checkSystem</code></p>
+</li>
+<li>
+<p>CPU使用率</p>
+</li>
+</ol>
+<h3 id="sentinel授权规则">Sentinel授权规则</h3>
+<p>授权规则可用来对其他微服务进行授权，比如对<code>/shares/{id}</code>这个接口增加授权规则，设置<code>流控应用</code>为test，授权类型为白名单，即意味着这个接口对名为<code>test</code>的微服务开放调用，同理，还可设置黑名单，禁止某个服务调用。</p>
+<h3 id="代码配置规则">代码配置规则</h3>
+<p>前面的规则设置都是通过<code>Sentinel</code>的控制台进行的，<code>Sentinel</code>也支持通过代码配置的形式设置规则。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/test-add-flow-rule&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">testAddFlowRule</span><span class="o">(){</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">initFlowQpsRule</span><span class="o">();</span>
+    <span class="k">return</span> <span class="s">&#34;success&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+    
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">initFlowQpsRule</span><span class="o">(){</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">FlowRule</span><span class="o">&gt;</span> <span class="n">rules</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+    <span class="n">FlowRule</span> <span class="n">rule</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FlowRule</span><span class="o">(</span><span class="s">&#34;/shares/1&#34;</span><span class="o">);</span>
+    <span class="c1">// 设置QPS阈值
+</span><span class="c1"></span>    <span class="n">rule</span><span class="o">.</span><span class="na">setCount</span><span class="o">(</span><span class="n">20</span><span class="o">);</span>
+    <span class="c1">// 设置阈值类型
+</span><span class="c1"></span>    <span class="n">rule</span><span class="o">.</span><span class="na">setGrade</span><span class="o">(</span><span class="n">RuleConstant</span><span class="o">.</span><span class="na">FLOW_GRADE_QPS</span><span class="o">);</span>
+    <span class="n">rule</span><span class="o">.</span><span class="na">setLimitApp</span><span class="o">(</span><span class="s">&#34;default&#34;</span><span class="o">);</span>
+    <span class="n">rules</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">rule</span><span class="o">);</span>
+    <span class="n">FlowRuleManager</span><span class="o">.</span><span class="na">loadRules</span><span class="o">(</span><span class="n">rules</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="sentinel与控制台通信原理">Sentinel与控制台通信原理</h3>
+<p>微服务会集成<code>sentinel-transport-simple-http</code>模块，通过这个模块把微服务集成到<code>Sentinel控制台</code>上，并定时给<code>Sentinel控制台</code>发送心跳。此时<code>Sentinel控制台</code>可以知道各个微服务的地址，在<code>Sentinel控制台</code>的机器列表里可以看到对应的微服务机器信息（ip、端口号等）。<code>Sentinel</code>也就可以获取到各个微服务的监控信息（通过调用微服务的监控API），也可以通过调用微服务上的接收<code>Sentinel</code>规则的接口将设置好的规则推送过去。</p>
+<ul>
+<li>
+<p>注册/心跳发送</p>
+<p><code>com.alibaba.csp.sentinel.transport.heartbeat.SimpleHttpHeartbeatSender</code></p>
+</li>
+<li>
+<p>通信API</p>
+<p><code>com.alibaba.csp.sentinel.command.CommandHandler</code>的实现类</p>
+</li>
+</ul>
+<h3 id="控制台相关配置项">控制台相关配置项</h3>
+<p>应用端连接控制台配置项：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">spring.cloud.sentinel.transport:
+	# 指定控制台的地址
+	dashboard: localhost:8080
+	# 指定和控制台通信的IP
+	# 如不配置，会自动选择一个IP注册
+	client-ip: 127.0.0.1
+	# 指定和控制台通信的端口，默认值8719
+	# 如不设置，会自动从8719开始扫描，依次+1，直到找到未被占用的接口
+	port: 8719
+	# 心跳发送周期，默认值null
+	# 但在SimpleHttpHeartbeatSender会用默认值10秒
+	heartbeat-interval-ms: 10000
+</code></pre></td></tr></table>
+</div>
+</div><p>控制台启动时的可选配置项：</p>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>server.port</td>
+<td>8080</td>
+<td>指定端口</td>
+</tr>
+<tr>
+<td>csp.sentinel.dashboard.server</td>
+<td>localhost:8080</td>
+<td>指定地址</td>
+</tr>
+<tr>
+<td>project.name</td>
+<td>-</td>
+<td>指定程序的名称</td>
+</tr>
+<tr>
+<td>sentinel.dashboard.auth.username[1.6版本开始支持]</td>
+<td>sentinel</td>
+<td>Dashboard登录账号</td>
+</tr>
+<tr>
+<td>sentinel.dashboard.auth.password[1.6版本开始支持]</td>
+<td>sentinel</td>
+<td>Dashboard登录密码</td>
+</tr>
+<tr>
+<td>server.servlet.session.timeout[1.6版本开始支持]</td>
+<td>30分钟</td>
+<td>登录Session过期时间<br />配置为7200表示7200秒<br />配置为60m表示60分钟</td>
+</tr>
+</tbody>
+</table>
+<p>例如，可以在启动时指定登录的账号密码:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">java -jar -Dsentinel.dashboard.auth.username<span class="o">=</span>punk1u -Dsentinel.dashboard.auth.password<span class="o">=</span>punk1u sentinel-dashboard-1.8.0.jar
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="sentinel相关api">Sentinel相关API</h3>
+<p>在之前的例子中，<code>Sentinel</code>都是用来保护<code>Spring MVC</code>的接口，但是<code>Sentinel</code>不止可以保护<code>Spring MVC</code>定义的接口，也可保护其他资源。</p>
+<p>首先添加配置项禁用掉<code>Sentinel</code>对<code>Spring MVC</code>的监控和保护，防止干扰：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">cloud</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">sentinel</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">filter</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="c"># 关闭掉对Spring MVC端点的保护</span><span class="w">
+</span><span class="w">        </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>在<code>TestController</code>中增加如下测试代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/test-sentinel-api&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">testSentinelAPI</span><span class="o">(</span><span class="nd">@RequestParam</span><span class="o">(</span><span class="n">required</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span> <span class="n">String</span> <span class="n">a</span><span class="o">){</span>
+    <span class="c1">// 定义一个sentinel保护的资源
+</span><span class="c1"></span>    <span class="n">Entry</span> <span class="n">entry</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="n">entry</span> <span class="o">=</span> <span class="n">SphU</span><span class="o">.</span><span class="na">entry</span><span class="o">(</span><span class="s">&#34;test-sentinel-api&#34;</span><span class="o">);</span>
+        <span class="c1">// 被保护的业务逻辑
+</span><span class="c1"></span>        <span class="k">return</span> <span class="n">a</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="c1">// 如果被保护的资源被限流或者降级了，就会抛BlockException
+</span><span class="c1"></span>    <span class="k">catch</span> <span class="o">(</span><span class="n">BlockException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">log</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">&#34;限流，或者降级了&#34;</span><span class="o">,</span><span class="n">e</span><span class="o">);</span>
+        <span class="k">return</span> <span class="s">&#34;限流，或者降级了&#34;</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">finally</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">entry</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+            <span class="c1">// 退出entry
+</span><span class="c1"></span>            <span class="n">entry</span><span class="o">.</span><span class="na">exit</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>启动内容中心，访问<code>http://127.0.0.1:8082/test-sentinel-api?a=2</code>接口，可以看到此时相关的<code>Spring MVC</code>接口已经不再出现在<code>Sentinel</code>控制台上了。此时可以对这个<code>非Spring MVC</code> 资源进行限流，设置QPS阈值为1，不停访问<code>http://127.0.0.1:8082/test-sentinel-api?a=2</code>就可以看到流控规则生效，直接报错了。</p>
+<p>在上面的代码中，通过使用<code>Sentinel</code>的<code>SphU</code>类保护被指定的名为<code>test-sentinel-api</code>的资源。当<code>QPS</code>、<code>线程数</code>、<code>RT</code>、<code>错误率</code>、<code>错误次数</code>等指标超过阈值时直接抛出<code>BlockException</code>。</p>
+<p>需要注意的是，这种用法对于抛出的其他类型的异常是不会进行捕获并返回相应的<code>Sentinel错误信息</code>的。要想使自己抛出的异常也被<code>Sentinel</code>降级，需要进行特殊处理：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/test-sentinel-api&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">testSentinelAPI</span><span class="o">(</span><span class="nd">@RequestParam</span><span class="o">(</span><span class="n">required</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span> <span class="n">String</span> <span class="n">a</span><span class="o">){</span>
+    <span class="c1">// 定义一个sentinel保护的资源
+</span><span class="c1"></span>    <span class="n">Entry</span> <span class="n">entry</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="n">entry</span> <span class="o">=</span> <span class="n">SphU</span><span class="o">.</span><span class="na">entry</span><span class="o">(</span><span class="s">&#34;test-sentinel-api&#34;</span><span class="o">);</span>
+        <span class="c1">// 被保护的业务逻辑
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">StringUtils</span><span class="o">.</span><span class="na">isBlank</span><span class="o">(</span><span class="n">a</span><span class="o">)){</span>
+        	<span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">(</span><span class="s">&#34;a不能为空&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="k">return</span> <span class="n">a</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="c1">// 如果被保护的资源被限流或者降级了，就会抛BlockException
+</span><span class="c1"></span>    <span class="k">catch</span> <span class="o">(</span><span class="n">BlockException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">log</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">&#34;限流，或者降级了&#34;</span><span class="o">,</span><span class="n">e</span><span class="o">);</span>
+        <span class="k">return</span> <span class="s">&#34;限流，或者降级了&#34;</span><span class="o">;</span>
+    <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">IllegalArgumentException</span> <span class="n">e</span><span class="o">){</span>
+        <span class="c1">// 统计IllegalArgumentException发生的次数、占比...
+</span><span class="c1"></span>        <span class="n">Tracer</span><span class="o">.</span><span class="na">trace</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+        <span class="k">return</span> <span class="s">&#34;参数非法!&#34;</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">finally</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">entry</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+            <span class="c1">// 退出entry
+</span><span class="c1"></span>            <span class="n">entry</span><span class="o">.</span><span class="na">exit</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>通过<code>Tracer</code>捕获其他类型的异常后，再重新启动应用，设置该接口的<code>QPS</code>的阈值为1，访问<code>http://127.0.0.1:8082/test-sentinel-api</code>，会发现此时<code>IllegalArgumentException</code>也可以触发流控规则了。</p>
+<p>之前简略提过可以对接口设置针对不同的微服务来源设置流控规则。可以通过<code>Sentinel</code>里的<code>ContextUtil</code>来完成对应的功能实现。</p>
+<p>修改代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/test-sentinel-api&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">testSentinelAPI</span><span class="o">(</span><span class="nd">@RequestParam</span><span class="o">(</span><span class="n">required</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span> <span class="n">String</span> <span class="n">a</span><span class="o">){</span>
+
+    <span class="n">String</span> <span class="n">resourceName</span> <span class="o">=</span> <span class="s">&#34;test-sentinel-api&#34;</span><span class="o">;</span>
+    <span class="n">ContextUtil</span><span class="o">.</span><span class="na">enter</span><span class="o">(</span><span class="n">resourceName</span><span class="o">,</span><span class="s">&#34;test-service&#34;</span><span class="o">);</span>
+
+    <span class="c1">// 定义一个sentinel保护的资源
+</span><span class="c1"></span>    <span class="n">Entry</span> <span class="n">entry</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="n">entry</span> <span class="o">=</span> <span class="n">SphU</span><span class="o">.</span><span class="na">entry</span><span class="o">(</span><span class="s">&#34;test-sentinel-api&#34;</span><span class="o">);</span>
+        <span class="c1">// 被保护的业务逻辑
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">StringUtils</span><span class="o">.</span><span class="na">isBlank</span><span class="o">(</span><span class="n">a</span><span class="o">)){</span>
+        	<span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">(</span><span class="s">&#34;a不能为空&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">a</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="c1">// 如果被保护的资源被限流或者降级了，就会抛BlockException
+</span><span class="c1"></span>    <span class="k">catch</span> <span class="o">(</span><span class="n">BlockException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">log</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">&#34;限流，或者降级了&#34;</span><span class="o">,</span><span class="n">e</span><span class="o">);</span>
+        <span class="k">return</span> <span class="s">&#34;限流，或者降级了&#34;</span><span class="o">;</span>
+    <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">IllegalArgumentException</span> <span class="n">e</span><span class="o">){</span>
+        <span class="c1">// 统计IllegalArgumentException发生的次数、占比...
+</span><span class="c1"></span>        <span class="n">Tracer</span><span class="o">.</span><span class="na">trace</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+        <span class="k">return</span> <span class="s">&#34;参数非法!&#34;</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">finally</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">entry</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+            <span class="c1">// 退出entry
+</span><span class="c1"></span>            <span class="n">entry</span><span class="o">.</span><span class="na">exit</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="n">ContextUtil</span><span class="o">.</span><span class="na">exit</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>定义一个名称为<code>test-sentinel-api</code>的资源，保护从<code>test-service</code>这个微服务来的请求。启动后，先访问<code>http://127.0.0.1:8082/test-sentinel-api</code>，会发现此时未触发流控规则，返回结果为<code>参数非法</code>，说明未被流控，对该接口新增流控规则，<code>针对来源</code>填写代码里声明的<code>test-service</code>，再多次访问<code>http://127.0.0.1:8082/test-sentinel-api</code>会发现此时已经被流控，将<code>针对来源</code>改为其他值再次访问，则不会触发流控。</p>
+<h3 id="sentinelresource注解">SentinelResource注解</h3>
+<p>上面的通过<code>ContextUtil</code>、<code>Tracer</code>、<code>SphU</code>的方式实现限流的方式会导致流控降级代码和业务代码耦合，所以应该使用<code>@Sentinel</code>注解实现相关功能。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/test-sentinel-resource&#34;</span><span class="o">)</span>
+<span class="nd">@SentinelResource</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&#34;test-sentinel-resource&#34;</span><span class="o">,</span>
+        <span class="n">blockHandler</span> <span class="o">=</span> <span class="s">&#34;block&#34;</span><span class="o">,</span>
+        <span class="n">fallback</span> <span class="o">=</span> <span class="s">&#34;fallback&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">testSentinelResource</span><span class="o">(</span><span class="nd">@RequestParam</span><span class="o">(</span><span class="n">required</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span> <span class="n">String</span> <span class="n">a</span><span class="o">){</span>
+
+    <span class="c1">// 被保护的业务逻辑
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">StringUtils</span><span class="o">.</span><span class="na">isBlank</span><span class="o">(</span><span class="n">a</span><span class="o">)){</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">(</span><span class="s">&#34;a cannot be blank&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">a</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="cm">/**
+</span><span class="cm"> * 处理限流或降级
+</span><span class="cm"> * @param a
+</span><span class="cm"> * @param e
+</span><span class="cm"> * @return
+</span><span class="cm"> */</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">block</span><span class="o">(</span> <span class="n">String</span> <span class="n">a</span><span class="o">,</span><span class="n">BlockException</span> <span class="n">e</span><span class="o">){</span>
+    <span class="n">log</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">&#34;限流，或者降级了 block&#34;</span><span class="o">,</span><span class="n">e</span><span class="o">);</span>
+    <span class="k">return</span> <span class="s">&#34;限流，或者降级了 block&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="cm">/**
+</span><span class="cm"> * 处理降级
+</span><span class="cm"> * @param a
+</span><span class="cm"> * @param e
+</span><span class="cm"> * @return
+</span><span class="cm"> */</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">fallback</span><span class="o">(</span> <span class="n">String</span> <span class="n">a</span><span class="o">,</span><span class="n">BlockException</span> <span class="n">e</span><span class="o">){</span>
+    <span class="n">log</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">&#34;限流，或者降级了 fallback&#34;</span><span class="o">,</span><span class="n">e</span><span class="o">);</span>
+    <span class="k">return</span> <span class="s">&#34;限流，或者降级了 fallback&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到通过<code>@Sentinel</code>注解可以只在方法中关心业务代码，在注解的属性中指定对应的流控和降级处理方法。<code>1.6</code>以后还可以在注解属性中指定对应的<code>流控处理类</code>和<code>降级处理类</code>。<strong>流控处理类和降级处理类里的方法必须使用static修饰符修饰。</strong></p>
+<p>相关源码：<code>com.alibaba.csp.sentinel.annotation.aspectj.SentinelResourceAspect</code></p>
+<h3 id="sentinel整合resttemplate">Sentinel整合RestTemplate</h3>
+<p>在启动类中的声明<code>RestTemplate</code>实例的方法上添加上<code>@SentinelRestTemplate</code>注解即可实现。之后在<code>Sentinel</code>控制台中即可看到对应的接口并设置相应规则。</p>
+<p>可通过开关关闭，便于本地调试：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">resttemplate</span><span class="p">:</span><span class="w">
+</span><span class="w">	</span><span class="nt">sentinel</span><span class="p">:</span><span class="w">
+</span><span class="w">		</span><span class="c"># 关闭@SentinelRestTemplate注解</span><span class="w">
+</span><span class="w">		</span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>相关源码：<code>org.springframework.cloud.alibaba.sentinel.custom.SentinelBeanPostPrecessor</code></p>
+<h3 id="sentinel整合feign">Sentinel整合Feign</h3>
+<p>首先添加配置项：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">feign</span><span class="p">:</span><span class="w">
+</span><span class="w">	</span><span class="nt">sentinel</span><span class="p">:</span><span class="w">
+</span><span class="w">		</span><span class="c"># 为Feign整合Sentinel</span><span class="w">
+</span><span class="w">		</span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>启动项目，<code>http://127.0.0.1:8082/shares/1</code>。然后可以在<code>Sentinel</code>对控制台看到该接口依赖的用户中心的接口，对用户中心的该接口设置流控规则，设置<code>QPS</code>阈值为1。然后不停访问<code>http://127.0.0.1:8082/shares/1</code>，会发现已经被流控了。</p>
+<p>除此之外，还可为Feign设置当限流降级发生时的自己的处理逻辑：</p>
+<p>新建<code>UserCenterFeignClient</code>的对应异常处理类:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.contentcenter.feignclient.fallback</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">tech.punklu.contentcenter.domain.dto.user.UserDTO</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">tech.punklu.contentcenter.feignclient.UserCenterFeignClient</span><span class="o">;</span>
+
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserCenterFeignClientFallback</span> <span class="kd">implements</span> <span class="n">UserCenterFeignClient</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">UserDTO</span> <span class="nf">findById</span><span class="o">(</span><span class="n">Integer</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">UserDTO</span> <span class="n">userDTO</span> <span class="o">=</span> <span class="k">new</span> <span class="n">UserDTO</span><span class="o">();</span>
+        <span class="n">userDTO</span><span class="o">.</span><span class="na">setWxNickname</span><span class="o">(</span><span class="s">&#34;一个默认用户&#34;</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">userDTO</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>即新建一个类实现之前的用户中心<code>Feign</code>代理接口，并实现对应的流控降级后的默认处理方法，然后在<code>UserCenterFeignClient</code>类上的<code>@FeignClient</code>注解上增加<code>fallback</code>属性，将fallback的默认兜底处理类指向刚才创建好的类：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@FeignClient</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;user-center&#34;</span><span class="o">,</span><span class="n">fallback</span> <span class="o">=</span> <span class="n">UserCenterFeignClientFallback</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserCenterFeignClient</span> <span class="o">{</span>
+
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>启动项目，设置流控规则后，重复访问<code>http://127.0.0.1:8082/shares/1</code>后，会发现虽然触发了流控规则，但是并没有直接抛出异常且<code>wxNickName</code>仍然有值，只是被替换为了兜底策略里的默认值。</p>
+<p>此时控制台里并没有打印进入兜底策略的相关日志，如果想要显示这样的日志，可以使用<code>@FeignClient</code>注解的<code>fallbackFactory</code>属性来指定对应的兜底类，首先新建兜底类：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.contentcenter.feignclient.fallback</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">feign.hystrix.FallbackFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">tech.punklu.contentcenter.domain.dto.user.UserDTO</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">tech.punklu.contentcenter.feignclient.UserCenterFeignClient</span><span class="o">;</span>
+
+<span class="nd">@Component</span>
+<span class="nd">@Slf4j</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserCenterFeignClientFallbackFactory</span>
+        <span class="kd">implements</span> <span class="n">FallbackFactory</span><span class="o">&lt;</span><span class="n">UserCenterFeignClient</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">UserCenterFeignClient</span> <span class="nf">create</span><span class="o">(</span><span class="n">Throwable</span> <span class="n">throwable</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">UserCenterFeignClient</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="n">UserDTO</span> <span class="nf">findById</span><span class="o">(</span><span class="n">Integer</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">log</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">&#34;远程调用被限流/降级了&#34;</span><span class="o">,</span><span class="n">throwable</span><span class="o">);</span>
+                <span class="n">UserDTO</span> <span class="n">userDTO</span> <span class="o">=</span> <span class="k">new</span> <span class="n">UserDTO</span><span class="o">();</span>
+                <span class="n">userDTO</span><span class="o">.</span><span class="na">setWxNickname</span><span class="o">(</span><span class="s">&#34;一个默认用户&#34;</span><span class="o">);</span>
+                <span class="k">return</span> <span class="n">userDTO</span><span class="o">;</span>
+            <span class="o">}</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="n">UserDTO</span> <span class="nf">testFeignParam</span><span class="o">(</span><span class="n">UserDTO</span> <span class="n">userDTO</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">};</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>然后在<code>UserCenterFeignClient</code>中通过<code>@FeignClient</code>的<code>fallbackFactory</code>注解指定新创建的兜底类即可：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@FeignClient</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;user-center&#34;</span><span class="o">,</span><span class="n">fallbackFactory</span> <span class="o">=</span> <span class="n">UserCenterFeignClientFallbackFactory</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserCenterFeignClient</span> <span class="o">{</span>
+
+
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>启动项目后重复上述测试、增加流控步骤，可以发现此时<code>wxNickName</code>依然有默认值，且控制台也打印出了对应的兜底日志。</p>
+<p>相关源码：<code>org.springframework.cloud.alibaba.sentinel.feign.SentinelFeign</code></p>
+<h3 id="sentinel错误页优化">Sentinel错误页优化</h3>
+<p>之前的代码中，不管是限流还是降级或是其他错误，都会统一返回同样的Sentinel默认错误信息，不能区分错误类型。为了实现根据不同的错误类型返回不同的信息，需要编写专门的处理逻辑：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.contentcenter.feignclient.blockhandler</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.alibaba.csp.sentinel.adapter.spring.webmvc.callback.BlockExceptionHandler</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.alibaba.csp.sentinel.slots.block.BlockException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.alibaba.csp.sentinel.slots.block.authority.AuthorityException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.alibaba.csp.sentinel.slots.block.degrade.DegradeException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.alibaba.csp.sentinel.slots.block.flow.FlowException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.alibaba.csp.sentinel.slots.system.SystemBlockException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.fasterxml.jackson.databind.ObjectMapper</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.AllArgsConstructor</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.Builder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.Data</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.NoArgsConstructor</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletResponse</span><span class="o">;</span>
+
+<span class="nd">@Slf4j</span>
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyUrlBlockHandler</span> <span class="kd">implements</span> <span class="n">BlockExceptionHandler</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">httpServletRequest</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">httpServletResponse</span><span class="o">,</span> <span class="n">BlockException</span> <span class="n">e</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">ErrorMsg</span> <span class="n">errorMsg</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">e</span> <span class="k">instanceof</span> <span class="n">FlowException</span><span class="o">){</span>
+            <span class="c1">// 限流异常
+</span><span class="c1"></span>            <span class="n">errorMsg</span> <span class="o">=</span> <span class="n">ErrorMsg</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span>
+                    <span class="n">status</span><span class="o">(</span><span class="n">100</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">msg</span><span class="o">(</span><span class="s">&#34;限流了&#34;</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">e</span> <span class="k">instanceof</span> <span class="n">DegradeException</span><span class="o">){</span>
+            <span class="c1">// 降级异常
+</span><span class="c1"></span>            <span class="n">errorMsg</span> <span class="o">=</span> <span class="n">ErrorMsg</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span>
+                    <span class="n">status</span><span class="o">(</span><span class="n">101</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">msg</span><span class="o">(</span><span class="s">&#34;降级了&#34;</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">e</span> <span class="k">instanceof</span> <span class="n">SystemBlockException</span> <span class="o">){</span>
+            <span class="c1">// 系统规则异常
+</span><span class="c1"></span>            <span class="n">errorMsg</span> <span class="o">=</span> <span class="n">ErrorMsg</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span>
+                    <span class="n">status</span><span class="o">(</span><span class="n">102</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">msg</span><span class="o">(</span><span class="s">&#34;系统规则（负载/...不满足要求）了&#34;</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">e</span> <span class="k">instanceof</span> <span class="n">AuthorityException</span><span class="o">){</span>
+            <span class="c1">// 授权异常
+</span><span class="c1"></span>            <span class="n">errorMsg</span> <span class="o">=</span> <span class="n">ErrorMsg</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span>
+                    <span class="n">status</span><span class="o">(</span><span class="n">103</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">msg</span><span class="o">(</span><span class="s">&#34;授权规则不通过&#34;</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">e</span> <span class="k">instanceof</span> <span class="n">ParamFlowException</span><span class="o">){</span>
+            <span class="c1">// 参数热点异常
+</span><span class="c1"></span>            <span class="n">errorMsg</span> <span class="o">=</span> <span class="n">ErrorMsg</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span>
+                    <span class="n">status</span><span class="o">(</span><span class="n">104</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">msg</span><span class="o">(</span><span class="s">&#34;热点参数限流&#34;</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="c1">// 设置HTTP状态码
+</span><span class="c1"></span>        <span class="n">httpServletResponse</span><span class="o">.</span><span class="na">setStatus</span><span class="o">(</span><span class="n">500</span><span class="o">);</span>
+        <span class="n">httpServletResponse</span><span class="o">.</span><span class="na">setCharacterEncoding</span><span class="o">(</span><span class="s">&#34;utf-8&#34;</span><span class="o">);</span>
+        <span class="n">httpServletResponse</span><span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">&#34;Content-Type&#34;</span><span class="o">,</span><span class="s">&#34;application/json;charset=utf-8&#34;</span><span class="o">);</span>
+        <span class="n">httpServletResponse</span><span class="o">.</span><span class="na">setContentType</span><span class="o">(</span><span class="s">&#34;application/json;charset=utf-8&#34;</span><span class="o">);</span>
+        <span class="k">new</span> <span class="n">ObjectMapper</span><span class="o">().</span><span class="na">writeValue</span><span class="o">(</span><span class="n">httpServletResponse</span><span class="o">.</span><span class="na">getWriter</span><span class="o">(),</span><span class="n">errorMsg</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="nd">@Data</span>
+<span class="nd">@Builder</span>
+<span class="nd">@AllArgsConstructor</span>
+<span class="nd">@NoArgsConstructor</span>
+<span class="kd">class</span> <span class="nc">ErrorMsg</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Integer</span> <span class="n">status</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">msg</span><span class="o">;</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>如上所示，实现<code>Sentinel</code>的扩展接口<code>BlockExceptionHandler</code>，即可以实现对应的区分错误来源并做相应的限制。</p>
+<p>启动后分别设置流控、降级规则，并不停访问<code>http://127.0.0.1:8082/shares/1</code>接口，可以看到已经根据不同的错误返回了不同的错误信息了。</p>
+<h3 id="sentinel区分来源">Sentinel区分来源</h3>
+<p>在<code>Sentinel</code>控制台里的<code>流控规则</code>里的<code>针对来源</code>和<code>授权规则</code>里的<code>流控应用</code>都需要区分<code>调用者的来源</code>才能生效。为了区分调用者的来源，也需要进行二次开发。</p>
+<p>首先创建一个实现<code>Sentinel</code>的<code>RequestOriginParser</code>接口的实现类：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.contentcenter.feignclient.blockhandler</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.alibaba.csp.sentinel.adapter.spring.webmvc.callback.RequestOriginParser</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.commons.lang3.StringUtils</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequest</span><span class="o">;</span>
+
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyRequestOriginParser</span> <span class="kd">implements</span> <span class="n">RequestOriginParser</span> <span class="o">{</span>
+
+
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">parseOrigin</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">httpServletRequest</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 从请求参数中获取名为origin的参数并返回
+</span><span class="c1"></span>        <span class="c1">// 如果获取不到origin参数，直接抛出异常
+</span><span class="c1"></span>        <span class="c1">// 实际使用时，来源信息最好放在header中
+</span><span class="c1"></span>        <span class="n">String</span> <span class="n">origin</span> <span class="o">=</span> <span class="n">httpServletRequest</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">&#34;origin&#34;</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">StringUtils</span><span class="o">.</span><span class="na">isBlank</span><span class="o">(</span><span class="n">origin</span><span class="o">)){</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">(</span><span class="s">&#34;origin must be specified&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">origin</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>启动项目，直接访问<code>http://127.0.0.1:8082/shares/1</code>接口，因为没有指定<code>origin</code>参数，所以直接报错了。添加来源信息后<code>http://127.0.0.1:8082/shares/1?origin=browser</code>，可以正常访问。</p>
+<p>对该接口添加授权规则，指定<code>流控应用</code>为<code>browse</code>，授权类型为<code>browser</code>，代表该接口不对浏览器开发，再次访问<code>http://127.0.0.1:8082/shares/1?origin=browser</code>则显示被授权规则拦截了。</p>
+<p>对该接口添加流控规则，设置<code>针对来源</code>项为<code>browser</code>，QPS为1，多次访问<code>http://127.0.0.1:8082/shares/1?origin=browser</code>，发现会被限流。设置<code>针对来源</code>项为其他值比如<code>android</code>时，则不会被限流，说明流控规则起到了针对来源的效果。</p>
+<p><strong>不管是区分来源还是错误页优化，在底层都是通过<code>Sentinel</code>的<code>CommonFilter</code>过滤器实现的相关功能。在过滤器中对<code>来源信息</code>、抛出的异常等信息进行先行处理。获取到我们自定义的相关处理类并调用相关方法进行的。</strong></p>
 
     </div>
 
