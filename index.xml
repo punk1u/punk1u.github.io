@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>punk1u&lt;br/&gt;版权所有ICP证：&lt;a href=&#39;http://beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;浙ICP备19032348号-1&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 03 Feb 2021 12:29:39 +0800</lastBuildDate><atom:link href="https://punk1u.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 05 Feb 2021 12:29:39 +0800</lastBuildDate><atom:link href="https://punk1u.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Spring Cloud Alibaba实践——使用Gateway</title>
+      <link>https://punk1u.github.io/post/spring-cloud-alibaba%E5%AE%9E%E8%B7%B5%E4%BD%BF%E7%94%A8gateway/</link>
+      <pubDate>Fri, 05 Feb 2021 12:29:39 +0800</pubDate>
+      
+      <guid>https://punk1u.github.io/post/spring-cloud-alibaba%E5%AE%9E%E8%B7%B5%E4%BD%BF%E7%94%A8gateway/</guid>
+      <description>Spring Cloud Alibaba实践——使用Gateway 在微服务系统中，可能会有很多的微服务，且每个服务可能会有多个实例。如果在客户端直接使用每个微服务</description>
+    </item>
+    
     <item>
       <title>Spring Cloud Alibaba实践——使用RocketMQ</title>
       <link>https://punk1u.github.io/post/spring-cloudalibaba%E5%AE%9E%E8%B7%B5%E4%BD%BF%E7%94%A8rocketmq/</link>
