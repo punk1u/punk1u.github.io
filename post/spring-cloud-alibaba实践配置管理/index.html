@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Spring Cloud Alibaba实践——配置管理 - 想自由的Punk 1u</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="punk1u" /><meta name="description" content="Spring Cloud Alibaba实践——配置管理 为什么要实现配置管理？ 不同环境，不同配置 配置属性动态刷新 使用Nacos实现配置管理 远程、本地配置优先级问题" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.80.0 with theme even" />
+
+
+<link rel="canonical" href="https://punk1u.github.io/post/spring-cloud-alibaba%E5%AE%9E%E8%B7%B5%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Spring Cloud Alibaba实践——配置管理" />
+<meta property="og:description" content="Spring Cloud Alibaba实践——配置管理 为什么要实现配置管理？ 不同环境，不同配置 配置属性动态刷新 使用Nacos实现配置管理 远程、本地配置优先级问题" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://punk1u.github.io/post/spring-cloud-alibaba%E5%AE%9E%E8%B7%B5%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86/" />
+<meta property="article:published_time" content="2021-02-07T12:29:39+08:00" />
+<meta property="article:modified_time" content="2021-02-07T12:29:39+08:00" />
+<meta itemprop="name" content="Spring Cloud Alibaba实践——配置管理">
+<meta itemprop="description" content="Spring Cloud Alibaba实践——配置管理 为什么要实现配置管理？ 不同环境，不同配置 配置属性动态刷新 使用Nacos实现配置管理 远程、本地配置优先级问题">
+<meta itemprop="datePublished" content="2021-02-07T12:29:39+08:00" />
+<meta itemprop="dateModified" content="2021-02-07T12:29:39+08:00" />
+<meta itemprop="wordCount" content="3365">
+
+
+
+<meta itemprop="keywords" content="Spring Cloud,笔记,JAVA," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Spring Cloud Alibaba实践——配置管理"/>
+<meta name="twitter:description" content="Spring Cloud Alibaba实践——配置管理 为什么要实现配置管理？ 不同环境，不同配置 配置属性动态刷新 使用Nacos实现配置管理 远程、本地配置优先级问题"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Punk 1u</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Punk 1u</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Spring Cloud Alibaba实践——配置管理</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-02-07 </span>
+        <div class="post-category">
+            <a href="/categories/spring-cloud/"> Spring Cloud </a>
+            <a href="/categories/%E7%AC%94%E8%AE%B0/"> 笔记 </a>
+            <a href="/categories/java/"> JAVA </a>
+            </div>
+          <span class="more-meta"> 约 3365 字 </span>
+          <span class="more-meta"> 预计阅读 7 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#spring-cloud-alibaba实践配置管理">Spring Cloud Alibaba实践——配置管理</a>
+      <ul>
+        <li><a href="#为什么要实现配置管理">为什么要实现配置管理？</a></li>
+        <li><a href="#使用nacos实现配置管理">使用Nacos实现配置管理</a></li>
+        <li><a href="#远程本地配置优先级问题">远程、本地配置优先级问题</a></li>
+        <li><a href="#使用nacos完成远程配置管理">使用Nacos完成远程配置管理</a></li>
+        <li><a href="#实现nacos配置共享">实现Nacos配置共享</a></li>
+        <li><a href="#使用nacos配置管理注意事项">使用Nacos配置管理注意事项</a></li>
+        <li><a href="#nacos持久化">Nacos持久化</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="spring-cloud-alibaba实践配置管理">Spring Cloud Alibaba实践——配置管理</h1>
+<h2 id="为什么要实现配置管理">为什么要实现配置管理？</h2>
+<ul>
+<li>不同环境，不同配置</li>
+<li>配置属性动态刷新</li>
+</ul>
+<h2 id="使用nacos实现配置管理">使用Nacos实现配置管理</h2>
+<h2 id="远程本地配置优先级问题">远程、本地配置优先级问题</h2>
+<p>默认情况下，远程Nacos的配置优先级高于本地配置，可以通过以下三个配置项修改优先级顺序（需要把这几个配置放在远程Nacos上才能使这几个配置生效）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">cloud</span><span class="p">:</span><span class="w">
+</span><span class="w">  	</span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span><span class="w">  	  </span><span class="c"># 是否允许本地配置覆盖远程配置</span><span class="w">
+</span><span class="w">  	  </span><span class="nt">override-none</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  	  </span><span class="c"># 一切以本地配置为准</span><span class="w">
+</span><span class="w">  	  </span><span class="nt">allow-override</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">  	  </span><span class="c"># 系统环境变量或系统属性才能覆盖远程配置文件的配置</span><span class="w">
+</span><span class="w">  	  </span><span class="c"># 本地配置文件中配置优先级低于远程配置</span><span class="w">
+</span><span class="w">  	  </span><span class="nt">override-system-properties</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="使用nacos完成远程配置管理">使用Nacos完成远程配置管理</h2>
+<p>以内容中心为例，首先添加<code>Nacos配置管理</code>的依赖：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!-- 添加Nacos配置管理依赖 --&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.alibaba.cloud<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-alibaba-nacos-config<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>对于普通的配置管理来说，使用默认配置即可满足需求，例如，只需要在<code>Nacos</code>的默认命名空间中管理<code>内容中心</code>的配置，则只需要在<code>Nacos控制台</code>中配置中心里默认的<code>public</code>命名空间里使用默认的<code>DEFAULT_GROUP</code>组里新建一个<code>data-id</code>名为<code>content-center.yaml</code>的配置信息即可。但是需要注意的是，这里的命名需要以如下方式命名：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-xml" data-lang="xml">${prefix}-${spring.profiles.active}.${file-extension} 
+</code></pre></td></tr></table>
+</div>
+</div><p>其中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-xml" data-lang="xml">a). prefix 默认spring.application.name 的值，也可以通过配置项 spring.cloud.nacos.config.prefix来配置
+
+b). file-extension默认properties，比如我这里使用的是yaml，那么更改spring.cloud.nacos.config.file-extension= yaml
+
+c). Group默认DEFAULT_GROUP，也可以通过配置项 spring.cloud.nacos.config.group来配置
+</code></pre></td></tr></table>
+</div>
+</div><p>这个<code>data-id</code>中只有一个测试的配置项：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">nacosKey</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="l">nacosValue</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>然后在内容中心中新建<code>bootstrap.yml</code>文件，并在其中添加如下的配置项引导<code>Nacos配置中心</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">server</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">8082</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">application</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># 向Nacos注册服务的时候会使用这个名字</span><span class="w">
+</span><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">content-center</span><span class="w">
+</span><span class="w">  </span><span class="nt">cloud</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">nacos</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">server-addr</span><span class="p">:</span><span class="w"> </span><span class="m">127.0.0.1</span><span class="p">:</span><span class="m">8848</span><span class="w">
+</span><span class="w">        </span><span class="c"># 配置Nacos上的配置项的文件扩展名格式，当Nacos中使用了非properties格式的配置时，必须指明，因为默认值为properties</span><span class="w">
+</span><span class="w">        </span><span class="nt">file-extension</span><span class="p">:</span><span class="w"> </span><span class="l">yaml</span><span class="w">
+</span><span class="w">        </span><span class="c"># 配置当Nacos中的配置项的值变更时，自动更新到项目中（默认为true）</span><span class="w">
+</span><span class="w">        </span><span class="nt">refresh-enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>注意这里使用bootstrap.yml而非application.yml，避免applicaton.yml后加载于nacos配置并覆盖</p>
+<p>SpringBoot读取配置文件顺序：<code>bootstrap.yml</code>&gt;<code>bootstrap.yaml</code>&gt;<code>bootstrap.properties</code>&gt;<code>nacos的配置</code>&gt;<code>application.yml</code>&gt;<code>application.yaml</code>&gt;<code>application.properties</code>。</p>
+<p>编写测试类：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.contentcenter.controller.content.nacos</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Value</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.cloud.context.config.annotation.RefreshScope</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.http.MediaType</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.GetMapping</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMapping</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RestController</span><span class="o">;</span>
+
+<span class="cm">/**
+</span><span class="cm"> * 不光需要在配置文件中自动刷新配置：refresh-enabled: true，
+</span><span class="cm"> * 还需要在使用到Nacos配置信息的类上添加@RefreshScope注解才能实现自动更新
+</span><span class="cm"> */</span>
+<span class="nd">@RestController</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/nacos&#34;</span><span class="o">)</span>
+<span class="nd">@RefreshScope</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">NacosController</span> <span class="o">{</span>
+
+    <span class="nd">@Value</span><span class="o">(</span><span class="s">&#34;${nacosKey}&#34;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">nacosKey</span><span class="o">;</span>
+
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&#34;/getNacosValue&#34;</span><span class="o">,</span><span class="n">produces</span> <span class="o">=</span> <span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON_VALUE</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getNacosValue</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="n">nacosKey</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>启动项目，访问<code>http://127.0.0.1:8082/nacos/getNacosValue?origin=browser</code>，可以看到已经可以正常访问<code>Nacos</code>中配置的值了。</p>
+<h2 id="实现nacos配置共享">实现Nacos配置共享</h2>
+<p>在实际应用中，会有多个服务中有一些通用配置的情况，以及各个项目的配置需要互相分开维护的情况。对于这种情况，可以通过<code>Nacos</code>的命名空间<code>Namespace</code>功能和<code>Group</code>组来实现对应的需求。</p>
+<p>假设现在有一个所有服务共用的配置项<code>common</code>，还有一个所有<code>spring-cloud</code>公用的配置项<code>spring-cloud-common</code>，以及一个<code>内容中心</code>单独使用的配置项<code>content-center</code>。</p>
+<p>如下所示，新建一个专门用于这个项目的名为<code>spring-cloud-alibaba-demo</code>的<code>命名空间</code>，以及这个命名空间底下的不同的<code>group</code>下的两个不同层级的共享配置和一个<code>内容中心</code>自己的配置：</p>
+<table>
+<thead>
+<tr>
+<th>命名空间</th>
+<th>group</th>
+<th>data-id</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>spring-cloud-alibaba-demo</td>
+<td>common</td>
+<td>common.yaml</td>
+</tr>
+<tr>
+<td>spring-cloud-alibaba-demo</td>
+<td>spring-cloud-common</td>
+<td>spring-cloud-common.yaml</td>
+</tr>
+<tr>
+<td>spring-cloud-alibaba-demo</td>
+<td>content-center</td>
+<td>content-center.yaml</td>
+</tr>
+</tbody>
+</table>
+<p>其中<code>common.yaml</code>的配置信息为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">commonKey</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="l">commonValue</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><code>spring-cloud-common.yaml</code>的配置信息为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">springCloudCommonKey</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="l">springCloudCommonValue</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><code>  content-center.yaml</code>表示<code>内容中心</code>的配置，配置信息为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">contentKey</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="l">contentValue</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>在<code>bootstrap.yml</code>配置文件里添加如下配置实现<code>共享配置</code>和<code>内容中心独有的配置</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">server</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">8082</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">application</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># 向Nacos注册服务的时候会使用这个名字</span><span class="w">
+</span><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">content-center</span><span class="w">
+</span><span class="w">  </span><span class="nt">cloud</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">nacos</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">server-addr</span><span class="p">:</span><span class="w"> </span><span class="m">127.0.0.1</span><span class="p">:</span><span class="m">8848</span><span class="w">
+</span><span class="w">        </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">7cf9b1f3-3c42-4e4a-91e9-4d1b68a78a98</span><span class="w">
+</span><span class="w">        </span><span class="nt">file-extension</span><span class="p">:</span><span class="w"> </span><span class="l">yaml</span><span class="w">
+</span><span class="w">        </span><span class="nt">shared-configs[0]</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">data-id</span><span class="p">:</span><span class="w"> </span><span class="l">common.yaml</span><span class="w">
+</span><span class="w">          </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l">common</span><span class="w">
+</span><span class="w">          </span><span class="nt">refresh</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">        </span><span class="nt">shared-configs[1]</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">data-id</span><span class="p">:</span><span class="w"> </span><span class="l">spring-cloud-common.yaml</span><span class="w">
+</span><span class="w">          </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l">spring-cloud-common</span><span class="w">
+</span><span class="w">          </span><span class="nt">refresh</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">        </span><span class="nt">extension-configs[0]</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">data-id</span><span class="p">:</span><span class="w"> </span><span class="l">content-center.yaml</span><span class="w">
+</span><span class="w">          </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l">content-center</span><span class="w">
+</span><span class="w">          </span><span class="nt">refresh</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>可以看到，主要是使用了<code>shared-configs</code>来实现为<code>内容中心</code>引入两个共享配置，用<code>extension-configs</code>为<code>内容中心</code>引入了<code>内容中心</code>独有的配置。</p>
+<p>编写相关测试方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.contentcenter.controller.content.nacos</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Value</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.cloud.context.config.annotation.RefreshScope</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.http.MediaType</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.GetMapping</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMapping</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RestController</span><span class="o">;</span>
+
+<span class="cm">/**
+</span><span class="cm"> * 不光需要在配置文件中自动刷新配置：refresh-enabled: true，
+</span><span class="cm"> * 还需要在使用到Nacos配置信息的类上添加@RefreshScope注解才能实现自动更新
+</span><span class="cm"> */</span>
+<span class="nd">@RestController</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/nacos&#34;</span><span class="o">)</span>
+<span class="nd">@RefreshScope</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">NacosController</span> <span class="o">{</span>
+
+<span class="c1">//    @Value(&#34;${nacosKey}&#34;)
+</span><span class="c1">//    private String nacosKey;
+</span><span class="c1">//
+</span><span class="c1">//    @GetMapping(value = &#34;/getNacosValue&#34;,produces = MediaType.APPLICATION_JSON_VALUE)
+</span><span class="c1">//    public String getNacosValue(){
+</span><span class="c1">//        return nacosKey;
+</span><span class="c1">//    }
+</span><span class="c1"></span>
+    <span class="nd">@Value</span><span class="o">(</span><span class="s">&#34;${commonKey}&#34;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">commonKey</span><span class="o">;</span>
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&#34;/getCommonValue&#34;</span><span class="o">,</span><span class="n">produces</span> <span class="o">=</span> <span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON_VALUE</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getCommonValue</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="n">commonKey</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Value</span><span class="o">(</span><span class="s">&#34;${springCloudCommonKey}&#34;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">springCloudCommonKey</span><span class="o">;</span>
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&#34;/getSpringCloudCommonValue&#34;</span><span class="o">,</span><span class="n">produces</span> <span class="o">=</span> <span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON_VALUE</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getSpringCloudCommonValue</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="n">springCloudCommonKey</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Value</span><span class="o">(</span><span class="s">&#34;${contentKey}&#34;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">contentKey</span><span class="o">;</span>
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&#34;/getContentValue&#34;</span><span class="o">,</span><span class="n">produces</span> <span class="o">=</span> <span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON_VALUE</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getContentValue</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="n">contentKey</span><span class="o">;</span>
+    <span class="o">}</span>
+
+
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>启动<code>内容中心</code>后，访问定义的这几个方法，可以看到都已经访问到了这三个<code>Nacos</code>上不同配置文件里配置，实现了<code>配置共享</code>。且在<code>Nacos</code>控制台修改其中的值后，重新访问，也可获取到最新的值，实现了不用重新打包在线更新配置项的功能。</p>
+<h2 id="使用nacos配置管理注意事项">使用Nacos配置管理注意事项</h2>
+<p>使用<code>Nacos</code>进行配置管理有几个需要注意的地方：</p>
+<ol>
+<li>
+<p>不能做到所有配置都在线更新</p>
+<p>一些只在项目启动时使用的配置项，如<code>JDBC连接信息</code>等内容在项目启动后，在<code>Nacos</code>控制台里修改是没有效果的。</p>
+</li>
+<li>
+<p>Spring Boot使用Nacos的方式和Spring Cloud是不同的</p>
+<p>Spring Boot和Spring Cloud使用<code>Nacos</code>的方式有点区别，后续找机会整理吧。</p>
+</li>
+</ol>
+<h2 id="nacos持久化">Nacos持久化</h2>
+<p>如果要将Nacos用于生产环境，必须对Nacos进行持久化，使其配置信息保存到数据库中。</p>
+<p>Nacos使用的是内嵌数据库 <code>Derby</code>(Apache Derby)，目前Nacos仅支持<code>Mysql</code>数据库，且版本要求：<code>5.6.5+</code>。</p>
+<p>新建数据库<code>nacos</code>，导入Nacos安装目录下的<code>conf/nacos-mysql.sql</code>的sql文件。</p>
+<p>可以看到数据库增加了11张表。</p>
+<p>修改<code>Nacos</code>配置文件，打开<code>conf/application.properties</code>，修改数据库配置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">spring.datasource.platform=mysql
+
+db.num=1
+db.url.0=jdbc:mysql://127.0.0.1:3306/mynacos?characterEncoding=utf8&amp;connectTimeout=1000&amp;socketTimeout=3000&amp;autoReconnect=true
+db.user=root
+db.password=123456
+</code></pre></td></tr></table>
+</div>
+</div><p>登录Nacos，导出原来的配置文件。</p>
+<p>修改数据库配置之后，原配置自然就不在了，所以提前做好备份，后面可以直接导入。每个命名空间都要单独导出。</p>
+<p>重新启动Nacos，登录后发现配置全没了。</p>
+<p>按照原来的命名空间，重新创建。</p>
+<p>然后，在对应的命名空间下导入原配置文件即可。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">punk1u</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-02-07
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/spring-cloud/">Spring Cloud</a>
+          <a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a>
+          <a href="/tags/java/">JAVA</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/spring-cloud-alibaba%E5%AE%9E%E8%B7%B5%E4%BD%BF%E7%94%A8gateway/">
+            <span class="next-text nav-default">Spring Cloud Alibaba实践——使用Gateway</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:punk1u@protonmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://www.github.com/punk1u" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/u/7541495676" class="iconfont icon-weibo" title="weibo"></a>
+  <a href="https://punk1u.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>punk1u<br/>版权所有ICP证：<a href='http://beian.miit.gov.cn' target='_blank'>浙ICP备19032348号-1</a></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
