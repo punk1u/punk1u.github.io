@@ -18,6 +18,15 @@
     </item>
     
     <item>
+      <title>Spring Cloud Alibaba实践——认证授权</title>
+      <link>https://punk1u.github.io/post/spring-cloud-alibaba%E5%AE%9E%E8%B7%B5%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83/</link>
+      <pubDate>Sat, 06 Feb 2021 12:29:39 +0800</pubDate>
+      
+      <guid>https://punk1u.github.io/post/spring-cloud-alibaba%E5%AE%9E%E8%B7%B5%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83/</guid>
+      <description>Spring Cloud Alibaba实践——认证授权 在微服务架构中，一个绕不开的问题就是认证授权，比如必须得登录之后才能进行一些操作，而用户登录往往都是在一个</description>
+    </item>
+    
+    <item>
       <title>Spring Cloud Alibaba实践——使用Gateway</title>
       <link>https://punk1u.github.io/post/spring-cloud-alibaba%E5%AE%9E%E8%B7%B5%E4%BD%BF%E7%94%A8gateway/</link>
       <pubDate>Fri, 05 Feb 2021 12:29:39 +0800</pubDate>
