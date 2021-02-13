@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>punk1u&lt;br/&gt;版权所有ICP证：&lt;a href=&#39;http://beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;浙ICP备19032348号-1&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 07 Feb 2021 12:29:39 +0800</lastBuildDate><atom:link href="https://punk1u.github.io/tags/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 12 Feb 2021 12:29:39 +0800</lastBuildDate><atom:link href="https://punk1u.github.io/tags/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Spring Cloud Alibaba实践——调用链监控Sleuth</title>
+      <link>https://punk1u.github.io/post/spring-cloud-alibaba%E5%AE%9E%E8%B7%B5%E8%B0%83%E7%94%A8%E9%93%BE%E7%9B%91%E6%8E%A7sleuth/</link>
+      <pubDate>Fri, 12 Feb 2021 12:29:39 +0800</pubDate>
+      
+      <guid>https://punk1u.github.io/post/spring-cloud-alibaba%E5%AE%9E%E8%B7%B5%E8%B0%83%E7%94%A8%E9%93%BE%E7%9B%91%E6%8E%A7sleuth/</guid>
+      <description>Spring Cloud Alibaba实践——调用链监控Sleuth 需求和背景 在微服务场景下，应用被拆分成多个微服务，并互相调用，在这种情况下，跨微服务的API</description>
+    </item>
+    
     <item>
       <title>Spring Cloud Alibaba实践——配置管理</title>
       <link>https://punk1u.github.io/post/spring-cloud-alibaba%E5%AE%9E%E8%B7%B5%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86/</link>
