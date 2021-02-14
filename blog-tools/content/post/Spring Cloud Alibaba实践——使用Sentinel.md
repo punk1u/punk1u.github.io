@@ -78,10 +78,10 @@ categories:
 
 ```yaml
 spring:
-    sentinel:
-      transport:
-        # 指定sentinel控制台的地址
-        dashboard: localhost:8080
+  sentinel:
+    transport:
+      # 指定sentinel控制台的地址
+      dashboard: localhost:8080
 ```
 
 
@@ -673,9 +673,9 @@ public String fallback( String a,BlockException e){
 
 ```yaml
 resttemplate:
-	sentinel:
-		# 关闭@SentinelRestTemplate注解
-		enabled: false
+  sentinel:
+	# 关闭@SentinelRestTemplate注解
+	enabled: false
 ```
 
 

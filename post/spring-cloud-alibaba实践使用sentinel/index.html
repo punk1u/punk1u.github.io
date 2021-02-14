@@ -234,10 +234,10 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">spring</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">sentinel</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">transport</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="c"># 指定sentinel控制台的地址</span><span class="w">
-</span><span class="w">        </span><span class="nt">dashboard</span><span class="p">:</span><span class="w"> </span><span class="l">localhost:8080</span><span class="w">
+</span><span class="w">  </span><span class="nt">sentinel</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">transport</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="c"># 指定sentinel控制台的地址</span><span class="w">
+</span><span class="w">      </span><span class="nt">dashboard</span><span class="p">:</span><span class="w"> </span><span class="l">localhost:8080</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>启动内容中心，此时内容中心相关接口还未出现在<code>Sentinel</code>中，因为<code>Sentinel</code>默认和<code>Ribbon</code>一样都是懒加载的。</p>
@@ -980,9 +980,9 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">resttemplate</span><span class="p">:</span><span class="w">
-</span><span class="w">	</span><span class="nt">sentinel</span><span class="p">:</span><span class="w">
-</span><span class="w">		</span><span class="c"># 关闭@SentinelRestTemplate注解</span><span class="w">
-</span><span class="w">		</span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">  </span><span class="nt">sentinel</span><span class="p">:</span><span class="w">
+</span><span class="w">	</span><span class="c"># 关闭@SentinelRestTemplate注解</span><span class="w">
+</span><span class="w">	</span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>相关源码：<code>org.springframework.cloud.alibaba.sentinel.custom.SentinelBeanPostPrecessor</code></p>

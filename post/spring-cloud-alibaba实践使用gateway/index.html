@@ -428,15 +428,15 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">spring</span><span class="p">:</span><span class="w">
-</span><span class="w">	</span><span class="nt">cloud</span><span class="p">:</span><span class="w">
-</span><span class="w">		</span><span class="nt">gateway</span><span class="p">:</span><span class="w">
-</span><span class="w">			</span><span class="nt">route</span><span class="p">:</span><span class="w">
-</span><span class="w">				</span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">some_route</span><span class="w">
-</span><span class="w">				</span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="l">http://127.0.0.1:8082</span><span class="w">
-</span><span class="w">				</span><span class="nt">predicates</span><span class="p">:</span><span class="w">
-</span><span class="w">					</span><span class="l">Path=/users/{id}</span><span class="w">
-</span><span class="w">				</span><span class="nt">filters</span><span class="p">:</span><span class="w">
-</span><span class="w">					</span><span class="l">AddRequestHeader=X-Request-Foo,Bar</span><span class="w">
+</span><span class="w">  </span><span class="nt">cloud</span><span class="p">:</span><span class="w">
+</span><span class="w">	</span><span class="nt">gateway</span><span class="p">:</span><span class="w">
+</span><span class="w">	  </span><span class="nt">route</span><span class="p">:</span><span class="w">
+</span><span class="w">		</span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">some_route</span><span class="w">
+</span><span class="w">		</span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="l">http://127.0.0.1:8082</span><span class="w">
+</span><span class="w">		</span><span class="nt">predicates</span><span class="p">:</span><span class="w">
+</span><span class="w">		  </span><span class="l">Path=/users/{id}</span><span class="w">
+</span><span class="w">		</span><span class="nt">filters</span><span class="p">:</span><span class="w">
+</span><span class="w">		  </span><span class="l">AddRequestHeader=X-Request-Foo,Bar</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>可以看出一个路由(Route)由<code>id</code>、<code>uri</code>、<code>predicates</code>、<code>filters</code>过滤器集合组成。代表如果访问<code>/users/{id}</code>这个路径就会进入这个路由规则，然后经过过滤器的规则过滤后被转发到<code>http://127.0.0.1:8082</code>这个<code>uri</code>。</p>
@@ -451,10 +451,10 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">gateway</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">discovery</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">locator</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="c"># 让Gateway通过服务发现组件找到其他的微服务</span><span class="w">
-</span><span class="w">          </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="nt">discovery</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">locator</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="c"># 让Gateway通过服务发现组件找到其他的微服务</span><span class="w">
+</span><span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>代表没有特殊需求，让<code>Gateway</code>按照默认方式处理所有请求。</p>

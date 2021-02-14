@@ -188,15 +188,15 @@ management:
 
 ```yaml
 spring:
-	cloud:
-		gateway:
-			route:
-				id: some_route
-				uri: http://127.0.0.1:8082
-				predicates:
-					Path=/users/{id}
-				filters:
-					AddRequestHeader=X-Request-Foo,Bar
+  cloud:
+	gateway:
+	  route:
+		id: some_route
+		uri: http://127.0.0.1:8082
+		predicates:
+		  Path=/users/{id}
+		filters:
+		  AddRequestHeader=X-Request-Foo,Bar
 ```
 
 
@@ -209,10 +209,10 @@ spring:
 
 ```yaml
 gateway:
-      discovery:
-        locator:
-          # 让Gateway通过服务发现组件找到其他的微服务
-          enabled: true
+  discovery:
+    locator:
+      # 让Gateway通过服务发现组件找到其他的微服务
+      enabled: true
 ```
 
 代表没有特殊需求，让`Gateway`按照默认方式处理所有请求。
