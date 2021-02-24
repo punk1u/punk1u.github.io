@@ -556,7 +556,7 @@ public interface BonusEventLogMapper extends Mapper<BonusEventLog> {
 
 <span a="rocketmqtransactionjpg">RocketMQ事务消息的流程及大概原理如下图所示：</span>
 
-![RocketMQ 分布式事务实现原理.jpg](https://i.loli.net/2021/02/04/WGCiLxF4nU7qQXD.jpg)
+![RocketMQ 分布式事务实现原理.jpg](https://www.punklu.tech/img/rocketmq-transaction.jpg)
 
 
 

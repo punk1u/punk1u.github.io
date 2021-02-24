@@ -479,7 +479,7 @@
 </div>
 </div><p>对于<code>SQL</code>中的<code>LIKE</code>模糊查询，性能非常差，而且对于<code>like</code>来说，使用索引也是没有效果的，索引对于模糊匹配没有用。</p>
 <p><code>Elastic Search</code>对于内部最小的<code>词元(term)</code>使用的是<code>倒排索引</code>，所谓的<code>倒排索引</code>的实现原理如下图所示：</p>
-<p><img src="https://i.loli.net/2021/02/21/UGjVFhbTLN8CqeE.png" alt="ES分词原理.png"></p>
+<p><img src="https://www.punklu.tech/img/es-split-word.png" alt="ES分词原理.png"></p>
 <p>大致流程就是<code>Elastic Search</code>会对用户输入的数据进行分词（使用其内部分词规则或自定义的分词规则），比如对于图中的<code>consign</code>关键词，因为在<code>Documents</code>中出现在了<code>1、4、7</code>中，所以在左侧的<code>分词结果</code>中，<code>consign</code>这个词被和<code>1、4、7</code>这三篇文章关联了起来。<code>pack</code>、<code>ship</code>这两个词同理。这样一来，当例如通过名为<code>consign</code>的<code>关键词</code>进行搜索时，就会查询到<code>id</code>为<code>1、4、7</code>的三篇文章。如果还有其他查询条件的话也是同理，从而实现了非常快速的搜索功能。</p>
 <h3 id="es节点概述">ES节点概述</h3>
 <p>一个运行中的<code>Elastic Search</code>实例就是一个<code>节点</code>，<code>Elastic Search</code>集群就是由一个或多个节点组成的。共同承担数据负载的压力。当有<code>节点</code>加入<code>集群</code>或者被从<code>节点</code>中移除时，会由之前从集群中选举出的主节点重新分布编排所有的数据。<code>主节点</code>负责管理<code>集群</code>内的所有变更，比如<code>增加/删除索引</code>、<code>增加/删除节点</code>等。而且<code>主节点</code>并不涉及到<code>文档级别的</code>变更、搜索等操作。与此同时，任何节点都可被选举为<code>主节点</code>。同时，对外来说，可以将请求发送到集群中的<code>任意节点(包括主节点)</code>，每个节点都知道<code>任意文档</code>在<code>集群</code>中的<code>存储位置</code>，并且可以将请求直接转发到<code>存储指定文档</code>的<code>节点</code>，所以无论请求被直接发送到哪个节点，最终都可以获取到对应的查询数据并返回给用户。</p>

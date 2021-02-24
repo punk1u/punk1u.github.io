@@ -271,7 +271,7 @@ SELECT * FROM T_BLOG WHERE TITLE LIKE '%springboot%' OR CONTENT LIKE '%springboo
 
 `Elastic Search`对于内部最小的`词元(term)`使用的是`倒排索引`，所谓的`倒排索引`的实现原理如下图所示：
 
-![ES分词原理.png](https://i.loli.net/2021/02/21/UGjVFhbTLN8CqeE.png)
+![ES分词原理.png](https://www.punklu.tech/img/es-split-word.png)
 
 
 
