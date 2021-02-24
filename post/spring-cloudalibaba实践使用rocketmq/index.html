@@ -984,7 +984,7 @@
 <p>在之前的代码中，大致的逻辑是，审核过程的最后，<code>内容中心</code>向<code>RocketMQ</code>发送一条添加积分的消息，<code>用户中心</code>监听到这条消息后会根据消息中的内容进行相应的给用户添加积分。但是，如果在<code>内容中心</code>中向<code>RocketMQ</code>发送添加积分消息的代码后面还有一段执行代码，并且这段代码可能会抛出异常，那么当抛出异常时因为这个方法上添加了<code>Spring</code>的<code>@Transactional</code>注解，此时前面对数据库的操作将会回滚，但是添加积分的消息已经发送到<code>RockerMQ</code>。此时如果消息被<code>用户中心</code>监听到就会出现不应添加积分但加了的情况，为了避免这种情况，可以使用<code>RocketMQ</code>的事务消息来保证<code>内容中心</code>和<code>用户中心</code>的分布式事务。</p>
 <h3 id="rockermq事务消息流程原理">RockerMQ事务消息流程原理</h3>
 <p><span a="rocketmqtransactionjpg">RocketMQ事务消息的流程及大概原理如下图所示：</span></p>
-<p><img src="https://www.punklu.tech/img/rocketmq-transaction.jpg" alt="RocketMQ 分布式事务实现原理.jpg"></p>
+<p><img src="https://www.punklu.tech/assets/rocketmq-transaction.jpg" alt="RocketMQ 分布式事务实现原理.jpg"></p>
 <p>RT，在事务消息中，生产者最开始发送给<code>RocketMQ</code>的是一个<code>半消息</code>，即还不可生效不可被消费者消费的消息，此时<code>本地事务还没有执行</code>。<code>RocketMQ</code>接收到<code>半消息</code>后向生产者反馈已接受到半消息并通知<code>生产者</code>再执行提交本地的事务。如果<code>生产者</code>的本地事务执行成功，则生产者向<code>RocketMQ</code>发送确认消息通知<code>RocketMQ</code>把之前的<code>半消息</code>提交为可被消费者消费的消息并投递给消费者。<code>RocketMQ</code>接收到<code>本地事务执行成功，转换半消息状态</code>的返回结果后，会再次回查生产者确认本地事务执行成功。根据回查的结果来进行<code>提交/回滚</code>。如果生产者的本地事务执行失败，则生产者向<code>RocketMQ</code>发送回滚要求，让<code>RocketMQ</code>的<code>Broker</code>回滚掉之前的半消息。同时，可能会有生产者出现问题导致长时间不向<code>RocketMQ </code>发送<code>回滚/提交</code> <code>半消息</code>的二次确认请求。当<code>RocketMQ</code>在这种情形下长时间没有接收到生产者的<code>半消息</code>确认请求时，会主动回查生产者的本地事务状态，如果一直检查不到最新的<code>生产者</code>本地事务状态，则也会回滚掉<code>RocketMQ</code>中之前存储的那条<code>半消息</code>，如此便保证了<code>生产者</code>和<code>消费者</code>的事务一致性。</p>
 <h3 id="编码实现分布式事务">编码实现分布式事务</h3>
 <p>首先添加<code>RocketMQ</code>的事务日志表：</p>
