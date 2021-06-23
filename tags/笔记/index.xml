@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>punk1u&lt;br/&gt;版权所有ICP证：&lt;a href=&#39;http://beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;浙ICP备19032348号-1&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 19 Feb 2021 22:54:39 +0800</lastBuildDate><atom:link href="https://punk1u.github.io/tags/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 23 Jun 2021 12:54:39 +0800</lastBuildDate><atom:link href="https://punk1u.github.io/tags/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>深入理解Java虚拟机笔记1——概述</title>
+      <link>https://punk1u.github.io/post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B01%E6%A6%82%E8%BF%B0/</link>
+      <pubDate>Wed, 23 Jun 2021 12:54:39 +0800</pubDate>
+      
+      <guid>https://punk1u.github.io/post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B01%E6%A6%82%E8%BF%B0/</guid>
+      <description>展望Java技术的未来 今天的Java正处于机遇与挑战并存的时期，Java未来能否继续壮大发展，某种程度上取决于如何应对当下已出现的挑战，本文</description>
+    </item>
+    
     <item>
       <title>Elastic Search初体验</title>
       <link>https://punk1u.github.io/post/elastic-search%E5%88%9D%E4%BD%93%E9%AA%8C/</link>
