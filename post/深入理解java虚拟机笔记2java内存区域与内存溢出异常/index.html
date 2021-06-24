@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>深入理解Java虚拟机笔记2——Java内存区域与内存溢出异常 - 想自由的Punk 1u</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="punk1u" /><meta name="description" content="Java内存区域与内存溢出异常 对于Java程序员来说，在虚拟机自动内存管理机制的帮助下，不再需要为每一个new操作去写配对的delete/f" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.78.1 with theme even" />
+
+
+<link rel="canonical" href="https://punk1u.github.io/post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B02java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E5%BC%82%E5%B8%B8/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="深入理解Java虚拟机笔记2——Java内存区域与内存溢出异常" />
+<meta property="og:description" content="Java内存区域与内存溢出异常 对于Java程序员来说，在虚拟机自动内存管理机制的帮助下，不再需要为每一个new操作去写配对的delete/f" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://punk1u.github.io/post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B02java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E5%BC%82%E5%B8%B8/" />
+<meta property="article:published_time" content="2021-06-23T20:54:39+08:00" />
+<meta property="article:modified_time" content="2021-06-23T20:54:39+08:00" />
+<meta itemprop="name" content="深入理解Java虚拟机笔记2——Java内存区域与内存溢出异常">
+<meta itemprop="description" content="Java内存区域与内存溢出异常 对于Java程序员来说，在虚拟机自动内存管理机制的帮助下，不再需要为每一个new操作去写配对的delete/f">
+<meta itemprop="datePublished" content="2021-06-23T20:54:39+08:00" />
+<meta itemprop="dateModified" content="2021-06-23T20:54:39+08:00" />
+<meta itemprop="wordCount" content="11146">
+
+
+
+<meta itemprop="keywords" content="JVM,笔记," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="深入理解Java虚拟机笔记2——Java内存区域与内存溢出异常"/>
+<meta name="twitter:description" content="Java内存区域与内存溢出异常 对于Java程序员来说，在虚拟机自动内存管理机制的帮助下，不再需要为每一个new操作去写配对的delete/f"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Punk 1u</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Punk 1u</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">深入理解Java虚拟机笔记2——Java内存区域与内存溢出异常</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-06-23 </span>
+        <div class="post-category">
+            <a href="/categories/jvm/"> JVM </a>
+            <a href="/categories/%E7%AC%94%E8%AE%B0/"> 笔记 </a>
+            </div>
+          <span class="more-meta"> 约 11146 字 </span>
+          <span class="more-meta"> 预计阅读 23 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#java内存区域与内存溢出异常">Java内存区域与内存溢出异常</a>
+      <ul>
+        <li><a href="#运行时数据区域">运行时数据区域</a>
+          <ul>
+            <li><a href="#程序计数器">程序计数器</a></li>
+            <li><a href="#java虚拟机栈">Java虚拟机栈</a></li>
+            <li><a href="#本地方法栈">本地方法栈</a></li>
+            <li><a href="#java堆">Java堆</a></li>
+            <li><a href="#方法区">方法区</a></li>
+            <li><a href="#运行时常量池">运行时常量池</a></li>
+            <li><a href="#直接内存">直接内存</a></li>
+          </ul>
+        </li>
+        <li><a href="#hotspot虚拟机对象揭秘">HotSpot虚拟机对象揭秘</a>
+          <ul>
+            <li><a href="#对象的创建">对象的创建</a></li>
+            <li><a href="#对象的内存布局">对象的内存布局</a></li>
+            <li><a href="#对象的访问定位">对象的访问定位</a></li>
+          </ul>
+        </li>
+        <li><a href="#实战outofmemoryerror异常">实战：OutOfMemoryError异常</a>
+          <ul>
+            <li><a href="#java堆溢出">Java堆溢出</a></li>
+            <li><a href="#虚拟机栈和本地方法栈溢出">虚拟机栈和本地方法栈溢出</a></li>
+            <li><a href="#方法区和运行时常量池溢出">方法区和运行时常量池溢出</a></li>
+            <li><a href="#本机直接内存溢出">本机直接内存溢出</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="java内存区域与内存溢出异常">Java内存区域与内存溢出异常</h1>
+<p>对于Java程序员来说，在虚拟机自动内存管理机制的帮助下，不再需要为每一个new操作去写配对的delete/free代码，不容易出现内存泄漏和内存溢出问题，看起来由虚拟机管理内存一切都很美好。不过，也正是因为Java程序员把控制内存的权力交给了Java虚拟机，一旦出现内存泄漏和溢出方面的问题，如果不了解虚拟机是怎样使用内存的，那排查错误、修正问题将会成为一项异常艰难的工作。</p>
+<h2 id="运行时数据区域">运行时数据区域</h2>
+<p>Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为若干个不同的数据区域。这些区域有各自的用途，以及创建和销毁的时间，有的区域随着虚拟机进程的启动而一直存在，有些区域则是依赖用户线程的启动和结束而建立和销毁。根据《Java虚拟机规范》的规定，Java虚拟机所管理的内存将会包括以下几个运行时数据区域：</p>
+<p><img src="https://www.punklu.tech/assets/jvm-rtda.png" alt="JVM运行时数据区域"></p>
+<h3 id="程序计数器">程序计数器</h3>
+<p>程序计数器（Program Counter Register）是一块较小的内存空间，它可以看作是当前线程所执行的字节码的行号指示器。在Java虚拟机的概念模型里，字节码解释器工作时就是通过改变这个计数器的值来选取下一条需要执行的字节码指令，它是程序控制流的指示器，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成。</p>
+<p>由于Java虚拟机的多线程是通过线程轮流切换、分配处理器执行时间的方式来实现的，在任何一个确定的时刻，一个处理器（对于多核处理器来说是一个内核）都只会执行一条线程中的指令。因此，为了线程切换后能恢复到正确的执行位置，每条线程都需要有一个独立的程序计数器，各条线程之间计数器互不影响，独立存储，我们称这类内存区域为“线程私有”的内存。</p>
+<p>如果线程正在执行的是一个Java方法，这个计数器记录的是正在执行的虚拟机字节码指令的地址；如果正在执行的是本地（Native）方法，这个计数器值则应为空（Undefined）。此内存区域是唯一一个在《Java虚拟机规范》中没有规定任何<code>OutOfMemoryError</code>情况的区域。</p>
+<h3 id="java虚拟机栈">Java虚拟机栈</h3>
+<p>与程序计数器一样，Java虚拟机栈（Java Virtual Machine Stack）也是线程私有的，它的生命周期与线程相同。虚拟机栈描述的是Java方法执行的线程内存模型：每个方法被执行的时候，Java虚拟机都会同步创建一个栈帧（Stack Frame）用于存储局部变量表、操作数栈、动态连接、方法出口等信息。每一个方法被调用直至执行完毕的过程，就对应着一个栈帧在虚拟机栈中从入栈到出栈的过程。</p>
+<p>Java内存区域中与对象内存分配关系最密切的区域是“堆”和“栈”两块。“栈”通常就是指这里讲的虚拟机栈，或者更多的情况下只是指虚拟机栈中局部变量表部分。</p>
+<p>局部变量表存放了编译期可知的各种Java虚拟机基本数据类型（boolean、byte、char、short、int、float、long、double）、对象引用（reference类型，它并不等同于对象本身，可能是一个指向对象起始地址的引用指针，也可能是指向一个代表对象的句柄或者其他与此对象相关的位置）和<code>returnAddress</code>类型（指向了一条字节码指令的地址）。</p>
+<p>这些数据类型在局部变量表中的存储空间以局部变量槽（Slot）来表示，其中64位长度的long和double类型的数据会占用两个变量槽，其余的数据类型只占用一个。局部变量表所需的内存空间在编译期间完成分配，<strong>当进入一个方法时，这个方法需要在栈帧中分配多大的局部变量空间是完全确定的，在方法运行期间不会改变局部变量表的大小。这里说的“大小”是指变量槽的数量，虚拟机真正使用多大的内存空间（譬如按照1个变量槽占用32个比特、64个比特，或者更多）来实现一个变量槽，这是完全由具体的虚拟机实现自行决定的事情。</strong></p>
+<p>在《Java虚拟机规范》中，对这个内存区域规定了两类异常状况：如果线程请求的栈深度大于虚拟机所允许的深度，将抛出<code>StackOverflowError</code>异常；如果Java虚拟机栈容量可以动态扩展，当栈扩展时无法申请到足够的内存会抛出<code>OutOfMemoryError</code>异常。</p>
+<h3 id="本地方法栈">本地方法栈</h3>
+<p>本地方法栈（Native Method Stacks）与虚拟机栈所发挥的作用是非常相似的，其区别只是虚拟机栈为虚拟机执行Java方法（也就是字节码）服务，而本地方法栈则是为虚拟机使用到的本地（Native）方法服务。</p>
+<p>《Java虚拟机规范》对本地方法栈中方法使用的语言、使用方式与数据结构并没有任何强制规定，因此具体的虚拟机可以根据需要自由实现它，甚至有的Java虚拟机（譬如Hot-Spot虚拟机）直接就把本地方法栈和虚拟机栈合二为一。与虚拟机栈一样，本地方法栈也会在栈深度溢出或者栈扩展失败时分别抛出<code>StackOverflowError</code>和<code>OutOfMemoryError</code>异常。</p>
+<h3 id="java堆">Java堆</h3>
+<p>对于Java应用程序来说，Java堆（Java Heap）是虚拟机所管理的内存中最大的一块。Java堆是被所有线程共享的一块内存区域，在虚拟机启动时创建。此内存区域的唯一目的就是存放对象实例，Java世界里“几乎”所有的对象实例都在这里分配内存。“几乎”是指从实现角度来看，随着Java语言的发展，现在已经能看到些许迹象表明日后可能出现值类型的支持，即使只考虑现在，由于即时编译技术的进步，尤其是逃逸分析技术的日渐强大，栈上分配、标量替换优化手段已经导致一些微妙的变化悄然发生，所以说Java对象实例都分配在堆上也渐渐变得不是那么绝对了。</p>
+<p>Java堆是垃圾收集器管理的内存区域，因此一些资料中它也被称作“<code>GC堆</code>”（Garbage Collected Heap）。从回收内存的角度看，由于现代垃圾收集器大部分都是基于分代收集理论设计的，所以Java堆中经常会出现“新生代”、“老年代”、“永久代”、“Eden空间”、“From Survivor空间”、“To Survivor空间”等名词，这些区域划分仅仅是一部分垃圾收集器的共同特性或者说设计风格而已，而非某个Java虚拟机具体实现的固有内存布局，更不是《Java虚拟机规范》里对Java堆的进一步细致划分。</p>
+<p>如果从分配内存的角度看，所有线程共享的Java堆中可以划分出多个线程私有的分配缓冲区（Thread Local Allocation Buffer，<code>TLAB</code>），以提升对象分配时的效率。不过无论从什么角度，无论如何划分，都不会改变Java堆中存储内容的共性，<strong>无论是哪个区域，存储的都只能是对象的实例</strong>，将Java堆细分的目的只是为了更好地回收内存，或者更快地分配内存。</p>
+<p>Java堆既可以被实现成固定大小的，也可以是可扩展的，不过当前主流的Java虚拟机都是按照可扩展来实现的（通过参数<code>-Xmx</code>和<code>-Xms</code>设定）。如果在Java堆中没有内存完成实例分配，并且堆也无法再扩展时，Java虚拟机将会抛出<code>OutOfMemoryError</code>异常。</p>
+<h3 id="方法区">方法区</h3>
+<p>方法区（Method Area）与Java堆一样，是各个线程共享的内存区域，它用于存储**已被虚拟机加载的类型信息、常量、静态变量、即时编译器编译后的代码缓存等数据。**虽然《Java虚拟机规范》中把方法区描述为堆的一个逻辑部分，但是它却有一个别名叫作“非堆”（Non-Heap），目的是与Java堆区分开来。</p>
+<p>《Java虚拟机规范》对方法区的约束是非常宽松的，除了和Java堆一样不需要连续的内存和可以选择固定大小或者可扩展外，甚至还可以选择不实现垃圾收集。相对而言，垃圾收集行为在这个区域的确是比较少出现的，但并非数据进入了方法区就如永久代的名字一样“永久”存在了。这区域的内存回收目标主要是针对常量池的回收和对类型的卸载，一般来说这个区域的回收效果比较难令人满意，尤其是类型的卸载，条件相当苛刻，但是这部分区域的回收有时又确实是必要的。以前Sun公司的Bug列表中，曾出现过的若干个严重的Bug就是由于低版本的<code>HotSpot</code>虚拟机对此区域未完全回收而导致内存泄漏。</p>
+<p>根据《Java虚拟机规范》的规定，如果方法区无法满足新的内存分配需求时，将抛出<code>OutOfMemoryError</code>异常。</p>
+<h3 id="运行时常量池">运行时常量池</h3>
+<p>运行时常量池（Runtime Constant Pool）是方法区的一部分。Class文件中除了有类的版本、字段、方法、接口等描述信息外，还有一项信息是常量池表（Constant Pool Table），用于存放编译期生成的各种字面量与符号引用，这部分内容将在类加载后存放到方法区的运行时常量池中。</p>
+<p>Java虚拟机对于Class文件每一部分（自然也包括常量池）的格式都有严格规定，如每一个字节用于存储哪种数据都必须符合规范上的要求才会被虚拟机认可、加载和执行，但对于运行时常量池，《Java虚拟机规范》并没有做任何细节的要求，不同提供商实现的虚拟机可以按照自己的需要来实现这个内存区域，不过一般来说，除了保存Class文件中描述的符号引用外，还会把由符号引用翻译出来的直接引用也存储在运行时常量池中。</p>
+<p>运行时常量池相对于Class文件常量池的另外一个重要特征是具备动态性，Java语言并不要求常量一定只有编译期才能产生，也就是说，并非预置入Class文件中常量池的内容才能进入方法区运行时常量池，运行期间也可以将新的常量放入池中，这种特性被开发人员利用得比较多的便是String类的intern()方法。</p>
+<p>既然运行时常量池是方法区的一部分，自然受到方法区内存的限制，当常量池无法再申请到内存时会抛出<code>OutOfMemoryError</code>异常。</p>
+<h3 id="直接内存">直接内存</h3>
+<p>直接内存（Direct Memory）并不是虚拟机运行时数据区的一部分，也不是《Java虚拟机规范》中定义的内存区域。但是这部分内存也被频繁地使用，而且也可能导致<code>OutOfMemoryError</code>异常出现，所以我们放到这里一起讲解。</p>
+<p>在JDK 1.4中新加入了NIO（New Input/Output）类，引入了一种基于通道（Channel）与缓冲区（Buffer）的I/O方式，它可以使用Native函数库直接分配堆外内存，然后通过一个存储在Java堆里面的<code>DirectByteBuffer</code>对象作为这块内存的引用进行操作。这样能在一些场景中显著提高性能，因为避免了在Java堆和Native堆中来回复制数据。</p>
+<p>显然，本机直接内存的分配不会受到Java堆大小的限制，但是，既然是内存，则肯定还是会受到本机总内存（包括物理内存、SWAP分区或者分页文件）大小以及处理器寻址空间的限制，一般服务器管理员配置虚拟机参数时，会根据实际内存去设置<code>-Xmx</code>等参数信息，但经常忽略掉直接内存，使得各个内存区域总和大于物理内存限制（包括物理的和操作系统级的限制），从而导致动态扩展时出现<code>OutOfMemoryError</code>异常。</p>
+<h2 id="hotspot虚拟机对象揭秘">HotSpot虚拟机对象揭秘</h2>
+<p>对于虚拟机内存中数据是如何创建、如何布局以及如何访问的这些涉及细节的问题，必须把讨论范围限定在具体的虚拟机和集中在某一个内存区域上才有意义。基于实用优先的原则，以最常用的虚拟机<code>HotSpot</code>和最常用的内存区域Java堆为例，深入探讨一下<code>HotSpot</code>虚拟机在Java堆中对象分配、布局和访问的全过程。</p>
+<h3 id="对象的创建">对象的创建</h3>
+<p>在语言层面上，创建对象通常（例外：复制、反序列化）仅仅是一个new关键字而已，而在虚拟机中，当Java虚拟机遇到一条字节码new指令时，首先将去检查这个指令的参数是否能在常量池中定位到一个类的符号引用，并且检查这个符号引用代表的类是否已被加载、解析和初始化过。如果没有，那必须先执行相应的类加载过程。</p>
+<p>在类加载检查通过后，接下来虚拟机将为新生对象分配内存。<strong>对象所需内存的大小在类加载完成后便可完全确定</strong>，为对象分配空间的任务实际上便等同于把一块确定大小的内存块从Java堆中划分出来。**假设Java堆中内存是绝对规整的，所有被使用过的内存都被放在一边，空闲的内存被放在另一边，中间放着一个指针作为分界点的指示器，那所分配内存就仅仅是把那个指针向空闲空间方向挪动一段与对象大小相等的距离，这种分配方式称为“指针碰撞”（Bump The Pointer）。但如果Java堆中的内存并不是规整的，已被使用的内存和空闲的内存相互交错在一起，那就没有办法简单地进行指针碰撞了，虚拟机就必须维护一个列表，记录上哪些内存块是可用的，在分配的时候从列表中找到一块足够大的空间划分给对象实例，并更新列表上的记录，这种分配方式称为“空闲列表”（Free List）。选择哪种分配方式由Java堆是否规整决定，而Java堆是否规整又由所采用的垃圾收集器是否带有空间压缩整理（Compact）的能力决定。**因此，当使用Serial、<code>ParNew</code>等带压缩整理过程的收集器时，系统采用的分配算法是指针碰撞，既简单又高效；而当使用<code>CMS</code>这种基于清除（Sweep）算法的收集器时，理论上[1]就只能采用较为复杂的空闲列表来分配内存。</p>
+<p>除如何划分可用空间之外，还有另外一个需要考虑的问题：对象创建在虚拟机中是非常频繁的行为，即使仅仅修改一个指针所指向的位置，在并发情况下也并不是线程安全的，可能出现正在给对象A分配内存，指针还没来得及修改，对象B又同时使用了原来的指针来分配内存的情况。解决这个问题有两种可选方案：一种是对分配内存空间的动作进行同步处理——实际上虚拟机是采用<code>CAS</code>配上失败重试的方式保证更新操作的原子性；另外一种是把内存分配的动作按照线程划分在不同的空间之中进行，即每个线程在Java堆中预先分配一小块内存，称为本地线程分配缓冲（<code>Thread Local AllocationBuffer，TLAB</code>），哪个线程要分配内存，就在哪个线程的本地缓冲区中分配，只有本地缓冲区用完了，分配新的缓存区时才需要同步锁定。虚拟机是否使用<code>TLAB</code>，可以通过<code>-XX：+/-UseTLAB</code>参数来设定。</p>
+<p><strong>内存分配完成之后，虚拟机必须将分配到的内存空间（但不包括对象头）都初始化为零值，如果使用了<code>TLAB</code>的话，这一项工作也可以提前至<code>TLAB</code>分配时顺便进行。这步操作保证了对象的实例字段在Java代码中可以不赋初始值就直接使用，使程序能访问到这些字段的数据类型所对应的零值。</strong></p>
+<p>接下来，Java虚拟机还要对对象进行必要的设置，例如这个对象是哪个类的实例、如何才能找到类的元数据信息、对象的哈希码（实际上对象的哈希码会延后到真正调用<code>Object::hashCode()</code>方法时才计算）、对象的<code>GC分代年龄</code>等信息。<strong>这些信息存放在对象的对象头（Object Header）之中。根据虚拟机当前运行状态的不同，如是否启用偏向锁等，对象头会有不同的设置方式。</strong></p>
+<p><strong>在上面工作都完成之后，从虚拟机的视角来看，一个新的对象已经产生了。但是从Java程序的视角看来，对象创建才刚刚开始——构造函数，即Class文件中的<init>()方法还没有执行，所有的字段都为默认的零值，对象需要的其他资源和状态信息也还没有按照预定的意图构造好。一般来说（由字节码流中new指令后面是否跟随<code>invokespecial</code>指令所决定，Java编译器会在遇到new关键字的地方同时生成这两条字节码指令，但如果直接通过其他方式产生的则不一定如此），new指令之后会接着执行<init>()方法，按照程序员的意愿对对象进行初始化，这样一个真正可用的对象才算完全被构造出来。</strong></p>
+<h3 id="对象的内存布局">对象的内存布局</h3>
+<p>在<code>HotSpot</code>虚拟机里，<strong>对象在堆内存中的存储布局可以划分为三个部分：对象头（Header）、实例数据（Instance Data）和对齐填充（Padding）。</strong></p>
+<p><code>HotSpot</code>虚拟机对象的对象头部分包括两类信息。<strong>第一类是用于存储对象自身的运行时数据，如哈希码（<code>HashCode</code>）、<code>GC</code>分代年龄、锁状态标志、线程持有的锁、偏向线程ID、偏向时间戳等</strong>。这部分数据的长度在32位和64位的虚拟机（未开启压缩指针）中分别为32个比特和64个比特，官方称它为“Mark Word”。对象需要存储的运行时数据很多，其实已经超出了32、64位Bitmap结构所能记录的最大限度，但对象头里的信息是与对象自身定义的数据无关的额外存储成本，考虑到虚拟机的空间效率，Mark Word被设计成一个有着动态定义的数据结构，以便在极小的空间内存储尽量多的数据，根据对象的状态复用自己的存储空间。</p>
+<p>**对象头的另外一部分是类型指针，即对象指向它的类型元数据的指针，Java虚拟机通过这个指针来确定该对象是哪个类的实例。**并不是所有的虚拟机实现都必须在对象数据上保留类型指针，换句话说，查找对象的元数据信息并不一定要经过对象本身。<strong>此外，如果对象是一个Java数组，那在对象头中还必须有一块用于记录数组长度的数据，因为虚拟机可以通过普通Java对象的元数据信息确定Java对象的大小</strong>。但是如果数组的长度是不确定的，将无法通过元数据中的信息推断出数组的大小。</p>
+<p>接下来实例数据部分是对象真正存储的有效信息，即我们在程序代码里面所定义的各种类型的字段内容，无论是从父类继承下来的，还是在子类中定义的字段都必须记录起来。这部分的存储顺序会受到虚拟机分配策略参数（<code>-XX：FieldsAllocationStyle</code>参数）和字段在Java源码中定义顺序的影响。<code>HotSpot</code>虚拟机默认的分配顺序为longs/doubles、ints、shorts/chars、bytes/booleans、oops（<code>OrdinaryObject Pointers</code>，<code>OOPs</code>），**从以上默认的分配策略中可以看到，相同宽度的字段总是被分配到一起存放，在满足这个前提条件的情况下，在父类中定义的变量会出现在子类之前。**如果<code>HotSpot</code>虚拟机的<code>+XX：CompactFields</code>参数值为true（默认就为true），那子类之中较窄的变量也允许插入父类变量的空隙之中，以节省出一点点空间。</p>
+<p>对象的第三部分是对齐填充，这并不是必然存在的，也没有特别的含义，它仅仅起着占位符的作用。<strong>由于<code>HotSpot</code>虚拟机的自动内存管理系统要求对象起始地址必须是8字节的整数倍，换句话说就是任何对象的大小都必须是8字节的整数倍。对象头部分已经被精心设计成正好是8字节的倍数（1倍或者2倍），因此，如果对象实例数据部分没有对齐的话，就需要通过对齐填充来补全。</strong></p>
+<h3 id="对象的访问定位">对象的访问定位</h3>
+<p>Java程序会通过<code>栈上</code>的<code>reference</code>数据来操作堆上的具体对象。<strong>由于<code>reference</code>类型在《Java虚拟机规范》里面只规定了它是<code>一个指向对象的引用</code>，并没有定义这个引用应该通过什么方式去定位、访问到堆中对象的具体位置，所以<code>对象访问方式也是由虚拟机实现而定的</code>，主流的访问方式主要有使用句柄和直接指针两种</strong>：</p>
+<ol>
+<li>
+<p><strong>如果使用句柄访问的话，Java堆中将可能会划分出一块内存来作为句柄池，reference中存储的就是对象的句柄地址，而句柄中包含了对象实例数据与类型数据各自具体的地址信息</strong>，如下图所示：</p>
+<p><img src="https://www.punklu.tech/assets/jvm-handler-object.png" alt="使用句柄访问堆对象"></p>
+</li>
+<li>
+<p><strong>如果使用直接指针访问的话，Java堆中对象的内存布局就必须考虑如何放置访问类型数据的相关信息，reference中存储的直接就是对象地址，如果只是访问对象本身的话，就不需要多一次间接访问的开销</strong>，如下图所示：</p>
+<p><img src="https://www.punklu.tech/assets/jvm-pointer-object.png" alt=""></p>
+</li>
+<li></li>
+</ol>
+<p>这两种对象访问方式各有优势，<strong>使用句柄来访问的最大好处就是reference中存储的是稳定句柄地址，在对象被移动（垃圾收集时移动对象是非常普遍的行为）时只会改变句柄中的实例数据指针，而reference本身不需要被修改。</strong></p>
+<p><strong>使用直接指针来访问最大的好处就是速度更快，它节省了一次指针定位的时间开销，由于对象访问在Java中非常频繁，因此这类开销积少成多也是一项极为可观的执行成本</strong>，就<code>HotSpot</code>而言，它主要使用第二种方式进行对象访问（有例外情况，如果使用了Shenandoah收集器的话也会有一次额外的转发)。</p>
+<h2 id="实战outofmemoryerror异常">实战：OutOfMemoryError异常</h2>
+<h3 id="java堆溢出">Java堆溢出</h3>
+<p>Java堆用于储存对象实例，所以<strong>只要不断地创建对象，并且保证<code>GC Roots</code>到对象之间有可达路径来避免垃圾回收机制清除这些对象</strong>，那么随着对象数量的增加，总容量触及最大堆的容量限制后就会产生内存溢出异常。</p>
+<p>Java堆内存溢出异常测试：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
+</span><span class="cm">* VM Args：-Xms20m -Xmx20m -XX:+HeapDumpOnOutOfMemoryError
+</span><span class="cm">* 将堆的最小值-Xms参数与最大值-Xmx参数设置为一样即可避免堆自动扩展
+</span><span class="cm">* 通过参数-XX：+HeapDumpOnOutOf-MemoryError可以让虚拟机
+</span><span class="cm">* 在出现内存溢出异常的时候Dump出当前的内存堆转储快照以便进行事后分析
+</span><span class="cm">*/</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HeapOOM</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">OOMObject</span> <span class="o">{</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">OOMObject</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">OOMObject</span><span class="o">&gt;();</span>
+        <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+        	<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">OOMObject</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>运行结果出现Java堆内存溢出时，异常堆栈信息“<code>java.lang.OutOfMemoryError</code>”会跟随进一步提示“Java heap space”。</p>
+<p>要解决这个内存区域的异常，常规的处理方法是首先通过内存映像分析工具（如<code>Eclipse MemoryAnalyzer</code>）对Dump出来的堆转储快照进行分析。第一步首先应确认内存中导致<code>OOM</code>的对象是否是必要的，也就是要先分清楚到底是出现了内存泄漏（Memory Leak）还是内存溢出（Memory Overflow）。</p>
+<p>如果是内存泄漏，可进一步通过工具查看泄漏对象到<code>GC Roots</code>的引用链，找到泄漏对象是通过怎样的引用路径、与哪些<code>GC Roots</code>相关联，才导致垃圾收集器无法回收它们，根据泄漏对象的类型信息以及它到<code>GC Roots</code>引用链的信息，一般可以比较准确地定位到这些对象创建的位置，进而找出产生内存泄漏的代码的具体位置。</p>
+<p>如果不是内存泄漏，换句话说就是内存中的对象确实都是必须存活的，那就应当检查Java虚拟机的堆参数（<code>-Xmx</code>与<code>-Xms</code>）设置，与机器的内存对比，看看是否还有向上调整的空间。再从代码上检查是否存在某些对象生命周期过长、持有状态时间过长、存储结构设计不合理等情况，尽量减少程序运行期的内存消耗。</p>
+<h3 id="虚拟机栈和本地方法栈溢出">虚拟机栈和本地方法栈溢出</h3>
+<p>由于<code>HotSpot</code>虚拟机中并不区分虚拟机栈和本地方法栈，因此对于<code>HotSpot</code>来说，<code>-Xoss</code>参数（设置本地方法栈大小）虽然存在，但实际上是没有任何效果的，栈容量只能由<code>-Xss</code>参数来设定。关于虚拟机栈和本地方法栈，在《Java虚拟机规范》中描述了两种异常：</p>
+<ol>
+<li>如果线程请求的栈深度大于虚拟机所允许的最大深度，将抛出<code>StackOverflowError</code>异常。</li>
+<li>如果虚拟机的栈内存允许动态扩展，当扩展栈容量无法申请到足够的内存时，将抛出<code>OutOfMemoryError</code>异常。</li>
+</ol>
+<p>《Java虚拟机规范》明确允许Java虚拟机实现自行选择是否支持栈的动态扩展，而**<code>HotSpot</code>虚拟机的选择是不支持动态扩展**，所以除非在创建线程申请内存时就因无法获得足够内存而出现<code>OutOfMemoryError</code>异常，否则在线程运行时是不会因为扩展而导致内存溢出的，只会因为栈容量无法容纳新的栈帧而导致<code>StackOverflowError</code>异常。</p>
+<p><strong>需要注意的是，不管是线程执行方法时调用栈过深还是方法内部的局部变量过多（对应<code>JVM</code>内的局部变量表），都有可能导致<code>StackOverflowError</code>异常。</strong></p>
+<h3 id="方法区和运行时常量池溢出">方法区和运行时常量池溢出</h3>
+<p>运行时常量池是方法区的一部分，所以这两个区域的溢出测试可以放到一起进行。</p>
+<p><code>HotSpot</code>从<code>JDK</code> 7开始逐步“去永久代”的计划，并在<code>JDK</code>8中完全使用元空间来代替永久代。</p>
+<p>String::intern()是一个本地方法，它的作用是如果字符串常量池中已经包含一个等于此String对象的字符串，则返回代表池中这个字符串的String对象的引用；否则，会将此String对象包含的字符串添加到常量池中，并且返回此String对象的引用。</p>
+<p>在<code>JDK</code> 6或更早之前的<code>HotSpot</code>虚拟机中，常量池都是分配在永久代中,可以通过-XX：PermSize和-XX：MaxPermSize限制永久代的大小，即可间接限制其中常量池的容量。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
+</span><span class="cm">* VM Args：-XX:PermSize=6M -XX:MaxPermSize=6M
+</span><span class="cm">*/</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RuntimeConstantPoolOOM</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 使用Set保持着常量池引用，避免Full GC回收常量池行为
+</span><span class="c1"></span>        <span class="n">Set</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">set</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashSet</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;();</span>
+        <span class="c1">// 在short范围内足以让6MB的PermSize产生OOM了
+</span><span class="c1"></span>        <span class="kt">short</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">set</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">i</span><span class="o">++).</span><span class="na">intern</span><span class="o">());</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>以<code>JDK</code> 6来运行代码，从运行结果中可以看到，运行时常量池溢出时，在<code>OutOfMemoryError</code>异常后面跟随的提示信息是“<code>PermGen space</code>”，说明运行时常量池的确是属于方法区（即<code>JDK</code> 6的<code>HotSpot</code>虚拟机中的永久代）的一部分。</p>
+<p>而使用<code>JDK</code> 7或更高版本的<code>JDK</code>来运行这段程序并不会得到相同的结果，无论是在<code>JDK</code> 7中继续使用<code>-XX：MaxPermSize</code>参数或者在<code>JDK</code> 8及以上版本使用<code>-XX：MaxMeta-spaceSize</code>参数把方法区容量同样限制在<code>6MB</code>，也都不会重现<code>JDK</code> 6中的溢出异常，循环将一直进行下去，永不停歇。</p>
+<p>方法区的主要职责是用于存放类型的相关信息，如<code>类名、访问修饰符、常量池、字段描述、方法描述</code>等。对于这部分区域的测试，基本的思路是运行时产生大量的类去填满方法区，直到溢出为止。</p>
+<p>在<code>JDK</code> 8以后，永久代便完全退出了历史舞台，元空间作为其替代者登场。在默认设置下，前面列举的那些正常的动态创建新类型的测试用例已经很难再迫使虚拟机产生方法区的溢出异常了。不过为了让使用者有预防实际应用里出现破坏性的操作，<code>HotSpot</code>还是提供了一些参数作为元空间的防御措施，主要包括：</p>
+<ol>
+<li><code>-XX：MaxMetaspaceSize</code>：设置元空间最大值，默认是-1，即不限制，或者说只受限于本地内存大小。</li>
+<li><code>-XX：MetaspaceSize</code>：指定元空间的初始空间大小，以字节为单位，达到该值就会触发垃圾收集进行类型卸载，同时收集器会对该值进行调整：如果释放了大量的空间，就适当降低该值；如果释放了很少的空间，那么在不超过<code>-XX：MaxMetaspaceSize</code>（如果设置了的话）的情况下，适当提高该值。</li>
+<li><code>-XX：MinMetaspaceFreeRatio</code>：作用是在垃圾收集之后控制最小的元空间剩余容量的百分比，可减少因为元空间不足导致的垃圾收集的频率。类似的还有<code>-XX：Max-MetaspaceFreeRatio</code>，用于控制最大的元空间剩余容量的百分比。</li>
+</ol>
+<h3 id="本机直接内存溢出">本机直接内存溢出</h3>
+<p>直接内存（Direct Memory）的容量大小可通过<code>-XX：MaxDirectMemorySize</code>参数来指定，如果不去指定，则默认与Java堆最大值（由<code>-Xmx</code>指定）一致。</p>
+<p>下面的代码越过了<code>DirectByteBuffer</code>类直接通过反射获取Unsafe实例进行内存分配（Unsafe类的<code>getUnsafe()</code>方法指定只有引导类加载器才会返回实例，体现了设计者希望只有虚拟机标准类库里面的类才能使用Unsafe的功能，在<code>JDK</code>10时才将Unsafe的部分功能通过<code>VarHandle</code>开放给外部使用），因为虽然使用<code>DirectByteBuffer</code>分配内存也会抛出内存溢出异常，但它抛出异常时并没有真正向操作系统申请分配内存，而是通过计算得知内存无法分配就会在代码里手动抛出溢出异常，真正申请分配内存的方法是<code>Unsafe::allocateMemory()</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
+</span><span class="cm">* VM Args：-Xmx20M -XX:MaxDirectMemorySize=10M
+</span><span class="cm">*/</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DirectMemoryOOM</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">_1MB</span> <span class="o">=</span> <span class="n">1024</span> <span class="o">*</span> <span class="n">1024</span><span class="o">;</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">Field</span> <span class="n">unsafeField</span> <span class="o">=</span> <span class="n">Unsafe</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getDeclaredFields</span><span class="o">()[</span><span class="n">0</span><span class="o">];</span>
+        <span class="n">unsafeField</span><span class="o">.</span><span class="na">setAccessible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+        <span class="n">Unsafe</span> <span class="n">unsafe</span> <span class="o">=</span> <span class="o">(</span><span class="n">Unsafe</span><span class="o">)</span> <span class="n">unsafeField</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+        <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+        	<span class="n">unsafe</span><span class="o">.</span><span class="na">allocateMemory</span><span class="o">(</span><span class="n">_1MB</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>由直接内存导致的内存溢出，一个明显的特征是在Heap Dump文件中不会看见有什么明显的异常情况，如果发现<strong>内存溢出之后产生的Dump文件很小，而程序中又直接或间接使用了<code>DirectMemory</code>（典型的间接使用就是<code>NIO</code>）</strong>，那就可以考虑重点检查一下<strong>直接内存方面</strong>的原因了。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">punk1u</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-06-23
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/jvm/">JVM</a>
+          <a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B01%E6%A6%82%E8%BF%B0/">
+            <span class="next-text nav-default">深入理解Java虚拟机笔记1——概述</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:punk1u@protonmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://www.github.com/punk1u" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/u/7541495676" class="iconfont icon-weibo" title="weibo"></a>
+  <a href="https://punk1u.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>punk1u<br/>版权所有ICP证：<a href='http://beian.miit.gov.cn' target='_blank'>浙ICP备19032348号-1</a></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
