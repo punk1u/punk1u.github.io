@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="punk1u" /><meta name="description" content="Elastic Search初体验 Elastic Search对比MySQL Elastic Search和MySQL的概念对比： MySQL ES Database Index Table Type Row Document Column Field Schema Mapping 使用例子： MySQL： 1 SELECT * FROM" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="punk1u" /><meta name="description" content="Elastic Search初体验 Elastic Search对比MySQL Elastic Search和MySQL的概念对比： MySQL ES Database Index Table Type Row Document Column Field Schema Mapping 使用例子： MySQL： 1 SEL" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.78.1 with theme even" />
+<meta name="generator" content="Hugo 0.84.1 with theme even" />
 
 
 <link rel="canonical" href="https://punk1u.github.io/post/elastic-search%E5%88%9D%E4%BD%93%E9%AA%8C/" />
@@ -40,23 +40,19 @@
 
 
 <meta property="og:title" content="Elastic Search初体验" />
-<meta property="og:description" content="Elastic Search初体验 Elastic Search对比MySQL Elastic Search和MySQL的概念对比： MySQL ES Database Index Table Type Row Document Column Field Schema Mapping 使用例子： MySQL： 1 SELECT * FROM" />
+<meta property="og:description" content="Elastic Search初体验 Elastic Search对比MySQL Elastic Search和MySQL的概念对比： MySQL ES Database Index Table Type Row Document Column Field Schema Mapping 使用例子： MySQL： 1 SEL" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://punk1u.github.io/post/elastic-search%E5%88%9D%E4%BD%93%E9%AA%8C/" />
-<meta property="article:published_time" content="2021-02-19T22:54:39+08:00" />
-<meta property="article:modified_time" content="2021-02-19T22:54:39+08:00" />
+<meta property="og:url" content="https://punk1u.github.io/post/elastic-search%E5%88%9D%E4%BD%93%E9%AA%8C/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-02-19T22:54:39&#43;08:00" />
+<meta property="article:modified_time" content="2021-02-19T22:54:39&#43;08:00" />
+
 <meta itemprop="name" content="Elastic Search初体验">
-<meta itemprop="description" content="Elastic Search初体验 Elastic Search对比MySQL Elastic Search和MySQL的概念对比： MySQL ES Database Index Table Type Row Document Column Field Schema Mapping 使用例子： MySQL： 1 SELECT * FROM">
-<meta itemprop="datePublished" content="2021-02-19T22:54:39+08:00" />
-<meta itemprop="dateModified" content="2021-02-19T22:54:39+08:00" />
-<meta itemprop="wordCount" content="6293">
-
-
-
-<meta itemprop="keywords" content="Elastic Search,笔记,JAVA," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="description" content="Elastic Search初体验 Elastic Search对比MySQL Elastic Search和MySQL的概念对比： MySQL ES Database Index Table Type Row Document Column Field Schema Mapping 使用例子： MySQL： 1 SEL"><meta itemprop="datePublished" content="2021-02-19T22:54:39&#43;08:00" />
+<meta itemprop="dateModified" content="2021-02-19T22:54:39&#43;08:00" />
+<meta itemprop="wordCount" content="6637">
+<meta itemprop="keywords" content="Elastic Search,笔记,JAVA," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Elastic Search初体验"/>
-<meta name="twitter:description" content="Elastic Search初体验 Elastic Search对比MySQL Elastic Search和MySQL的概念对比： MySQL ES Database Index Table Type Row Document Column Field Schema Mapping 使用例子： MySQL： 1 SELECT * FROM"/>
+<meta name="twitter:description" content="Elastic Search初体验 Elastic Search对比MySQL Elastic Search和MySQL的概念对比： MySQL ES Database Index Table Type Row Document Column Field Schema Mapping 使用例子： MySQL： 1 SEL"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -128,8 +124,8 @@
             <a href="/categories/%E7%AC%94%E8%AE%B0/"> 笔记 </a>
             <a href="/categories/java/"> JAVA </a>
             </div>
-          <span class="more-meta"> 约 6293 字 </span>
-          <span class="more-meta"> 预计阅读 13 分钟 </span>
+          <span class="more-meta"> 约 6637 字 </span>
+          <span class="more-meta"> 预计阅读 14 分钟 </span>
         
       </div>
     </header>
@@ -219,8 +215,8 @@
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="k">USER</span><span class="p">.</span><span class="n">USER_INFO</span> <span class="k">WHERE</span> <span class="n">NAME</span> <span class="o">=</span> <span class="s1">&#39;张三&#39;</span>
-</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">USER</span><span class="p">.</span><span class="n">USER_INFO</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;张三&#39;</span><span class="w">
+</span></code></pre></td></tr></table>
 </div>
 </div><p><code>Elastic Search</code>:</p>
 <div class="highlight"><div class="chroma">
@@ -454,16 +450,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">`</span><span class="n">blog</span><span class="o">`</span><span class="p">.</span><span class="o">`</span><span class="n">t_blog</span><span class="o">`</span>  <span class="p">(</span>
-  <span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="n">AUTO_INCREMENT</span> <span class="k">COMMENT</span> <span class="s1">&#39;自增id&#39;</span><span class="p">,</span>
-  <span class="o">`</span><span class="n">title</span><span class="o">`</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span> <span class="k">DEFAULT</span> <span class="k">NULL</span> <span class="k">COMMENT</span> <span class="s1">&#39;博客标题&#39;</span><span class="p">,</span>
-  <span class="o">`</span><span class="n">author</span><span class="o">`</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span> <span class="k">DEFAULT</span> <span class="k">NULL</span> <span class="k">COMMENT</span> <span class="s1">&#39;博客作者&#39;</span><span class="p">,</span>
-  <span class="o">`</span><span class="n">content</span><span class="o">`</span> <span class="n">mediumtext</span> <span class="k">COMMENT</span> <span class="s1">&#39;博客内容&#39;</span><span class="p">,</span>
-  <span class="o">`</span><span class="n">create_time</span><span class="o">`</span> <span class="n">datetime</span> <span class="k">DEFAULT</span> <span class="k">NULL</span> <span class="k">COMMENT</span> <span class="s1">&#39;创建时间&#39;</span><span class="p">,</span>
-  <span class="o">`</span><span class="n">update_time</span><span class="o">`</span> <span class="n">datetime</span> <span class="k">DEFAULT</span> <span class="k">NULL</span> <span class="k">COMMENT</span> <span class="s1">&#39;更新时间&#39;</span><span class="p">,</span>
-  <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">)</span>
-<span class="p">)</span><span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span> <span class="n">AUTO_INCREMENT</span><span class="o">=</span><span class="mi">12</span><span class="p">;</span>
-</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">blog</span><span class="o">`</span><span class="p">.</span><span class="o">`</span><span class="n">t_blog</span><span class="o">`</span><span class="w">  </span><span class="p">(</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;自增id&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">title</span><span class="o">`</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;博客标题&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">author</span><span class="o">`</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;博客作者&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">content</span><span class="o">`</span><span class="w"> </span><span class="n">mediumtext</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;博客内容&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">create_time</span><span class="o">`</span><span class="w"> </span><span class="n">datetime</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;创建时间&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="o">`</span><span class="n">update_time</span><span class="o">`</span><span class="w"> </span><span class="n">datetime</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;更新时间&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">)</span><span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="o">=</span><span class="mi">12</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
 </div>
 </div><h3 id="es搜索速度快的原因">ES搜索速度快的原因</h3>
 <p>对照表结构，如果不使用<code>Elastic Search</code>，想要实现<code>博客内容搜索</code>的话，需要通过类似下面这样的<code>SQL</code>来实现：</p>
@@ -473,9 +469,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="o">#</span> <span class="err">博客标题或内容模糊查询</span>
-<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">T_BLOG</span> <span class="k">WHERE</span> <span class="n">TITLE</span> <span class="k">LIKE</span> <span class="s1">&#39;%springboot%&#39;</span> <span class="k">OR</span> <span class="n">CONTENT</span> <span class="k">LIKE</span> <span class="s1">&#39;%springboot%&#39;</span><span class="p">;</span>
-</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="o">#</span><span class="w"> </span><span class="err">博客标题或内容模糊查询</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">T_BLOG</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">TITLE</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%springboot%&#39;</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">CONTENT</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%springboot%&#39;</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
 </div>
 </div><p>对于<code>SQL</code>中的<code>LIKE</code>模糊查询，性能非常差，而且对于<code>like</code>来说，使用索引也是没有效果的，索引对于模糊匹配没有用。</p>
 <p><code>Elastic Search</code>对于内部最小的<code>词元(term)</code>使用的是<code>倒排索引</code>，所谓的<code>倒排索引</code>的实现原理如下图所示：</p>
@@ -605,8 +601,8 @@ jdbc_default_timezone =&gt;&#34;Asia/Shanghai&#34;
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">T_BLOG</span> <span class="k">WHERE</span> <span class="n">UPDATE_TIME</span> <span class="o">&gt;</span> <span class="s1">&#39;1970-01-01 08:00:00&#39;</span> <span class="n">UPDATE_TIME</span> <span class="o">&lt;</span> <span class="n">NOW</span><span class="p">()</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">UPDATE_TIME</span> <span class="k">DESC</span>
-</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">T_BLOG</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">UPDATE_TIME</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="s1">&#39;1970-01-01 08:00:00&#39;</span><span class="w"> </span><span class="n">UPDATE_TIME</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">NOW</span><span class="p">()</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">UPDATE_TIME</span><span class="w"> </span><span class="k">DESC</span><span class="w">
+</span></code></pre></td></tr></table>
 </div>
 </div><p>然后会按照配置文件设置好的每隔一分钟重新执行一次，<code>sql_last_value</code>的值实时变化，便于查询出上次查询到当前时间节点的数据。</p>
 <h3 id="es分词器">ES分词器</h3>
@@ -1552,7 +1548,7 @@ spring.jackson.date-format=yyyy-MM-dd HH:mm:ss
 
 
 
-<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 
 

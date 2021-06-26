@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.78.1 with theme even" />
+<meta name="generator" content="Hugo 0.84.1 with theme even" />
 
 
 <link rel="canonical" href="https://punk1u.github.io/post/spring-cloud-alibaba%E5%AE%9E%E8%B7%B5%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83/" />
@@ -42,19 +42,15 @@
 <meta property="og:title" content="Spring Cloud Alibaba实践——认证授权" />
 <meta property="og:description" content="Spring Cloud Alibaba实践——认证授权 在微服务架构中，一个绕不开的问题就是认证授权，比如必须得登录之后才能进行一些操作，而用户登录往往都是在一个" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://punk1u.github.io/post/spring-cloud-alibaba%E5%AE%9E%E8%B7%B5%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83/" />
-<meta property="article:published_time" content="2021-02-06T12:29:39+08:00" />
-<meta property="article:modified_time" content="2021-02-06T12:29:39+08:00" />
+<meta property="og:url" content="https://punk1u.github.io/post/spring-cloud-alibaba%E5%AE%9E%E8%B7%B5%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-02-06T12:29:39&#43;08:00" />
+<meta property="article:modified_time" content="2021-02-06T12:29:39&#43;08:00" />
+
 <meta itemprop="name" content="Spring Cloud Alibaba实践——认证授权">
-<meta itemprop="description" content="Spring Cloud Alibaba实践——认证授权 在微服务架构中，一个绕不开的问题就是认证授权，比如必须得登录之后才能进行一些操作，而用户登录往往都是在一个">
-<meta itemprop="datePublished" content="2021-02-06T12:29:39+08:00" />
-<meta itemprop="dateModified" content="2021-02-06T12:29:39+08:00" />
+<meta itemprop="description" content="Spring Cloud Alibaba实践——认证授权 在微服务架构中，一个绕不开的问题就是认证授权，比如必须得登录之后才能进行一些操作，而用户登录往往都是在一个"><meta itemprop="datePublished" content="2021-02-06T12:29:39&#43;08:00" />
+<meta itemprop="dateModified" content="2021-02-06T12:29:39&#43;08:00" />
 <meta itemprop="wordCount" content="4327">
-
-
-
-<meta itemprop="keywords" content="Spring Cloud,笔记,JAVA," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="Spring Cloud,笔记,JAVA," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Spring Cloud Alibaba实践——认证授权"/>
 <meta name="twitter:description" content="Spring Cloud Alibaba实践——认证授权 在微服务架构中，一个绕不开的问题就是认证授权，比如必须得登录之后才能进行一些操作，而用户登录往往都是在一个"/>
 
@@ -1075,7 +1071,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.contentcenter</span><span class="o">;</span>
-   
+
 <span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.apache.commons.lang3.StringUtils</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.springframework.http.HttpEntity</span><span class="o">;</span>
@@ -1088,22 +1084,22 @@
 <span class="kn">import</span> <span class="nn">org.springframework.web.client.RestTemplate</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">tech.punklu.contentcenter.domain.dto.user.UserDTO</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">tech.punklu.contentcenter.domain.entity.content.Share</span><span class="o">;</span>
-   
+
 <span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequest</span><span class="o">;</span>
-   
+
 <span class="nd">@Slf4j</span>
 <span class="nd">@RestController</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">TestController</span> <span class="o">{</span>
-   
+
     <span class="nd">@Autowired</span>
     <span class="kd">private</span> <span class="n">RestTemplate</span> <span class="n">restTemplate</span><span class="o">;</span>
-   
+
     <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/tokenRelay/{userId}&#34;</span><span class="o">)</span>
     <span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">UserDTO</span><span class="o">&gt;</span> <span class="nf">tokenRelay</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="n">Integer</span> <span class="n">userId</span><span class="o">,</span> <span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getHeader</span><span class="o">(</span><span class="s">&#34;X-Token&#34;</span><span class="o">);</span>
         <span class="n">HttpHeaders</span> <span class="n">headers</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HttpHeaders</span><span class="o">();</span>
         <span class="n">headers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;X-Token&#34;</span><span class="o">,</span> <span class="n">token</span><span class="o">);</span>
-   
+
         <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">restTemplate</span>
                 <span class="o">.</span><span class="na">exchange</span><span class="o">(</span>
                         <span class="s">&#34;http://user-center/users/{userId}&#34;</span><span class="o">,</span>
@@ -1114,7 +1110,7 @@
                 <span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
-   
+
 </code></pre></td></tr></table>
 </div>
 </div></li>
@@ -1159,7 +1155,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.contentcenter</span><span class="o">;</span>
-   
+
 <span class="kn">import</span> <span class="nn">org.springframework.http.HttpHeaders</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.springframework.http.HttpRequest</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.springframework.http.client.ClientHttpRequestExecution</span><span class="o">;</span>
@@ -1168,12 +1164,12 @@
 <span class="kn">import</span> <span class="nn">org.springframework.web.context.request.RequestAttributes</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.springframework.web.context.request.RequestContextHolder</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.springframework.web.context.request.ServletRequestAttributes</span><span class="o">;</span>
-   
+
 <span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequest</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
-   
+
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">RestTemplateTokenRelayInterceptor</span> <span class="kd">implements</span> <span class="n">ClientHttpRequestInterceptor</span> <span class="o">{</span>
-   
+
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="n">ClientHttpResponse</span> <span class="nf">intercept</span><span class="o">(</span><span class="n">HttpRequest</span> <span class="n">httpRequest</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">bytes</span><span class="o">,</span> <span class="n">ClientHttpRequestExecution</span> <span class="n">clientHttpRequestExecution</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
         <span class="c1">// 获取到token
@@ -1182,14 +1178,14 @@
         <span class="n">ServletRequestAttributes</span> <span class="n">attributes</span> <span class="o">=</span> <span class="o">(</span><span class="n">ServletRequestAttributes</span><span class="o">)</span> <span class="n">requestAttributes</span><span class="o">;</span>
         <span class="n">HttpServletRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="n">attributes</span><span class="o">.</span><span class="na">getRequest</span><span class="o">();</span>
         <span class="n">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getHeader</span><span class="o">(</span><span class="s">&#34;X-Token&#34;</span><span class="o">);</span>
-   
+
         <span class="c1">// 将获取到的Token添加到RestTemplate的Header里
 </span><span class="c1"></span>        <span class="n">HttpHeaders</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">httpRequest</span><span class="o">.</span><span class="na">getHeaders</span><span class="o">();</span>
         <span class="n">headers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;X-Token&#34;</span><span class="o">,</span><span class="n">token</span><span class="o">);</span>
         <span class="k">return</span> <span class="n">clientHttpRequestExecution</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">httpRequest</span><span class="o">,</span><span class="n">bytes</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
-   
+
 </code></pre></td></tr></table>
 </div>
 </div><p>然后修改项目主类里声明<code>RestTemplate</code>实例的代码：</p>
@@ -1320,7 +1316,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 
 

@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.78.1 with theme even" />
+<meta name="generator" content="Hugo 0.84.1 with theme even" />
 
 
 <link rel="canonical" href="https://punk1u.github.io/post/spring-cloudalibaba%E5%AE%9E%E8%B7%B5%E4%BD%BF%E7%94%A8rocketmq/" />
@@ -42,19 +42,15 @@
 <meta property="og:title" content="Spring Cloud Alibaba实践——使用RocketMQ" />
 <meta property="og:description" content="使用Spring Cloud Alibaba RocketMQ 初步完成管理员审核功能 在内容中心中，编写管理员审核的相关接口： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 package tech.punklu.contentcenter.controller.content; import org.springframework.beans.factory.annotation.Autowired; import" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://punk1u.github.io/post/spring-cloudalibaba%E5%AE%9E%E8%B7%B5%E4%BD%BF%E7%94%A8rocketmq/" />
-<meta property="article:published_time" content="2021-02-03T12:29:39+08:00" />
-<meta property="article:modified_time" content="2021-02-03T12:29:39+08:00" />
+<meta property="og:url" content="https://punk1u.github.io/post/spring-cloudalibaba%E5%AE%9E%E8%B7%B5%E4%BD%BF%E7%94%A8rocketmq/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-02-03T12:29:39&#43;08:00" />
+<meta property="article:modified_time" content="2021-02-03T12:29:39&#43;08:00" />
+
 <meta itemprop="name" content="Spring Cloud Alibaba实践——使用RocketMQ">
-<meta itemprop="description" content="使用Spring Cloud Alibaba RocketMQ 初步完成管理员审核功能 在内容中心中，编写管理员审核的相关接口： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 package tech.punklu.contentcenter.controller.content; import org.springframework.beans.factory.annotation.Autowired; import">
-<meta itemprop="datePublished" content="2021-02-03T12:29:39+08:00" />
-<meta itemprop="dateModified" content="2021-02-03T12:29:39+08:00" />
-<meta itemprop="wordCount" content="6558">
-
-
-
-<meta itemprop="keywords" content="Spring Cloud,笔记,JAVA," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="description" content="使用Spring Cloud Alibaba RocketMQ 初步完成管理员审核功能 在内容中心中，编写管理员审核的相关接口： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 package tech.punklu.contentcenter.controller.content; import org.springframework.beans.factory.annotation.Autowired; import"><meta itemprop="datePublished" content="2021-02-03T12:29:39&#43;08:00" />
+<meta itemprop="dateModified" content="2021-02-03T12:29:39&#43;08:00" />
+<meta itemprop="wordCount" content="6693">
+<meta itemprop="keywords" content="Spring Cloud,笔记,JAVA," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Spring Cloud Alibaba实践——使用RocketMQ"/>
 <meta name="twitter:description" content="使用Spring Cloud Alibaba RocketMQ 初步完成管理员审核功能 在内容中心中，编写管理员审核的相关接口： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 package tech.punklu.contentcenter.controller.content; import org.springframework.beans.factory.annotation.Autowired; import"/>
 
@@ -128,7 +124,7 @@
             <a href="/categories/%E7%AC%94%E8%AE%B0/"> 笔记 </a>
             <a href="/categories/java/"> JAVA </a>
             </div>
-          <span class="more-meta"> 约 6558 字 </span>
+          <span class="more-meta"> 约 6693 字 </span>
           <span class="more-meta"> 预计阅读 14 分钟 </span>
         
       </div>
@@ -1004,19 +1000,19 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">USE</span> <span class="o">`</span><span class="n">content_center</span><span class="o">`</span><span class="p">;</span>
-
-<span class="c1">-- -----------------------------------------------------
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">USE</span><span class="w"> </span><span class="o">`</span><span class="n">content_center</span><span class="o">`</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c1">-- -----------------------------------------------------
 </span><span class="c1">-- Table `rocketmq_transaction_log`
 </span><span class="c1">-- -----------------------------------------------------
-</span><span class="c1"></span><span class="k">create</span> <span class="k">table</span> <span class="n">rocketmq_transaction_log</span>
-<span class="p">(</span>
-  <span class="n">id</span>             <span class="nb">int</span> <span class="n">auto_increment</span> <span class="k">comment</span> <span class="s1">&#39;id&#39;</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
-  <span class="n">transaction_Id</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span> <span class="k">not</span> <span class="k">null</span> <span class="k">comment</span> <span class="s1">&#39;事务id&#39;</span><span class="p">,</span>
-  <span class="n">log</span>            <span class="nb">varchar</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span> <span class="k">not</span> <span class="k">null</span> <span class="k">comment</span> <span class="s1">&#39;日志&#39;</span>
-<span class="p">)</span>
-<span class="k">comment</span> <span class="s1">&#39;RocketMQ事务日志表&#39;</span><span class="p">;</span>
-</code></pre></td></tr></table>
+</span><span class="c1"></span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">rocketmq_transaction_log</span><span class="w">
+</span><span class="w"></span><span class="p">(</span><span class="w">
+</span><span class="w">  </span><span class="n">id</span><span class="w">             </span><span class="nb">int</span><span class="w"> </span><span class="n">auto_increment</span><span class="w"> </span><span class="k">comment</span><span class="w"> </span><span class="s1">&#39;id&#39;</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="n">transaction_Id</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">comment</span><span class="w"> </span><span class="s1">&#39;事务id&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="n">log</span><span class="w">            </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">comment</span><span class="w"> </span><span class="s1">&#39;日志&#39;</span><span class="w">
+</span><span class="w"></span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">comment</span><span class="w"> </span><span class="s1">&#39;RocketMQ事务日志表&#39;</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
 </div>
 </div><p>以及<code>内容中心</code>对应的对象和<code>DAO</code>层：</p>
 <div class="highlight"><div class="chroma">
@@ -1541,7 +1537,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 
 

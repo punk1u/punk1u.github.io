@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.78.1 with theme even" />
+<meta name="generator" content="Hugo 0.84.1 with theme even" />
 
 
 <link rel="canonical" href="https://punk1u.github.io/post/spring-cloud-alibaba%E5%AE%9E%E8%B7%B5%E4%BD%BF%E7%94%A8sentinel/" />
@@ -42,19 +42,15 @@
 <meta property="og:title" content="Spring Cloud Alibaba实践——使用Sentinel" />
 <meta property="og:description" content="Spring Cloud Alibaba实践——使用Sentinel 使用Sentinel实现服务容错 当微服务调用链底部的一个被众多微服务实例调用的服务不可用时，很" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://punk1u.github.io/post/spring-cloud-alibaba%E5%AE%9E%E8%B7%B5%E4%BD%BF%E7%94%A8sentinel/" />
-<meta property="article:published_time" content="2021-01-31T12:29:39+08:00" />
-<meta property="article:modified_time" content="2021-01-31T12:29:39+08:00" />
+<meta property="og:url" content="https://punk1u.github.io/post/spring-cloud-alibaba%E5%AE%9E%E8%B7%B5%E4%BD%BF%E7%94%A8sentinel/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-01-31T12:29:39&#43;08:00" />
+<meta property="article:modified_time" content="2021-01-31T12:29:39&#43;08:00" />
+
 <meta itemprop="name" content="Spring Cloud Alibaba实践——使用Sentinel">
-<meta itemprop="description" content="Spring Cloud Alibaba实践——使用Sentinel 使用Sentinel实现服务容错 当微服务调用链底部的一个被众多微服务实例调用的服务不可用时，很">
-<meta itemprop="datePublished" content="2021-01-31T12:29:39+08:00" />
-<meta itemprop="dateModified" content="2021-01-31T12:29:39+08:00" />
+<meta itemprop="description" content="Spring Cloud Alibaba实践——使用Sentinel 使用Sentinel实现服务容错 当微服务调用链底部的一个被众多微服务实例调用的服务不可用时，很"><meta itemprop="datePublished" content="2021-01-31T12:29:39&#43;08:00" />
+<meta itemprop="dateModified" content="2021-01-31T12:29:39&#43;08:00" />
 <meta itemprop="wordCount" content="10293">
-
-
-
-<meta itemprop="keywords" content="Spring Cloud,笔记,JAVA," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="Spring Cloud,笔记,JAVA," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Spring Cloud Alibaba实践——使用Sentinel"/>
 <meta name="twitter:description" content="Spring Cloud Alibaba实践——使用Sentinel 使用Sentinel实现服务容错 当微服务调用链底部的一个被众多微服务实例调用的服务不可用时，很"/>
 
@@ -271,7 +267,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
-   
+
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">RestTemplate</span> <span class="n">restTemplate</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RestTemplate</span><span class="o">();</span>
         <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">1000000</span><span class="o">;</span> <span class="n">i</span> <span class="o">++){</span>
@@ -280,7 +276,7 @@
         <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span>
-   
+
 </code></pre></td></tr></table>
 </div>
 </div><p>在此循环调用类执行时，访问<code>http://127.0.0.1:8082/shares/1</code>，会发现虽然没有设置这个接口的直接流控规则，但是因为设置了关联流控规则，依然因为<code>/getInstances</code>的<code>QPS</code>超过阈值而不能访问。</p>
@@ -313,23 +309,23 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.contentcenter</span><span class="o">;</span>
-   
+
 <span class="kn">import</span> <span class="nn">com.alibaba.csp.sentinel.annotation.SentinelResource</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.springframework.stereotype.Service</span><span class="o">;</span>
-   
+
 <span class="nd">@Slf4j</span>
 <span class="nd">@Service</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">TestService</span> <span class="o">{</span>
-   
-   
+
+
     <span class="nd">@SentinelResource</span><span class="o">(</span><span class="s">&#34;common&#34;</span><span class="o">)</span>
     <span class="kd">public</span> <span class="n">String</span> <span class="nf">common</span><span class="o">(){</span>
         <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;common....&#34;</span><span class="o">);</span>
         <span class="k">return</span> <span class="s">&#34;common&#34;</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span>
-   
+
 </code></pre></td></tr></table>
 </div>
 </div><p>在<code>TestController</code>中新建两个接口调用这个接口：</p>
@@ -353,13 +349,13 @@
 <td class="lntd">
 <pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Autowired</span>
 <span class="kd">private</span> <span class="n">TestService</span> <span class="n">testService</span><span class="o">;</span>
-   
+
 <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/test-a&#34;</span><span class="o">)</span>
 <span class="kd">public</span> <span class="n">String</span> <span class="nf">testA</span><span class="o">(){</span>
     <span class="k">this</span><span class="o">.</span><span class="na">testService</span><span class="o">.</span><span class="na">common</span><span class="o">();</span>
     <span class="k">return</span> <span class="s">&#34;test-a&#34;</span><span class="o">;</span>
 <span class="o">}</span>
-   
+
 <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/test-b&#34;</span><span class="o">)</span>
 <span class="kd">public</span> <span class="n">String</span> <span class="nf">testB</span><span class="o">(){</span>
     <span class="k">this</span><span class="o">.</span><span class="na">testService</span><span class="o">.</span><span class="na">common</span><span class="o">();</span>
@@ -395,9 +391,9 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-fallback" data-lang="fallback">/test-a 
- common
+	common
 /test-b
- common
+	common
 </code></pre></td></tr></table>
 </div>
 </div><p>选择<code>/test-a</code>下的<code>common</code>进行流控配置，<code>QPS</code>阈值设置为1，流控模式选择链路，流控模式的入口资源选择<code>/test-a</code>，然后不断访问<code>http://127.0.0.1:8082/test-a</code>，可以发现也会被<code>Sentinel</code>直接返回错误。而不断访问<code>http://127.0.0.1:8082/test-b</code>就不会出现这种情况。</p>
@@ -1466,7 +1462,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
 
 
