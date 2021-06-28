@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>punk1u&lt;br/&gt;版权所有ICP证：&lt;a href=&#39;http://beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;浙ICP备19032348号-1&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 26 Jun 2021 14:29:39 +0800</lastBuildDate><atom:link href="https://punk1u.github.io/tags/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 27 Jun 2021 23:44:39 +0800</lastBuildDate><atom:link href="https://punk1u.github.io/tags/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>深入理解Java虚拟机笔记6——线程安全与锁优化</title>
+      <link>https://punk1u.github.io/post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B06%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E4%B8%8E%E9%94%81%E4%BC%98%E5%8C%96/</link>
+      <pubDate>Sun, 27 Jun 2021 23:44:39 +0800</pubDate>
+      
+      <guid>https://punk1u.github.io/post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B06%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E4%B8%8E%E9%94%81%E4%BC%98%E5%8C%96/</guid>
+      <description>线程安全与锁优化 线程安全 《Java并发编程实战（Java Concurrency In Practice）》的作者Brian Goetz为“线程安全”做出了一个比较恰当的</description>
+    </item>
+    
     <item>
       <title>深入理解Java虚拟机笔记5——Java内存模型与线程</title>
       <link>https://punk1u.github.io/post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B05java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/</link>
@@ -195,15 +204,6 @@
       
       <guid>https://punk1u.github.io/post/%E5%88%86%E5%B8%83%E5%BC%8Fid/</guid>
       <description>分布式ID 实现方式 号段模式 每次批量获取ID，将ID列表缓存在本地，提升效率。不需要每次都去请求ID。直到当前号段用完了，才去获取下一号段。 雪</description>
-    </item>
-    
-    <item>
-      <title>深入理解Java虚拟机笔记6——线程安全与锁优化</title>
-      <link>https://punk1u.github.io/post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B06%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E4%B8%8E%E9%94%81%E4%BC%98%E5%8C%96/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://punk1u.github.io/post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B06%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E4%B8%8E%E9%94%81%E4%BC%98%E5%8C%96/</guid>
-      <description>线程安全与锁优化 线程安全 《Java并发编程实战（Java Concurrency In Practice）》的作者Brian Goetz为“线程安全”做出了一个比较恰当的</description>
     </item>
     
   </channel>
