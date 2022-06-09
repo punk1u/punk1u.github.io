@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.84.1 with theme even" />
+<meta name="generator" content="Hugo 0.100.1 with theme even" />
 
 
 <link rel="canonical" href="https://punk1u.github.io/post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B04%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9B%91%E6%8E%A7%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7/" />
@@ -43,12 +43,12 @@
 <meta property="og:description" content="给一个系统定位问题的时候，知识、经验是关键基础，数据是依据，工具是运用知识处理数据的手段。这里说的数据包括但不限于异常堆栈、虚拟机运行日志、" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://punk1u.github.io/post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B04%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9B%91%E6%8E%A7%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-06-26T12:03:39&#43;08:00" />
-<meta property="article:modified_time" content="2021-06-26T12:03:39&#43;08:00" />
+<meta property="article:published_time" content="2021-06-26T12:03:39+08:00" />
+<meta property="article:modified_time" content="2021-06-26T12:03:39+08:00" />
 
 <meta itemprop="name" content="深入理解Java虚拟机笔记4——虚拟机监控处理工具">
-<meta itemprop="description" content="给一个系统定位问题的时候，知识、经验是关键基础，数据是依据，工具是运用知识处理数据的手段。这里说的数据包括但不限于异常堆栈、虚拟机运行日志、"><meta itemprop="datePublished" content="2021-06-26T12:03:39&#43;08:00" />
-<meta itemprop="dateModified" content="2021-06-26T12:03:39&#43;08:00" />
+<meta itemprop="description" content="给一个系统定位问题的时候，知识、经验是关键基础，数据是依据，工具是运用知识处理数据的手段。这里说的数据包括但不限于异常堆栈、虚拟机运行日志、"><meta itemprop="datePublished" content="2021-06-26T12:03:39+08:00" />
+<meta itemprop="dateModified" content="2021-06-26T12:03:39+08:00" />
 <meta itemprop="wordCount" content="5742">
 <meta itemprop="keywords" content="JVM,笔记," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="深入理解Java虚拟机笔记4——虚拟机监控处理工具"/>
@@ -168,26 +168,26 @@
 <p><code>jps</code>命令格式：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">jps <span class="o">[</span> options <span class="o">]</span> <span class="o">[</span> hostid <span class="o">]</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">jps <span class="o">[</span> options <span class="o">]</span> <span class="o">[</span> hostid <span class="o">]</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>jps</code>执行样例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">jps -l
-<span class="m">2388</span> D:<span class="se">\D</span>evelop<span class="se">\g</span>lassfish<span class="se">\b</span>in<span class="se">\.</span>.<span class="se">\m</span>odules<span class="se">\a</span>dmin-cli.jar
-<span class="m">2764</span> com.sun.enterprise.glassfish.bootstrap.ASMain
-<span class="m">3788</span> sun.tools.jps.Jps
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">jps -l
+</span></span><span class="line"><span class="cl"><span class="m">2388</span> D:<span class="se">\D</span>evelop<span class="se">\g</span>lassfish<span class="se">\b</span>in<span class="se">\.</span>.<span class="se">\m</span>odules<span class="se">\a</span>dmin-cli.jar
+</span></span><span class="line"><span class="cl"><span class="m">2764</span> com.sun.enterprise.glassfish.bootstrap.ASMain
+</span></span><span class="line"><span class="cl"><span class="m">3788</span> sun.tools.jps.Jps
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>jps</code>还可以通过<code>RMI协议</code>查询开启了<code>RMI服务</code>的远程虚拟机进程状态，参数<code>hostid</code>为<code>RMI注册表</code>中注册的主机名。</p>
 <p><code>jps</code>工具主要选项：</p>
@@ -222,29 +222,29 @@
 <p><code>jstat</code>命令格式为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">jstat <span class="o">[</span> option vmid <span class="o">[</span>interval<span class="o">[</span>s<span class="p">|</span>ms<span class="o">]</span> <span class="o">[</span>count<span class="o">]]</span> <span class="o">]</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">jstat <span class="o">[</span> option vmid <span class="o">[</span>interval<span class="o">[</span>s<span class="p">|</span>ms<span class="o">]</span> <span class="o">[</span>count<span class="o">]]</span> <span class="o">]</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>对于命令格式中的<code>VMID</code>与<code>LVMID</code>需要特别说明一下：如果是本地虚拟机进程，<code>VMID</code>与<code>LVMID</code>是一致的；如果是远程虚拟机进程，那<code>VMID</code>的格式应当是：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>protocol:<span class="o">][</span>//<span class="o">]</span>lvmid<span class="o">[</span>@hostname<span class="o">[</span>:port<span class="o">]</span>/servername<span class="o">]</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>protocol:<span class="o">][</span>//<span class="o">]</span>lvmid<span class="o">[</span>@hostname<span class="o">[</span>:port<span class="o">]</span>/servername<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>参数interval和count代表查询间隔和次数，如果省略这2个参数，说明只查询一次。假设需要每250毫秒查询一次进程2764垃圾收集状况，一共查询20次，那命令应当是：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">jstat -gc <span class="m">2764</span> <span class="m">250</span> <span class="m">20</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">jstat -gc <span class="m">2764</span> <span class="m">250</span> <span class="m">20</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>选项option代表用户希望查询的虚拟机信息，主要分为三类：类加载、垃圾收集、运行期编译状况：</p>
 <table>
@@ -311,22 +311,22 @@
 <p><code>jinfo</code>命令格式：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">jinfo <span class="o">[</span> option <span class="o">]</span> pid
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">jinfo <span class="o">[</span> option <span class="o">]</span> pid
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>执行样例：查询<code>CMSInitiatingOccupancyFraction</code>参数值:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">jinfo -flag CMSInitiatingOccupancyFraction <span class="m">1444</span>
--XX:CMSInitiatingOccupancyFraction<span class="o">=</span><span class="m">85</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">jinfo -flag CMSInitiatingOccupancyFraction <span class="m">1444</span>
+</span></span><span class="line"><span class="cl">-XX:CMSInitiatingOccupancyFraction<span class="o">=</span><span class="m">85</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="jmapjava内存映像工具">jmap：Java内存映像工具</h3>
 <p><code>jmap</code>（Memory Map for Java）命令用于生成堆转储快照（一般称为<code>heapdump</code>或<code>dump</code>文件）。如果不使用<code>jmap</code>命令，要想获取Java堆转储快照也还有一些比较“暴力”的手段：譬如在第2章中用过的<code>-XX：+HeapDumpOnOutOfMemoryError</code>参数，可以让虚拟机在内存溢出异常出现之后自动生成堆转储快照文件，通过<code>-XX：+HeapDumpOnCtrlBreak</code>参数则可以使用<code>[Ctrl]+[Break]</code>键让虚拟机生成堆转储快照文件，又或者在Linux系统下通过Kill-3命令发送进程退出信号“恐吓”一下虚拟机，也能顺利拿到堆转储快照。</p>
@@ -335,11 +335,11 @@
 <p><code>jmap</code>命令格式：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">jmap <span class="o">[</span> option <span class="o">]</span> vmid
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">jmap <span class="o">[</span> option <span class="o">]</span> vmid
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>jmap</code>工具主要选项：</p>
 <table>
@@ -379,15 +379,15 @@
 <p>使用<code>jmap</code>生成dump文件：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">jmap -dump:format<span class="o">=</span>b,file<span class="o">=</span>eclipse.bin <span class="m">3500</span>
-Dumping heap to C:<span class="se">\U</span>sers<span class="se">\I</span>cyFenix<span class="se">\e</span>clipse.bin ...
-Heap dump file created
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">jmap -dump:format<span class="o">=</span>b,file<span class="o">=</span>eclipse.bin <span class="m">3500</span>
+</span></span><span class="line"><span class="cl">Dumping heap to C:<span class="se">\U</span>sers<span class="se">\I</span>cyFenix<span class="se">\e</span>clipse.bin ...
+</span></span><span class="line"><span class="cl">Heap dump file created
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>3500是通过<code>jps</code>命令查询到的<code>LVMID</code>。</p>
 <h3 id="jhat虚拟机堆转储快照分析工具">jhat：虚拟机堆转储快照分析工具</h3>
@@ -395,7 +395,7 @@ Heap dump file created
 <p>使用<code>jhat</code>分析dump文件：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -407,17 +407,17 @@ Heap dump file created
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">jhat eclipse.bin
-Reading from eclipse.bin...
-Dump file created Fri Nov <span class="m">19</span> 22:07:21 CST <span class="m">2010</span>
-Snapshot read, resolving...
-Resolving <span class="m">1225951</span> objects...
-Chasing references, expect <span class="m">245</span> dots....
-Eliminating duplicate references...
-Snapshot resolved.
-Started HTTP server on port <span class="m">7000</span>
-Server is ready.
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">jhat eclipse.bin
+</span></span><span class="line"><span class="cl">Reading from eclipse.bin...
+</span></span><span class="line"><span class="cl">Dump file created Fri Nov <span class="m">19</span> 22:07:21 CST <span class="m">2010</span>
+</span></span><span class="line"><span class="cl">Snapshot read, resolving...
+</span></span><span class="line"><span class="cl">Resolving <span class="m">1225951</span> objects...
+</span></span><span class="line"><span class="cl">Chasing references, expect <span class="m">245</span> dots....
+</span></span><span class="line"><span class="cl">Eliminating duplicate references...
+</span></span><span class="line"><span class="cl">Snapshot resolved.
+</span></span><span class="line"><span class="cl">Started HTTP server on port <span class="m">7000</span>
+</span></span><span class="line"><span class="cl">Server is ready.
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>屏幕显示“Server is ready.”的提示后，用户在浏览器中输入http://localhost:7000/可以看到分析结果。</p>
 <p>分析结果默认以包为单位进行分组显示，分析内存泄漏问题主要会使用到其中的“<code>Heap Histogram</code>”（与<code>jmap-histo</code>功能一样）与<code>OQL</code>页签的功能，前者可以找到内存中总容量最大的对象，后者是标准的对象查询语言，使用类似<code>SQL</code>的语法对内存中的对象进行查询统计。</p>
@@ -426,11 +426,11 @@ Server is ready.
 <p><code>jstack</code>命令格式：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">jstack <span class="o">[</span> option <span class="o">]</span> vmid
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">jstack <span class="o">[</span> option <span class="o">]</span> vmid
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>option选项：</p>
 <table>
@@ -458,7 +458,7 @@ Server is ready.
 <p>使用<code>jstack</code>查看线程堆栈：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -472,24 +472,24 @@ Server is ready.
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">jstack -l <span class="m">3500</span>
-2010-11-19 23:11:26
-Full thread dump Java HotSpot<span class="o">(</span>TM<span class="o">)</span> 64-Bit Server VM <span class="o">(</span>17.1-b03 mixed mode<span class="o">)</span>:
-<span class="s2">&#34;[ThreadPool Manager] - Idle Thread&#34;</span> daemon <span class="nv">prio</span><span class="o">=</span><span class="m">6</span> <span class="nv">tid</span><span class="o">=</span>0x0000000039dd4000 <span class="nv">nid</span><span class="o">=</span> 0xf50 in Object.wait<span class="o">()</span> <span class="o">[</span>0x000000003c96f000<span class="o">]</span>
-    java.lang.Thread.State: WAITING <span class="o">(</span>on object monitor<span class="o">)</span>
-        at java.lang.Object.wait<span class="o">(</span>Native Method<span class="o">)</span>
-        - waiting on &lt;0x0000000016bdcc60&gt; <span class="o">(</span>a org.eclipse.equinox.internal.util.impl.tpt.threadpool.Executor<span class="o">)</span>
-        at java.lang.Object.wait<span class="o">(</span>Object.java:485<span class="o">)</span>
-        at org.eclipse.equinox.internal.util.impl.tpt.threadpool.Executor.run <span class="o">(</span>Executor. java:106<span class="o">)</span>
-        - locked &lt;0x0000000016bdcc60&gt; <span class="o">(</span>a org.eclipse.equinox.internal.util.impl.tpt.threadpool.Executor<span class="o">)</span>
-    Locked ownable synchronizers:
-    	- None
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">jstack -l <span class="m">3500</span>
+</span></span><span class="line"><span class="cl">2010-11-19 23:11:26
+</span></span><span class="line"><span class="cl">Full thread dump Java HotSpot<span class="o">(</span>TM<span class="o">)</span> 64-Bit Server VM <span class="o">(</span>17.1-b03 mixed mode<span class="o">)</span>:
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;[ThreadPool Manager] - Idle Thread&#34;</span> daemon <span class="nv">prio</span><span class="o">=</span><span class="m">6</span> <span class="nv">tid</span><span class="o">=</span>0x0000000039dd4000 <span class="nv">nid</span><span class="o">=</span> 0xf50 in Object.wait<span class="o">()</span> <span class="o">[</span>0x000000003c96f000<span class="o">]</span>
+</span></span><span class="line"><span class="cl">    java.lang.Thread.State: WAITING <span class="o">(</span>on object monitor<span class="o">)</span>
+</span></span><span class="line"><span class="cl">        at java.lang.Object.wait<span class="o">(</span>Native Method<span class="o">)</span>
+</span></span><span class="line"><span class="cl">        - waiting on &lt;0x0000000016bdcc60&gt; <span class="o">(</span>a org.eclipse.equinox.internal.util.impl.tpt.threadpool.Executor<span class="o">)</span>
+</span></span><span class="line"><span class="cl">        at java.lang.Object.wait<span class="o">(</span>Object.java:485<span class="o">)</span>
+</span></span><span class="line"><span class="cl">        at org.eclipse.equinox.internal.util.impl.tpt.threadpool.Executor.run <span class="o">(</span>Executor. java:106<span class="o">)</span>
+</span></span><span class="line"><span class="cl">        - locked &lt;0x0000000016bdcc60&gt; <span class="o">(</span>a org.eclipse.equinox.internal.util.impl.tpt.threadpool.Executor<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    Locked ownable synchronizers:
+</span></span><span class="line"><span class="cl">    	- None
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>从<code>JDK 5</code>起，<code>java.lang.Thread</code>类新增了一个<code>getAllStackTraces()</code>方法用于获取虚拟机中所有线程的<code>StackTraceElement</code>对象。使用这个方法可以通过简单的几行代码完成<code>jstack</code>的大部分功能，在实际项目中不妨调用这个方法做个管理员页面，可以随时使用浏览器来查看线程堆栈。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -514,30 +514,30 @@ Full thread dump Java HotSpot<span class="o">(</span>TM<span class="o">)</span> 
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-html" data-lang="html"><span class="err">&lt;</span>%@ page import=&#34;java.util.Map&#34;%&gt;
-<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>服务器线程信息<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">pre</span><span class="p">&gt;</span>
-<span class="err">&lt;</span>%
-    for (Map.Entry<span class="p">&lt;</span><span class="nt">Thread</span><span class="err">,</span> <span class="na">StackTraceElement</span><span class="err">[]</span><span class="p">&gt;</span> stackTrace : Thread.getAllStack-Traces().entrySet()) {
-        Thread thread = (Thread) stackTrace.getKey();
-        StackTraceElement[] stack = (StackTraceElement[]) stackTrace.getValue();
-        if (thread.equals(Thread.currentThread())) {
-        	continue;
-        }
-        out.print(&#34;\n线程：&#34; + thread.getName() + &#34;\n&#34;);
-        for (StackTraceElement element : stack) {
-        	out.print(&#34;\t&#34;+element+&#34;\n&#34;);
-        }
-    }
-%&gt;
-<span class="p">&lt;/</span><span class="nt">pre</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="err">&lt;</span>%@ page import=&#34;java.util.Map&#34;%&gt;
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>服务器线程信息<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">pre</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="err">&lt;</span>%
+</span></span><span class="line"><span class="cl">    for (Map.Entry<span class="p">&lt;</span><span class="nt">Thread</span><span class="err">,</span> <span class="na">StackTraceElement</span><span class="err">[]</span><span class="p">&gt;</span> stackTrace : Thread.getAllStack-Traces().entrySet()) {
+</span></span><span class="line"><span class="cl">        Thread thread = (Thread) stackTrace.getKey();
+</span></span><span class="line"><span class="cl">        StackTraceElement[] stack = (StackTraceElement[]) stackTrace.getValue();
+</span></span><span class="line"><span class="cl">        if (thread.equals(Thread.currentThread())) {
+</span></span><span class="line"><span class="cl">        	continue;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        out.print(&#34;\n线程：&#34; + thread.getName() + &#34;\n&#34;);
+</span></span><span class="line"><span class="cl">        for (StackTraceElement element : stack) {
+</span></span><span class="line"><span class="cl">        	out.print(&#34;\t&#34;+element+&#34;\n&#34;);
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">%&gt;
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">pre</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="可视化故障处理工具">可视化故障处理工具</h2>
 <p><code>JDK</code>中除了附带大量的命令行工具外，还提供了几个功能集成度更高的可视化工具，用户可以使用这些可视化工具以更加便捷的方式进行进程故障诊断和调试工作。这类工具主要包括<code>JConsole</code>、<code>JHSDB</code>、<code>VisualVM</code>和<code>JMC</code>四个。</p>
@@ -604,7 +604,6 @@ Full thread dump Java HotSpot<span class="o">(</span>TM<span class="o">)</span> 
       <div class="social-links">
       <a href="mailto:punk1u@protonmail.com" class="iconfont icon-email" title="email"></a>
       <a href="http://www.github.com/punk1u" class="iconfont icon-github" title="github"></a>
-      <a href="https://weibo.com/u/7541495676" class="iconfont icon-weibo" title="weibo"></a>
   <a href="https://punk1u.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
@@ -623,7 +622,7 @@ Full thread dump Java HotSpot<span class="o">(</span>TM<span class="o">)</span> 
   <span class="copyright-year">
     &copy; 
     2020 - 
-    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>punk1u<br/>版权所有ICP证：<a href='http://beian.miit.gov.cn' target='_blank'>浙ICP备19032348号-1</a></span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>punk1u</span>
   </span>
 </div>
 
@@ -640,7 +639,7 @@ Full thread dump Java HotSpot<span class="o">(</span>TM<span class="o">)</span> 
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.191509a5c8442abdb6eb5020a332fd59bdd83a7e78a2d2241108df9113504292.js"></script>
 
 
 

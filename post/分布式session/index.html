@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.84.1 with theme even" />
+<meta name="generator" content="Hugo 0.100.1 with theme even" />
 
 
 <link rel="canonical" href="https://punk1u.github.io/post/%E5%88%86%E5%B8%83%E5%BC%8Fsession/" />
@@ -43,12 +43,12 @@
 <meta property="og:description" content="分布式session 传统Session 传统Session实现 传统单机Session实现方式： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 @RestController @RequestMapping(&#34;/user&#34;) public class" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://punk1u.github.io/post/%E5%88%86%E5%B8%83%E5%BC%8Fsession/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-01-06T12:29:39&#43;08:00" />
-<meta property="article:modified_time" content="2021-01-06T12:29:39&#43;08:00" />
+<meta property="article:published_time" content="2021-01-06T12:29:39+08:00" />
+<meta property="article:modified_time" content="2021-01-06T12:29:39+08:00" />
 
 <meta itemprop="name" content="分布式session">
-<meta itemprop="description" content="分布式session 传统Session 传统Session实现 传统单机Session实现方式： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 @RestController @RequestMapping(&#34;/user&#34;) public class"><meta itemprop="datePublished" content="2021-01-06T12:29:39&#43;08:00" />
-<meta itemprop="dateModified" content="2021-01-06T12:29:39&#43;08:00" />
+<meta itemprop="description" content="分布式session 传统Session 传统Session实现 传统单机Session实现方式： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 @RestController @RequestMapping(&#34;/user&#34;) public class"><meta itemprop="datePublished" content="2021-01-06T12:29:39+08:00" />
+<meta itemprop="dateModified" content="2021-01-06T12:29:39+08:00" />
 <meta itemprop="wordCount" content="3151">
 <meta itemprop="keywords" content="分布式,笔记,JAVA," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="分布式session"/>
@@ -169,7 +169,7 @@
 <p>传统单机Session实现方式：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -191,64 +191,64 @@
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RestController</span>
-<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/user&#34;</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserController</span> <span class="o">{</span>
-
-    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/login&#34;</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">login</span><span class="o">(</span><span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">username</span><span class="o">,</span>
-                        <span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">password</span><span class="o">,</span>
-                        <span class="n">HttpSession</span> <span class="n">session</span><span class="o">){</span>
-        <span class="c1">// 账号密码正确
-</span><span class="c1"></span>        <span class="n">session</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">&#34;login_user&#34;</span><span class="o">,</span><span class="n">username</span><span class="o">);</span>
-        <span class="k">return</span> <span class="s">&#34;登录成功&#34;</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/info&#34;</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">info</span><span class="o">(</span><span class="n">HttpSession</span> <span class="n">session</span><span class="o">){</span>
-        <span class="k">return</span> <span class="s">&#34;当前登录的是：&#34;</span> <span class="o">+</span> <span class="n">session</span><span class="o">.</span><span class="na">getAttribute</span><span class="o">(</span><span class="s">&#34;login_user&#34;</span><span class="o">);</span>
-    <span class="o">}</span>
-
-
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@RestController</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/user&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserController</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/login&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">login</span><span class="o">(</span><span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">username</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">password</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">HttpSession</span> <span class="n">session</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 账号密码正确
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">session</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">&#34;login_user&#34;</span><span class="o">,</span><span class="n">username</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s">&#34;登录成功&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/info&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">info</span><span class="o">(</span><span class="n">HttpSession</span> <span class="n">session</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s">&#34;当前登录的是：&#34;</span> <span class="o">+</span> <span class="n">session</span><span class="o">.</span><span class="na">getAttribute</span><span class="o">(</span><span class="s">&#34;login_user&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>访问<code>http://127.0.0.1:8080/user/login?username=admin&amp;password=admin</code>接口登录，可以在浏览器开发工具中的Network中看到请求中的<code>Response Headers</code>列中发现下面的key-value值：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">Set-Cookie: JSESSIONID=EB47B8EC38FBA2E7974DFC0F8C2C9ABA; Path=/; HttpOnly
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Set-Cookie: JSESSIONID=EB47B8EC38FBA2E7974DFC0F8C2C9ABA; Path=/; HttpOnly
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这条响应即是服务器端返回的用于标识Session的Cookie-Id。</p>
 <p>登录后再访问<code>http://127.0.0.1:8080/user/info</code>，可以在请求的<code>Request Headers</code> 中发现:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">Cookie: JSESSIONID=EB47B8EC38FBA2E7974DFC0F8C2C9ABA
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Cookie: JSESSIONID=EB47B8EC38FBA2E7974DFC0F8C2C9ABA
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>即为登录时服务器返回的Cookie-Id，此Cookie和对应的Session在服务器端同样有所记录，便于后续前台请求发送到后台时，后台可以确定Session是否存在。</p>
 <h3 id="cookie的跨域问题">Cookie的跨域问题</h3>
 <p>在使用<code>http://127.0.0.1:8080/user/login?username=admin&amp;password=admin</code>接口登录后，使用<code>http://127.0.0.1:8080/user/info</code>可以看到对应的登录信息，但是当使用：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">http:/localhost:8080/user/info
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">http:/localhost:8080/user/info
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>访问时却获取不到之前的登录信息，在浏览器开发工具的Application项中的Storage下的Cookies中可以选择对应的Cookie项看到，此时的Domain值是<code>localhost</code>，而之前<code>127.0.0.1</code>的请求中的Domain则是<code>127.0.0.1</code>，也就是说，虽然是在同一个浏览器下，但是Cookie只能被相同Domain（域名）下的请求访问到。如果是不同的Domain发起的请求，各个请求携带的Cookie-Id是不一样的。也就导致了Session的不同。可以在前台Application中的Storage下的Cookies修改Cookie值模拟对应的Session。</p>
 <h2 id="spring-session实践">Spring-Session实践</h2>
 <p>引入Spring-Session依赖和对应的Redis依赖：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -259,21 +259,21 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;dependency&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
-    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-data-redis<span class="nt">&lt;/artifactId&gt;</span>
-<span class="nt">&lt;/dependency&gt;</span>
-
-<span class="nt">&lt;dependency&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>org.springframework.session<span class="nt">&lt;/groupId&gt;</span>
-    <span class="nt">&lt;artifactId&gt;</span>spring-session-data-redis<span class="nt">&lt;/artifactId&gt;</span>
-<span class="nt">&lt;/dependency&gt;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-data-redis<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;groupId&gt;</span>org.springframework.session<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;artifactId&gt;</span>spring-session-data-redis<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>配置对应的Spring-Session和Redis的配置:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -284,36 +284,36 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">spring.redis.host=127.0.0.1
-spring.redis.port=6379
-
-# 定义Spring-Session使用的存储工具
-spring.session.store-type=redis
-# Spring Session自定义过期时间
-spring.session.timeout=3600
-# Spring Session自定义在Redis中的key的前缀,默认值:spring-session
-spring.session.redis.namespace=login_user
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">spring.redis.host=127.0.0.1
+</span></span><span class="line"><span class="cl">spring.redis.port=6379
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 定义Spring-Session使用的存储工具
+</span></span><span class="line"><span class="cl">spring.session.store-type=redis
+</span></span><span class="line"><span class="cl"># Spring Session自定义过期时间
+</span></span><span class="line"><span class="cl">spring.session.timeout=3600
+</span></span><span class="line"><span class="cl"># Spring Session自定义在Redis中的key的前缀,默认值:spring-session
+</span></span><span class="line"><span class="cl">spring.session.redis.namespace=login_user
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后启动项目后访问<code>http://127.0.0.1:8080/user/login?username=admin&amp;password=1</code>登录后，再访问<code>http://127.0.0.1:8080/user/info</code>可以看到正常的登录信息。此时在Redis中可以看到如下的三个值：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">spring:session:expirations:1610427360000
-spring:session:sessions:e4ce5829-d85f-455e-acf9-5b53c7c35a26
-spring:session:sessions:expires:e4ce5829-d85f-455e-acf9-5b53c7c35a26
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">spring:session:expirations:1610427360000
+</span></span><span class="line"><span class="cl">spring:session:sessions:e4ce5829-d85f-455e-acf9-5b53c7c35a26
+</span></span><span class="line"><span class="cl">spring:session:sessions:expires:e4ce5829-d85f-455e-acf9-5b53c7c35a26
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>代表此登录用户的Session信息已存入Redis中，此时重启应用，再次访问<code>http://127.0.0.1:8080/user/info</code>依然可以访问到之前的登录信息，因为此时Session信息不是存在Tomcat容器中，而是存在第三方的Redis中。</p>
 <h2 id="tokenredis自定义session组件">Token+Redis自定义Session组件</h2>
 <p>在移动端等领域，基于Cookie的Session解决方案并不适用，且<code>Token+Redis</code>实现的方案自由度更高。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -331,23 +331,23 @@ spring:session:sessions:expires:e4ce5829-d85f-455e-acf9-5b53c7c35a26
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Autowired</span>
-<span class="kd">private</span> <span class="n">StringRedisTemplate</span> <span class="n">stringRedisTemplate</span><span class="o">;</span>
-
-<span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/loginWithToken&#34;</span><span class="o">)</span>
-<span class="kd">public</span> <span class="n">String</span> <span class="nf">loginWithToken</span><span class="o">(</span><span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">username</span><span class="o">,</span>
-							<span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">password</span><span class="o">){</span>
-    <span class="c1">// 账号密码正确
-</span><span class="c1"></span>    <span class="n">String</span> <span class="n">key</span> <span class="o">=</span> <span class="s">&#34;token_&#34;</span> <span class="o">+</span> <span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
-    <span class="n">stringRedisTemplate</span><span class="o">.</span><span class="na">opsForValue</span><span class="o">().</span><span class="na">set</span><span class="o">(</span><span class="n">key</span><span class="o">,</span><span class="n">username</span><span class="o">,</span><span class="n">3600</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">);</span>
-    <span class="k">return</span> <span class="n">key</span><span class="o">;</span>
-<span class="o">}</span>
-
-<span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/infoWithToken&#34;</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">infoWithToken</span><span class="o">(</span><span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">token</span><span class="o">){</span>
-    <span class="k">return</span> <span class="s">&#34;当前登录的是：&#34;</span> <span class="o">+</span> <span class="n">stringRedisTemplate</span><span class="o">.</span><span class="na">opsForValue</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="n">token</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Autowired</span>
+</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="n">StringRedisTemplate</span> <span class="n">stringRedisTemplate</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/loginWithToken&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">String</span> <span class="nf">loginWithToken</span><span class="o">(</span><span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">username</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">							<span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">password</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 账号密码正确
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">String</span> <span class="n">key</span> <span class="o">=</span> <span class="s">&#34;token_&#34;</span> <span class="o">+</span> <span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">stringRedisTemplate</span><span class="o">.</span><span class="na">opsForValue</span><span class="o">().</span><span class="na">set</span><span class="o">(</span><span class="n">key</span><span class="o">,</span><span class="n">username</span><span class="o">,</span><span class="n">3600</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">key</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/infoWithToken&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">infoWithToken</span><span class="o">(</span><span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">token</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s">&#34;当前登录的是：&#34;</span> <span class="o">+</span> <span class="n">stringRedisTemplate</span><span class="o">.</span><span class="na">opsForValue</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="n">token</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="jwt实现">JWT实现</h2>
 <p>前面的分布式Session实现方式都依赖于Redis中间件，会增加系统复杂性，且如果要使用对应的加密信息还需手动编写对应的加密逻辑。可以使用JWT解决这两个问题</p>
@@ -361,28 +361,28 @@ spring:session:sessions:expires:e4ce5829-d85f-455e-acf9-5b53c7c35a26
 <p>因此，一个典型的JWT看起来是这个样子的：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">xxxxx.yyyyy.zzzzz
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">xxxxx.yyyyy.zzzzz
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="header">Header</h3>
 <p>header典型的由两部分组成：token的类型（“JWT”）和算法名称（比如：HMAC SHA256或者RSA等等）。</p>
 <p>例如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
-  <span class="nt">&#34;typ&#34;</span><span class="p">:</span> <span class="s2">&#34;JWT&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;alg&#34;</span><span class="p">:</span> <span class="s2">&#34;HS256&#34;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;typ&#34;</span><span class="p">:</span> <span class="s2">&#34;JWT&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;alg&#34;</span><span class="p">:</span> <span class="s2">&#34;HS256&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后，用Base64对这个JSON编码就得到JWT的第一部分</p>
 <h3 id="payload">Payload</h3>
@@ -395,19 +395,19 @@ spring:session:sessions:expires:e4ce5829-d85f-455e-acf9-5b53c7c35a26
 <p>例如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
-  <span class="nt">&#34;login_user&#34;</span><span class="p">:</span> <span class="s2">&#34;admin&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;user_id&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="nt">&#34;exp&#34;</span><span class="p">:</span> <span class="mi">1610465947</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;login_user&#34;</span><span class="p">:</span> <span class="s2">&#34;admin&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;user_id&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;exp&#34;</span><span class="p">:</span> <span class="mi">1610465947</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>对payload进行Base64编码就得到JWT的第二部分</p>
 <p>注意，不要在JWT的payload或header中放置敏感信息，除非它们是加密的。</p>
@@ -416,11 +416,11 @@ spring:session:sessions:expires:e4ce5829-d85f-455e-acf9-5b53c7c35a26
 <p>例如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">HMACSHA256(base64UrlEncode(header) + &#34;.&#34; + base64UrlEncode(payload), secret)
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">HMACSHA256(base64UrlEncode(header) + &#34;.&#34; + base64UrlEncode(payload), secret)
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>签名是用于验证消息在传递过程中有没有被更改，并且，对于使用私钥签名的token，它还可以验证JWT的发送方是否为它所称的发送方。</p>
 <h3 id="jwt工作方式">JWT工作方式</h3>
@@ -436,23 +436,23 @@ spring:session:sessions:expires:e4ce5829-d85f-455e-acf9-5b53c7c35a26
 <p>引入JWT依赖：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;dependency&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>com.auth0<span class="nt">&lt;/groupId&gt;</span>
-    <span class="nt">&lt;artifactId&gt;</span>java-jwt<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>3.10.3<span class="nt">&lt;/version&gt;</span>
-<span class="nt">&lt;/dependency&gt;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;groupId&gt;</span>com.auth0<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;artifactId&gt;</span>java-jwt<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;version&gt;</span>3.10.3<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -489,60 +489,60 @@ spring:session:sessions:expires:e4ce5829-d85f-455e-acf9-5b53c7c35a26
 </span><span class="lnt">35
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">JWT_KEY</span> <span class="o">=</span> <span class="s">&#34;encryt_key&#34;</span><span class="o">;</span>
-
-<span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/loginWithJwt&#34;</span><span class="o">)</span>
-<span class="kd">public</span> <span class="n">String</span> <span class="nf">loginWithJwt</span><span class="o">(</span><span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">username</span><span class="o">,</span>
-							<span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">password</span><span class="o">){</span>
-    <span class="c1">// 账号密码正确
-</span><span class="c1"></span>    <span class="c1">// 指定JWT使用的算法和对应的密钥key
-</span><span class="c1"></span>    <span class="n">Algorithm</span> <span class="n">algorithm</span> <span class="o">=</span> <span class="n">Algorithm</span><span class="o">.</span><span class="na">HMAC256</span><span class="o">(</span><span class="n">JWT_KEY</span><span class="o">);</span>
-    <span class="n">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">JWT</span><span class="o">.</span><span class="na">create</span><span class="o">()</span>
-    <span class="c1">// 向JWT中存入数据
-</span><span class="c1"></span>    <span class="o">.</span><span class="na">withClaim</span><span class="o">(</span><span class="s">&#34;login_user&#34;</span><span class="o">,</span><span class="n">username</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">withClaim</span><span class="o">(</span><span class="s">&#34;user_id&#34;</span><span class="o">,</span><span class="n">1</span><span class="o">)</span>
-    <span class="c1">// 设置token过期时间
-</span><span class="c1"></span>    <span class="o">.</span><span class="na">withExpiresAt</span><span class="o">(</span><span class="k">new</span> <span class="n">Date</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">+</span> <span class="n">3600000</span><span class="o">))</span>
-    <span class="o">.</span><span class="na">sign</span><span class="o">(</span><span class="n">algorithm</span><span class="o">);</span>
-    <span class="k">return</span> <span class="n">token</span><span class="o">;</span>
-<span class="o">}</span>
-
-<span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/infoWithJwt&#34;</span><span class="o">)</span>
-<span class="kd">public</span> <span class="n">String</span> <span class="nf">infoWithJwt</span><span class="o">(</span><span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">token</span><span class="o">){</span>
-    <span class="c1">// 指定JWT使用的算法和对应的密钥key
-</span><span class="c1"></span>    <span class="n">Algorithm</span> <span class="n">algorithm</span> <span class="o">=</span> <span class="n">Algorithm</span><span class="o">.</span><span class="na">HMAC256</span><span class="o">(</span><span class="n">JWT_KEY</span><span class="o">);</span>
-    <span class="n">JWTVerifier</span> <span class="n">verifier</span> <span class="o">=</span> <span class="n">JWT</span><span class="o">.</span><span class="na">require</span><span class="o">(</span><span class="n">algorithm</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
-    <span class="k">try</span> <span class="o">{</span>
-    <span class="n">DecodedJWT</span> <span class="n">jwt</span> <span class="o">=</span> <span class="n">verifier</span><span class="o">.</span><span class="na">verify</span><span class="o">(</span><span class="n">token</span><span class="o">);</span>
-    <span class="c1">// 返回该token对应的用户名
-</span><span class="c1"></span>    <span class="k">return</span> <span class="n">jwt</span><span class="o">.</span><span class="na">getClaim</span><span class="o">(</span><span class="s">&#34;login_user&#34;</span><span class="o">).</span><span class="na">asString</span><span class="o">();</span>
-    <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">TokenExpiredException</span> <span class="n">e</span><span class="o">){</span>
-    <span class="c1">// token过期
-</span><span class="c1"></span>    <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">JWTDecodeException</span> <span class="n">e</span><span class="o">){</span>
-    <span class="c1">// 解码失败，token错误
-</span><span class="c1"></span>    <span class="o">}</span>
-
-    <span class="k">return</span> <span class="s">&#34;error&#34;</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">private</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">JWT_KEY</span> <span class="o">=</span> <span class="s">&#34;encryt_key&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/loginWithJwt&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">String</span> <span class="nf">loginWithJwt</span><span class="o">(</span><span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">username</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">							<span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">password</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 账号密码正确
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 指定JWT使用的算法和对应的密钥key
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Algorithm</span> <span class="n">algorithm</span> <span class="o">=</span> <span class="n">Algorithm</span><span class="o">.</span><span class="na">HMAC256</span><span class="o">(</span><span class="n">JWT_KEY</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">JWT</span><span class="o">.</span><span class="na">create</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 向JWT中存入数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">.</span><span class="na">withClaim</span><span class="o">(</span><span class="s">&#34;login_user&#34;</span><span class="o">,</span><span class="n">username</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">.</span><span class="na">withClaim</span><span class="o">(</span><span class="s">&#34;user_id&#34;</span><span class="o">,</span><span class="n">1</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 设置token过期时间
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">.</span><span class="na">withExpiresAt</span><span class="o">(</span><span class="k">new</span> <span class="n">Date</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">+</span> <span class="n">3600000</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">    <span class="o">.</span><span class="na">sign</span><span class="o">(</span><span class="n">algorithm</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">token</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/infoWithJwt&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">String</span> <span class="nf">infoWithJwt</span><span class="o">(</span><span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">token</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 指定JWT使用的算法和对应的密钥key
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Algorithm</span> <span class="n">algorithm</span> <span class="o">=</span> <span class="n">Algorithm</span><span class="o">.</span><span class="na">HMAC256</span><span class="o">(</span><span class="n">JWT_KEY</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JWTVerifier</span> <span class="n">verifier</span> <span class="o">=</span> <span class="n">JWT</span><span class="o">.</span><span class="na">require</span><span class="o">(</span><span class="n">algorithm</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">DecodedJWT</span> <span class="n">jwt</span> <span class="o">=</span> <span class="n">verifier</span><span class="o">.</span><span class="na">verify</span><span class="o">(</span><span class="n">token</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 返回该token对应的用户名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="n">jwt</span><span class="o">.</span><span class="na">getClaim</span><span class="o">(</span><span class="s">&#34;login_user&#34;</span><span class="o">).</span><span class="na">asString</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">TokenExpiredException</span> <span class="n">e</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// token过期
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">JWTDecodeException</span> <span class="n">e</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 解码失败，token错误
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s">&#34;error&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>启动项目后，访问<code>http://127.0.0.1:8080/user/loginWithJwt?username=admin&amp;password=1</code>之后，返回的token是一个类似于下面的值：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbl91c2VyIjoiYWRtaW4iLCJ1c2VyX2lkIjoxLCJleHAiOjE2MTA0NjU1MTh9.SnoRFLwj-ITZBZz41h0rZiUaEAMGI5HKvaByMjWajJA
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbl91c2VyIjoiYWRtaW4iLCJ1c2VyX2lkIjoxLCJleHAiOjE2MTA0NjU1MTh9.SnoRFLwj-ITZBZz41h0rZiUaEAMGI5HKvaByMjWajJA
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>再使用这个token作为参数访问：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">http://127.0.0.1:8080/user/infoWithJwt?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbl91c2VyIjoiYWRtaW4iLCJ1c2VyX2lkIjoxLCJleHAiOjE2MTA0NjU1MTh9.SnoRFLwj-ITZBZz41h0rZiUaEAMGI5HKvaByMjWajJA
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">http://127.0.0.1:8080/user/infoWithJwt?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbl91c2VyIjoiYWRtaW4iLCJ1c2VyX2lkIjoxLCJleHAiOjE2MTA0NjU1MTh9.SnoRFLwj-ITZBZz41h0rZiUaEAMGI5HKvaByMjWajJA
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以得到登陆时在JWT中保存的变量值（用户的名字），同理也可获得对应的过期时间及其他值。</p>
 <h2 id="类似的oauth2技术">类似的OAuth2技术</h2>
@@ -603,7 +603,6 @@ spring:session:sessions:expires:e4ce5829-d85f-455e-acf9-5b53c7c35a26
       <div class="social-links">
       <a href="mailto:punk1u@protonmail.com" class="iconfont icon-email" title="email"></a>
       <a href="http://www.github.com/punk1u" class="iconfont icon-github" title="github"></a>
-      <a href="https://weibo.com/u/7541495676" class="iconfont icon-weibo" title="weibo"></a>
   <a href="https://punk1u.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
@@ -622,7 +621,7 @@ spring:session:sessions:expires:e4ce5829-d85f-455e-acf9-5b53c7c35a26
   <span class="copyright-year">
     &copy; 
     2020 - 
-    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>punk1u<br/>版权所有ICP证：<a href='http://beian.miit.gov.cn' target='_blank'>浙ICP备19032348号-1</a></span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>punk1u</span>
   </span>
 </div>
 
@@ -639,7 +638,7 @@ spring:session:sessions:expires:e4ce5829-d85f-455e-acf9-5b53c7c35a26
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.191509a5c8442abdb6eb5020a332fd59bdd83a7e78a2d2241108df9113504292.js"></script>
 
 
 

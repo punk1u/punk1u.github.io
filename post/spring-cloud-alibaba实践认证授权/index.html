@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.84.1 with theme even" />
+<meta name="generator" content="Hugo 0.100.1 with theme even" />
 
 
 <link rel="canonical" href="https://punk1u.github.io/post/spring-cloud-alibaba%E5%AE%9E%E8%B7%B5%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83/" />
@@ -43,13 +43,13 @@
 <meta property="og:description" content="Spring Cloud Alibaba实践——认证授权 在微服务架构中，一个绕不开的问题就是认证授权，比如必须得登录之后才能进行一些操作，而用户登录往往都是在一个" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://punk1u.github.io/post/spring-cloud-alibaba%E5%AE%9E%E8%B7%B5%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-02-06T12:29:39&#43;08:00" />
-<meta property="article:modified_time" content="2021-02-06T12:29:39&#43;08:00" />
+<meta property="article:published_time" content="2021-02-06T12:29:39+08:00" />
+<meta property="article:modified_time" content="2021-02-06T12:29:39+08:00" />
 
 <meta itemprop="name" content="Spring Cloud Alibaba实践——认证授权">
-<meta itemprop="description" content="Spring Cloud Alibaba实践——认证授权 在微服务架构中，一个绕不开的问题就是认证授权，比如必须得登录之后才能进行一些操作，而用户登录往往都是在一个"><meta itemprop="datePublished" content="2021-02-06T12:29:39&#43;08:00" />
-<meta itemprop="dateModified" content="2021-02-06T12:29:39&#43;08:00" />
-<meta itemprop="wordCount" content="4327">
+<meta itemprop="description" content="Spring Cloud Alibaba实践——认证授权 在微服务架构中，一个绕不开的问题就是认证授权，比如必须得登录之后才能进行一些操作，而用户登录往往都是在一个"><meta itemprop="datePublished" content="2021-02-06T12:29:39+08:00" />
+<meta itemprop="dateModified" content="2021-02-06T12:29:39+08:00" />
+<meta itemprop="wordCount" content="4204">
 <meta itemprop="keywords" content="Spring Cloud,笔记,JAVA," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Spring Cloud Alibaba实践——认证授权"/>
 <meta name="twitter:description" content="Spring Cloud Alibaba实践——认证授权 在微服务架构中，一个绕不开的问题就是认证授权，比如必须得登录之后才能进行一些操作，而用户登录往往都是在一个"/>
@@ -124,7 +124,7 @@
             <a href="/categories/%E7%AC%94%E8%AE%B0/"> 笔记 </a>
             <a href="/categories/java/"> JAVA </a>
             </div>
-          <span class="more-meta"> 约 4327 字 </span>
+          <span class="more-meta"> 约 4204 字 </span>
           <span class="more-meta"> 预计阅读 9 分钟 </span>
         
       </div>
@@ -203,7 +203,7 @@
 <p>首先引入依赖：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -211,34 +211,34 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!-- 添加JWT依赖 --&gt;</span>
-<span class="nt">&lt;dependency&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>com.auth0<span class="nt">&lt;/groupId&gt;</span>
-    <span class="nt">&lt;artifactId&gt;</span>java-jwt<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>3.10.3<span class="nt">&lt;/version&gt;</span>
-<span class="nt">&lt;/dependency&gt;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!-- 添加JWT依赖 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;groupId&gt;</span>com.auth0<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;artifactId&gt;</span>java-jwt<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;version&gt;</span>3.10.3<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>添加配置项：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">JWT_KEY</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="l">punk1uJWTTokenSecret</span><span class="w">
-</span><span class="w"></span><span class="nt">JWT_EXPIRE_TIME</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="m">3600000</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">JWT_KEY</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="l">punk1uJWTTokenSecret</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">JWT_EXPIRE_TIME</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="m">3600000</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>用于指定<code>JWT</code>加密解密时的<code>KEY</code>以及生成的<code>token</code>的过期时间。</p>
 <p>编写相关<code>JWT</code>工具类：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -309,87 +309,85 @@
 </span><span class="lnt">69
 </span><span class="lnt">70
 </span><span class="lnt">71
-</span><span class="lnt">72
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.usercenter.util</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">com.auth0.jwt.JWT</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">com.auth0.jwt.JWTCreator</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">com.auth0.jwt.JWTVerifier</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">com.auth0.jwt.algorithms.Algorithm</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">com.auth0.jwt.exceptions.JWTDecodeException</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">com.auth0.jwt.exceptions.TokenExpiredException</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">com.auth0.jwt.interfaces.DecodedJWT</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Value</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">java.util.Date</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
-
-<span class="nd">@Component</span>
-<span class="nd">@Slf4j</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">JWTOperater</span> <span class="o">{</span>
-
-    <span class="nd">@Value</span><span class="o">(</span><span class="s">&#34;${JWT_KEY}&#34;</span><span class="o">)</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">JWT_KEY</span><span class="o">;</span>
-
-    <span class="nd">@Value</span><span class="o">(</span><span class="s">&#34;${JWT_EXPIRE_TIME}&#34;</span><span class="o">)</span>
-    <span class="kd">private</span> <span class="n">Long</span> <span class="n">JWT_EXPIRE_TIME</span><span class="o">;</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 生成对应的JWT Token
-</span><span class="cm">     * @param map
-</span><span class="cm">     * @return
-</span><span class="cm">     */</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">generateToken</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">map</span><span class="o">){</span>
-        <span class="c1">// 账号密码正确
-</span><span class="c1"></span>        <span class="c1">// 指定JWT使用的算法和对应的密钥key
-</span><span class="c1"></span>        <span class="n">Algorithm</span> <span class="n">algorithm</span> <span class="o">=</span> <span class="n">Algorithm</span><span class="o">.</span><span class="na">HMAC256</span><span class="o">(</span><span class="n">JWT_KEY</span><span class="o">);</span>
-        <span class="n">JWTCreator</span><span class="o">.</span><span class="na">Builder</span> <span class="n">builder</span> <span class="o">=</span> <span class="n">JWT</span><span class="o">.</span><span class="na">create</span><span class="o">();</span>
-        <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">key</span> <span class="o">:</span> <span class="n">map</span><span class="o">.</span><span class="na">keySet</span><span class="o">()){</span>
-            <span class="n">builder</span><span class="o">.</span><span class="na">withClaim</span><span class="o">(</span><span class="n">key</span><span class="o">,</span><span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">));</span>
-        <span class="o">}</span>
-        <span class="c1">// 设置token过期时间
-</span><span class="c1"></span>        <span class="n">String</span> <span class="n">token</span> <span class="o">=</span>
-                <span class="n">builder</span><span class="o">.</span><span class="na">withExpiresAt</span><span class="o">(</span><span class="k">new</span> <span class="n">Date</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">+</span> <span class="n">JWT_EXPIRE_TIME</span><span class="o">))</span>
-                <span class="o">.</span><span class="na">sign</span><span class="o">(</span><span class="n">algorithm</span><span class="o">);</span>
-        <span class="k">return</span> <span class="n">token</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 从JWT Token中解析相应的数据
-</span><span class="cm">     * @param token JWT Token
-</span><span class="cm">     * @param key 要解析的数据的key
-</span><span class="cm">     * @return
-</span><span class="cm">     */</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getInfoFromJWT</span><span class="o">(</span><span class="n">String</span> <span class="n">token</span><span class="o">,</span><span class="n">String</span> <span class="n">key</span><span class="o">){</span>
-        <span class="c1">// 指定JWT使用的算法和对应的密钥key
-</span><span class="c1"></span>        <span class="n">Algorithm</span> <span class="n">algorithm</span> <span class="o">=</span> <span class="n">Algorithm</span><span class="o">.</span><span class="na">HMAC256</span><span class="o">(</span><span class="n">JWT_KEY</span><span class="o">);</span>
-        <span class="n">JWTVerifier</span> <span class="n">verifier</span> <span class="o">=</span> <span class="n">JWT</span><span class="o">.</span><span class="na">require</span><span class="o">(</span><span class="n">algorithm</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="n">DecodedJWT</span> <span class="n">jwt</span> <span class="o">=</span> <span class="n">verifier</span><span class="o">.</span><span class="na">verify</span><span class="o">(</span><span class="n">token</span><span class="o">);</span>
-            <span class="c1">// 返回该token对应的用户名
-</span><span class="c1"></span>            <span class="k">return</span> <span class="n">jwt</span><span class="o">.</span><span class="na">getClaim</span><span class="o">(</span><span class="n">key</span><span class="o">).</span><span class="na">asString</span><span class="o">();</span>
-        <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">TokenExpiredException</span> <span class="n">e</span><span class="o">){</span>
-            <span class="c1">// token过期
-</span><span class="c1"></span>            <span class="n">log</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">&#34;token过期!&#34;</span><span class="o">,</span><span class="n">e</span><span class="o">);</span>
-        <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">JWTDecodeException</span> <span class="n">e</span><span class="o">){</span>
-            <span class="c1">// 解码失败，token错误
-</span><span class="c1"></span>            <span class="n">log</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">&#34;token解码失败!&#34;</span><span class="o">,</span><span class="n">e</span><span class="o">);</span>
-        <span class="o">}</span>
-
-        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">tech.punklu.usercenter.util</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.auth0.jwt.JWT</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.auth0.jwt.JWTCreator</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.auth0.jwt.JWTVerifier</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.auth0.jwt.algorithms.Algorithm</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.auth0.jwt.exceptions.JWTDecodeException</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.auth0.jwt.exceptions.TokenExpiredException</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.auth0.jwt.interfaces.DecodedJWT</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Value</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.Date</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@Component</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@Slf4j</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">JWTOperater</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Value</span><span class="o">(</span><span class="s">&#34;${JWT_KEY}&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">String</span> <span class="n">JWT_KEY</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Value</span><span class="o">(</span><span class="s">&#34;${JWT_EXPIRE_TIME}&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">Long</span> <span class="n">JWT_EXPIRE_TIME</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 生成对应的JWT Token
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param map
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">generateToken</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">map</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 账号密码正确
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// 指定JWT使用的算法和对应的密钥key
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">Algorithm</span> <span class="n">algorithm</span> <span class="o">=</span> <span class="n">Algorithm</span><span class="o">.</span><span class="na">HMAC256</span><span class="o">(</span><span class="n">JWT_KEY</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">JWTCreator</span><span class="o">.</span><span class="na">Builder</span> <span class="n">builder</span> <span class="o">=</span> <span class="n">JWT</span><span class="o">.</span><span class="na">create</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">key</span> <span class="o">:</span> <span class="n">map</span><span class="o">.</span><span class="na">keySet</span><span class="o">()){</span>
+</span></span><span class="line"><span class="cl">            <span class="n">builder</span><span class="o">.</span><span class="na">withClaim</span><span class="o">(</span><span class="n">key</span><span class="o">,</span><span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 设置token过期时间
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">String</span> <span class="n">token</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">                <span class="n">builder</span><span class="o">.</span><span class="na">withExpiresAt</span><span class="o">(</span><span class="k">new</span> <span class="n">Date</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">+</span> <span class="n">JWT_EXPIRE_TIME</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">sign</span><span class="o">(</span><span class="n">algorithm</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">token</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 从JWT Token中解析相应的数据
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param token JWT Token
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param key 要解析的数据的key
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getInfoFromJWT</span><span class="o">(</span><span class="n">String</span> <span class="n">token</span><span class="o">,</span><span class="n">String</span> <span class="n">key</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 指定JWT使用的算法和对应的密钥key
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">Algorithm</span> <span class="n">algorithm</span> <span class="o">=</span> <span class="n">Algorithm</span><span class="o">.</span><span class="na">HMAC256</span><span class="o">(</span><span class="n">JWT_KEY</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">JWTVerifier</span> <span class="n">verifier</span> <span class="o">=</span> <span class="n">JWT</span><span class="o">.</span><span class="na">require</span><span class="o">(</span><span class="n">algorithm</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">DecodedJWT</span> <span class="n">jwt</span> <span class="o">=</span> <span class="n">verifier</span><span class="o">.</span><span class="na">verify</span><span class="o">(</span><span class="n">token</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 返回该token对应的用户名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">return</span> <span class="n">jwt</span><span class="o">.</span><span class="na">getClaim</span><span class="o">(</span><span class="n">key</span><span class="o">).</span><span class="na">asString</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">TokenExpiredException</span> <span class="n">e</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// token过期
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">log</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">&#34;token过期!&#34;</span><span class="o">,</span><span class="n">e</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">JWTDecodeException</span> <span class="n">e</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 解码失败，token错误
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">log</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">&#34;token解码失败!&#34;</span><span class="o">,</span><span class="n">e</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>开发登录接口：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -422,49 +420,47 @@
 </span><span class="lnt">31
 </span><span class="lnt">32
 </span><span class="lnt">33
-</span><span class="lnt">34
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.usercenter.controller.user</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.*</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">tech.punklu.usercenter.domain.dto.user.UserWithJwtTokenRespDTO</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">tech.punklu.usercenter.domain.entity.user.User</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">tech.punklu.usercenter.service.user.UserService</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">tech.punklu.usercenter.util.JWTOperater</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
-
-<span class="nd">@RestController</span>
-<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/users&#34;</span><span class="o">)</span>
-<span class="nd">@Slf4j</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserController</span> <span class="o">{</span>
-
-    <span class="nd">@Autowired</span>
-    <span class="kd">private</span> <span class="n">UserService</span> <span class="n">userService</span><span class="o">;</span>
-
-
-    <span class="cm">/**
-</span><span class="cm">     * 用户登录
-</span><span class="cm">     * @param loginUser
-</span><span class="cm">     * @return
-</span><span class="cm">     */</span>
-    <span class="nd">@PostMapping</span><span class="o">(</span><span class="s">&#34;/login&#34;</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">login</span><span class="o">(</span><span class="nd">@RequestBody</span>  <span class="n">User</span> <span class="n">loginUser</span><span class="o">){</span>
-        <span class="n">String</span> <span class="n">userToken</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">userService</span><span class="o">.</span><span class="na">login</span><span class="o">(</span><span class="n">loginUser</span><span class="o">);</span>
-        <span class="k">return</span> <span class="n">userToken</span><span class="o">;</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">tech.punklu.usercenter.controller.user</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.*</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">tech.punklu.usercenter.domain.dto.user.UserWithJwtTokenRespDTO</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">tech.punklu.usercenter.domain.entity.user.User</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">tech.punklu.usercenter.service.user.UserService</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">tech.punklu.usercenter.util.JWTOperater</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@RestController</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/users&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@Slf4j</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserController</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Autowired</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">UserService</span> <span class="n">userService</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 用户登录
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param loginUser
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@PostMapping</span><span class="o">(</span><span class="s">&#34;/login&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">login</span><span class="o">(</span><span class="nd">@RequestBody</span>  <span class="n">User</span> <span class="n">loginUser</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">String</span> <span class="n">userToken</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">userService</span><span class="o">.</span><span class="na">login</span><span class="o">(</span><span class="n">loginUser</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">userToken</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>以及对应的<code>Service</code>方法：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -500,78 +496,76 @@
 </span><span class="lnt">34
 </span><span class="lnt">35
 </span><span class="lnt">36
-</span><span class="lnt">37
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.usercenter.service.user</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Service</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">tech.punklu.usercenter.dao.user.UserMapper</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">tech.punklu.usercenter.domain.entity.user.User</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">tech.punklu.usercenter.util.JWTOperater</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
-
-<span class="nd">@Service</span>
-<span class="nd">@Slf4j</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserService</span> <span class="o">{</span>
-
-    <span class="nd">@Autowired</span>
-    <span class="kd">private</span> <span class="n">UserMapper</span> <span class="n">userMapper</span><span class="o">;</span>
-
-    <span class="nd">@Autowired</span>
-    <span class="kd">private</span> <span class="n">JWTOperater</span> <span class="n">jwtOperater</span><span class="o">;</span>
-
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">login</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">){</span>
-        <span class="n">User</span> <span class="n">dbData</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">userMapper</span><span class="o">.</span><span class="na">selectByPrimaryKey</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
-        <span class="c1">// 如果登录成功，生成对应的jwt token并返回
-</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">dbData</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
-            <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">parameterMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
-            <span class="n">parameterMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;user_id&#34;</span><span class="o">,</span><span class="n">dbData</span><span class="o">.</span><span class="na">getId</span><span class="o">().</span><span class="na">toString</span><span class="o">());</span>
-            <span class="n">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">jwtOperater</span><span class="o">.</span><span class="na">generateToken</span><span class="o">(</span><span class="n">parameterMap</span><span class="o">);</span>
-            <span class="k">return</span> <span class="n">token</span><span class="o">;</span>
-        <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
-            <span class="n">log</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">&#34;登录失败，不存在对应的用户!&#34;</span><span class="o">);</span>
-        <span class="o">}</span>
-        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">tech.punklu.usercenter.service.user</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.stereotype.Service</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">tech.punklu.usercenter.dao.user.UserMapper</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">tech.punklu.usercenter.domain.entity.user.User</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">tech.punklu.usercenter.util.JWTOperater</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@Service</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@Slf4j</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserService</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Autowired</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">UserMapper</span> <span class="n">userMapper</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Autowired</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">JWTOperater</span> <span class="n">jwtOperater</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">login</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">User</span> <span class="n">dbData</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">userMapper</span><span class="o">.</span><span class="na">selectByPrimaryKey</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 如果登录成功，生成对应的jwt token并返回
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">dbData</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">parameterMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">parameterMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;user_id&#34;</span><span class="o">,</span><span class="n">dbData</span><span class="o">.</span><span class="na">getId</span><span class="o">().</span><span class="na">toString</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">            <span class="n">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">jwtOperater</span><span class="o">.</span><span class="na">generateToken</span><span class="o">(</span><span class="n">parameterMap</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">token</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">log</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">&#34;登录失败，不存在对应的用户!&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>启动用户中心，使用<code>Postman</code>访问<code>127.0.0.1:8081/users/login</code>，携带的<code>JSON</code>数据为<code>{&quot;id&quot;:&quot;1&quot;}</code>，可以看到返回回来了<code>JWT</code>的<code>token</code>。将<code>token</code>解密可以看到对应的<code>Header</code>和<code>Payload</code>中的值，如下所示：</p>
 <p><strong>Header:</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
-    <span class="nt">&#34;typ&#34;</span><span class="p">:</span> <span class="s2">&#34;JWT&#34;</span><span class="p">,</span>
-    <span class="nt">&#34;alg&#34;</span><span class="p">:</span> <span class="s2">&#34;HS256&#34;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;typ&#34;</span><span class="p">:</span> <span class="s2">&#34;JWT&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;alg&#34;</span><span class="p">:</span> <span class="s2">&#34;HS256&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>Payload:</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
-    <span class="nt">&#34;user_id&#34;</span><span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
-    <span class="nt">&#34;exp&#34;</span><span class="p">:</span> <span class="mi">1613057742</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;user_id&#34;</span><span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;exp&#34;</span><span class="p">:</span> <span class="mi">1613057742</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>Signature</code>是加密的，是拿不到对应的数据的。</p>
 <h3 id="实现登录状态检查">实现登录状态检查</h3>
@@ -580,64 +574,60 @@
 <p>首先引入依赖：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!-- 添加Spring AOP依赖 --&gt;</span>
-<span class="nt">&lt;dependency&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
-    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-aop<span class="nt">&lt;/artifactId&gt;</span>
-<span class="nt">&lt;/dependency&gt;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!-- 添加Spring AOP依赖 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-aop<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后创建检查用户是否登录的注解：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span><span class="lnt">6
 </span><span class="lnt">7
-</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.usercenter.auth</span><span class="o">;</span>
-
-<span class="cm">/**
-</span><span class="cm"> * 检查用户是否已登录的注解
-</span><span class="cm"> */</span>
-<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">CheckLogin</span> <span class="o">{</span>
-<span class="o">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">tech.punklu.usercenter.auth</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 检查用户是否已登录的注解
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="nd">@interface</span> <span class="n">CheckLogin</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>定义用户未登录时要抛出并处理的异常：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
-</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.usercenter.security</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SecurityException</span> <span class="kd">extends</span> <span class="n">RuntimeException</span><span class="o">{</span>
-<span class="o">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">tech.punklu.usercenter.security</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SecurityException</span> <span class="kd">extends</span> <span class="n">RuntimeException</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>以及<code>Spring MVC</code>的全局异常处理类：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -680,59 +670,57 @@
 </span><span class="lnt">41
 </span><span class="lnt">42
 </span><span class="lnt">43
-</span><span class="lnt">44
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.usercenter.advice</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">lombok.AllArgsConstructor</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">lombok.Builder</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">lombok.Data</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">lombok.NoArgsConstructor</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.http.HttpStatus</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.http.ResponseEntity</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.ExceptionHandler</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RestControllerAdvice</span><span class="o">;</span>
-
-<span class="nd">@RestControllerAdvice</span>
-<span class="nd">@Slf4j</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">GlobalExceptionErrorHandler</span> <span class="o">{</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 统一处理用户未登录的异常
-</span><span class="cm">     * @param e
-</span><span class="cm">     * @return
-</span><span class="cm">     */</span>
-    <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="n">SecurityException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">ErrorBody</span><span class="o">&gt;</span> <span class="nf">error</span><span class="o">(</span><span class="n">SecurityException</span> <span class="n">e</span><span class="o">){</span>
-        <span class="n">log</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">&#34;发生SecurityException异常&#34;</span><span class="o">,</span><span class="n">e</span><span class="o">);</span>
-        <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">ErrorBody</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">ErrorBody</span><span class="o">&gt;(</span>
-                <span class="n">ErrorBody</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-                <span class="o">.</span><span class="na">body</span><span class="o">(</span><span class="s">&#34;Token非法，用户不允许访问!~&#34;</span><span class="o">)</span>
-                <span class="o">.</span><span class="na">status</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">UNAUTHORIZED</span><span class="o">.</span><span class="na">value</span><span class="o">())</span>
-                <span class="o">.</span><span class="na">build</span><span class="o">(),</span>
-                <span class="n">HttpStatus</span><span class="o">.</span><span class="na">UNAUTHORIZED</span>
-        <span class="o">);</span>
-        <span class="k">return</span> <span class="n">response</span><span class="o">;</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-
-<span class="nd">@Data</span>
-<span class="nd">@Builder</span>
-<span class="nd">@AllArgsConstructor</span>
-<span class="nd">@NoArgsConstructor</span>
-<span class="kd">class</span> <span class="nc">ErrorBody</span><span class="o">{</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">body</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="kt">int</span> <span class="n">status</span><span class="o">;</span>
-<span class="o">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">tech.punklu.usercenter.advice</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">lombok.AllArgsConstructor</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">lombok.Builder</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">lombok.Data</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">lombok.NoArgsConstructor</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.http.HttpStatus</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.http.ResponseEntity</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.ExceptionHandler</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RestControllerAdvice</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@RestControllerAdvice</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@Slf4j</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GlobalExceptionErrorHandler</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 统一处理用户未登录的异常
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param e
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="n">SecurityException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">ErrorBody</span><span class="o">&gt;</span> <span class="nf">error</span><span class="o">(</span><span class="n">SecurityException</span> <span class="n">e</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">log</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">&#34;发生SecurityException异常&#34;</span><span class="o">,</span><span class="n">e</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">ErrorBody</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">ErrorBody</span><span class="o">&gt;(</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ErrorBody</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">body</span><span class="o">(</span><span class="s">&#34;Token非法，用户不允许访问!~&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">status</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">UNAUTHORIZED</span><span class="o">.</span><span class="na">value</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">build</span><span class="o">(),</span>
+</span></span><span class="line"><span class="cl">                <span class="n">HttpStatus</span><span class="o">.</span><span class="na">UNAUTHORIZED</span>
+</span></span><span class="line"><span class="cl">        <span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">response</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@Data</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@Builder</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@AllArgsConstructor</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@NoArgsConstructor</span>
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">ErrorBody</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">String</span> <span class="n">body</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kt">int</span> <span class="n">status</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>编写<code>Aspect</code>切面处理类：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -780,64 +768,62 @@
 </span><span class="lnt">46
 </span><span class="lnt">47
 </span><span class="lnt">48
-</span><span class="lnt">49
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.usercenter.auth</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">org.aspectj.lang.ProceedingJoinPoint</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.aspectj.lang.annotation.Around</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.aspectj.lang.annotation.Aspect</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.util.StringUtils</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.web.context.request.RequestAttributes</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.web.context.request.RequestContextHolder</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.web.context.request.ServletRequestAttributes</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">tech.punklu.usercenter.util.JWTOperater</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequest</span><span class="o">;</span>
-
-<span class="nd">@Aspect</span>
-<span class="nd">@Component</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CheckLoginAspect</span> <span class="o">{</span>
-
-    <span class="nd">@Autowired</span>
-    <span class="kd">private</span> <span class="n">JWTOperater</span> <span class="n">jwtOperater</span><span class="o">;</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 检查用户是否登录
-</span><span class="cm">     * @param point
-</span><span class="cm">     * @return
-</span><span class="cm">     */</span>
-    <span class="nd">@Around</span><span class="o">(</span><span class="s">&#34;@annotation(tech.punklu.usercenter.auth.CheckLogin)&#34;</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">checjLogin</span><span class="o">(</span><span class="n">ProceedingJoinPoint</span> <span class="n">point</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="c1">// 从Header中获取token
-</span><span class="c1"></span>            <span class="n">RequestAttributes</span> <span class="n">requestAttributes</span> <span class="o">=</span> <span class="n">RequestContextHolder</span><span class="o">.</span><span class="na">getRequestAttributes</span><span class="o">();</span>
-            <span class="n">ServletRequestAttributes</span> <span class="n">attributes</span> <span class="o">=</span> <span class="o">(</span><span class="n">ServletRequestAttributes</span><span class="o">)</span> <span class="n">requestAttributes</span><span class="o">;</span>
-            <span class="n">HttpServletRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="n">attributes</span><span class="o">.</span><span class="na">getRequest</span><span class="o">();</span>
-            <span class="n">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getHeader</span><span class="o">(</span><span class="s">&#34;X-Token&#34;</span><span class="o">);</span>
-            <span class="c1">// 校验token是否合法，如果不合法直接抛异常，如果合法放行
-</span><span class="c1"></span>            <span class="n">String</span> <span class="n">id</span> <span class="o">=</span> <span class="n">jwtOperater</span><span class="o">.</span><span class="na">getInfoFromJWT</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="s">&#34;user_id&#34;</span><span class="o">);</span>
-            <span class="k">if</span> <span class="o">(</span><span class="n">StringUtils</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">(</span><span class="n">id</span><span class="o">)){</span>
-                <span class="k">throw</span> <span class="k">new</span> <span class="n">SecurityException</span><span class="o">(</span><span class="s">&#34;Token不合法!&#34;</span><span class="o">);</span>
-            <span class="o">}</span>
-            <span class="c1">// 如果校验成功，那么就将用户的id设置到request的attribute里面
-</span><span class="c1"></span>            <span class="n">request</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">&#34;id&#34;</span><span class="o">,</span><span class="n">id</span><span class="o">);</span>
-            <span class="k">return</span>  <span class="n">point</span><span class="o">.</span><span class="na">proceed</span><span class="o">();</span>
-        <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">Throwable</span> <span class="n">e</span><span class="o">){</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="n">SecurityException</span><span class="o">(</span><span class="s">&#34;Token不合法!&#34;</span><span class="o">);</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">tech.punklu.usercenter.auth</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.aspectj.lang.ProceedingJoinPoint</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.aspectj.lang.annotation.Around</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.aspectj.lang.annotation.Aspect</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.util.StringUtils</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.web.context.request.RequestAttributes</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.web.context.request.RequestContextHolder</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.web.context.request.ServletRequestAttributes</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">tech.punklu.usercenter.util.JWTOperater</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequest</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@Aspect</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@Component</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CheckLoginAspect</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Autowired</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">JWTOperater</span> <span class="n">jwtOperater</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 检查用户是否登录
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param point
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Around</span><span class="o">(</span><span class="s">&#34;@annotation(tech.punklu.usercenter.auth.CheckLogin)&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">checjLogin</span><span class="o">(</span><span class="n">ProceedingJoinPoint</span> <span class="n">point</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 从Header中获取token
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">RequestAttributes</span> <span class="n">requestAttributes</span> <span class="o">=</span> <span class="n">RequestContextHolder</span><span class="o">.</span><span class="na">getRequestAttributes</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ServletRequestAttributes</span> <span class="n">attributes</span> <span class="o">=</span> <span class="o">(</span><span class="n">ServletRequestAttributes</span><span class="o">)</span> <span class="n">requestAttributes</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">HttpServletRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="n">attributes</span><span class="o">.</span><span class="na">getRequest</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getHeader</span><span class="o">(</span><span class="s">&#34;X-Token&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 校验token是否合法，如果不合法直接抛异常，如果合法放行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">String</span> <span class="n">id</span> <span class="o">=</span> <span class="n">jwtOperater</span><span class="o">.</span><span class="na">getInfoFromJWT</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="s">&#34;user_id&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">StringUtils</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">(</span><span class="n">id</span><span class="o">)){</span>
+</span></span><span class="line"><span class="cl">                <span class="k">throw</span> <span class="k">new</span> <span class="n">SecurityException</span><span class="o">(</span><span class="s">&#34;Token不合法!&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 如果校验成功，那么就将用户的id设置到request的attribute里面
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">request</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">&#34;id&#34;</span><span class="o">,</span><span class="n">id</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span>  <span class="n">point</span><span class="o">.</span><span class="na">proceed</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">Throwable</span> <span class="n">e</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="n">SecurityException</span><span class="o">(</span><span class="s">&#34;Token不合法!&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>最后，将检查的注解添加到接口上：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -869,43 +855,41 @@
 </span><span class="lnt">30
 </span><span class="lnt">31
 </span><span class="lnt">32
-</span><span class="lnt">33
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.usercenter.controller.user</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.*</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">tech.punklu.usercenter.auth.CheckLogin</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">tech.punklu.usercenter.domain.entity.user.User</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">tech.punklu.usercenter.service.user.UserService</span><span class="o">;</span>
-
-<span class="nd">@RestController</span>
-<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/users&#34;</span><span class="o">)</span>
-<span class="nd">@Slf4j</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserController</span> <span class="o">{</span>
-
-    <span class="nd">@Autowired</span>
-    <span class="kd">private</span> <span class="n">UserService</span> <span class="n">userService</span><span class="o">;</span>
-
-
-
-
-    <span class="cm">/**
-</span><span class="cm">     * 根据用户id查询对应的用户信息
-</span><span class="cm">     * @param id
-</span><span class="cm">     * @return
-</span><span class="cm">     */</span>
-    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/{id}&#34;</span><span class="o">)</span>
-    <span class="c1">// 添加检查用户是否已登录的注解
-</span><span class="c1"></span>    <span class="nd">@CheckLogin</span>
-    <span class="kd">public</span> <span class="n">User</span> <span class="nf">findById</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="n">Integer</span> <span class="n">id</span><span class="o">){</span>
-        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">userService</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">tech.punklu.usercenter.controller.user</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.*</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">tech.punklu.usercenter.auth.CheckLogin</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">tech.punklu.usercenter.domain.entity.user.User</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">tech.punklu.usercenter.service.user.UserService</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@RestController</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/users&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@Slf4j</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserController</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Autowired</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">UserService</span> <span class="n">userService</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 根据用户id查询对应的用户信息
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param id
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/{id}&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 添加检查用户是否已登录的注解
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nd">@CheckLogin</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">User</span> <span class="nf">findById</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="n">Integer</span> <span class="n">id</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">userService</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>同理，给<code>内容中心</code>的<code>/shares/{id}</code>查询投稿信息接口也添加上相应检查用户是否已登录的的功能。</p>
 <h3 id="feign实现token传递">Feign实现Token传递</h3>
@@ -925,7 +909,7 @@
 <p>新建<code>Feign</code>拦截器扩展类：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -956,47 +940,45 @@
 </span><span class="lnt">29
 </span><span class="lnt">30
 </span><span class="lnt">31
-</span><span class="lnt">32
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.contentcenter.feignclient.interceptor</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">feign.RequestInterceptor</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">feign.RequestTemplate</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.util.StringUtils</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.web.context.request.RequestAttributes</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.web.context.request.RequestContextHolder</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.web.context.request.ServletRequestAttributes</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequest</span><span class="o">;</span>
-
-<span class="cm">/**
-</span><span class="cm"> * Feign Token传递的类
-</span><span class="cm"> */</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TokenRelayRequestInterceptor</span> <span class="kd">implements</span> <span class="n">RequestInterceptor</span> <span class="o">{</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">apply</span><span class="o">(</span><span class="n">RequestTemplate</span> <span class="n">requestTemplate</span><span class="o">)</span> <span class="o">{</span>
-        <span class="c1">// 获取到token
-</span><span class="c1"></span>        <span class="c1">// 从Header中获取token
-</span><span class="c1"></span>        <span class="n">RequestAttributes</span> <span class="n">requestAttributes</span> <span class="o">=</span> <span class="n">RequestContextHolder</span><span class="o">.</span><span class="na">getRequestAttributes</span><span class="o">();</span>
-        <span class="n">ServletRequestAttributes</span> <span class="n">attributes</span> <span class="o">=</span> <span class="o">(</span><span class="n">ServletRequestAttributes</span><span class="o">)</span> <span class="n">requestAttributes</span><span class="o">;</span>
-        <span class="n">HttpServletRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="n">attributes</span><span class="o">.</span><span class="na">getRequest</span><span class="o">();</span>
-        <span class="n">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getHeader</span><span class="o">(</span><span class="s">&#34;X-Token&#34;</span><span class="o">);</span>
-        <span class="c1">// 判断token是否为空
-</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(!</span><span class="n">StringUtils</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">(</span><span class="n">token</span><span class="o">)){</span>
-            <span class="c1">// 将token传递
-</span><span class="c1"></span>            <span class="n">requestTemplate</span><span class="o">.</span><span class="na">header</span><span class="o">(</span><span class="s">&#34;X-Token&#34;</span><span class="o">,</span><span class="n">token</span><span class="o">);</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">tech.punklu.contentcenter.feignclient.interceptor</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">feign.RequestInterceptor</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">feign.RequestTemplate</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.util.StringUtils</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.web.context.request.RequestAttributes</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.web.context.request.RequestContextHolder</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.web.context.request.ServletRequestAttributes</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequest</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Feign Token传递的类
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TokenRelayRequestInterceptor</span> <span class="kd">implements</span> <span class="n">RequestInterceptor</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">apply</span><span class="o">(</span><span class="n">RequestTemplate</span> <span class="n">requestTemplate</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 获取到token
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// 从Header中获取token
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">RequestAttributes</span> <span class="n">requestAttributes</span> <span class="o">=</span> <span class="n">RequestContextHolder</span><span class="o">.</span><span class="na">getRequestAttributes</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ServletRequestAttributes</span> <span class="n">attributes</span> <span class="o">=</span> <span class="o">(</span><span class="n">ServletRequestAttributes</span><span class="o">)</span> <span class="n">requestAttributes</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">HttpServletRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="n">attributes</span><span class="o">.</span><span class="na">getRequest</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getHeader</span><span class="o">(</span><span class="s">&#34;X-Token&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 判断token是否为空
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="o">(!</span><span class="n">StringUtils</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">(</span><span class="n">token</span><span class="o">)){</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 将token传递
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">requestTemplate</span><span class="o">.</span><span class="na">header</span><span class="o">(</span><span class="s">&#34;X-Token&#34;</span><span class="o">,</span><span class="n">token</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后在配置文件中添加上<code>Feign</code>全局拦截器配置项：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1007,16 +989,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">feign</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">client</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">config</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="c"># 想要调用的微服务的名称,如果想配置全局的，只需要设置为default即可</span><span class="w">
-</span><span class="w">      </span><span class="nt">default</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">loggerLevel</span><span class="p">:</span><span class="w"> </span><span class="l">full</span><span class="w">
-</span><span class="w">        </span><span class="c"># 配置全局的Feign拦截器配置类，用于在微服务间传递token</span><span class="w">
-</span><span class="w">        </span><span class="nt">requestInterceptors</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span>-<span class="l">tech.punklu.contentcenter.feignclient.interceptor.TokenRelayRequestInterceptor</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">feign</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">client</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># 想要调用的微服务的名称,如果想配置全局的，只需要设置为default即可</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">default</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">loggerLevel</span><span class="p">:</span><span class="w"> </span><span class="l">full</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c"># 配置全局的Feign拦截器配置类，用于在微服务间传递token</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">requestInterceptors</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>-<span class="l">tech.punklu.contentcenter.feignclient.interceptor.TokenRelayRequestInterceptor</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>重启<code>内容中心</code>，再次访问内容中心的<code>127.0.0.1:8082/shares/1?origin=browser</code>接口，携带上<code>X-Token</code>，可以发现已经正常返回了投稿相关的信息，其中的<code>wxNickName</code>的值也已经有正常返回，没有触发降级规则返回默认值，说明已经实现了<code>X-Token</code>在微服务间的正常传递。</p>
 <h3 id="resttemplate传递token">RestTemplate传递Token</h3>
@@ -1027,7 +1009,7 @@
 <p>示例代码：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1067,51 +1049,49 @@
 </span><span class="lnt">38
 </span><span class="lnt">39
 </span><span class="lnt">40
-</span><span class="lnt">41
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.contentcenter</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.apache.commons.lang3.StringUtils</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.http.HttpEntity</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.http.HttpHeaders</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.http.HttpMethod</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.http.ResponseEntity</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.GetMapping</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.PathVariable</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RestController</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.web.client.RestTemplate</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">tech.punklu.contentcenter.domain.dto.user.UserDTO</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">tech.punklu.contentcenter.domain.entity.content.Share</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequest</span><span class="o">;</span>
-
-<span class="nd">@Slf4j</span>
-<span class="nd">@RestController</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TestController</span> <span class="o">{</span>
-
-    <span class="nd">@Autowired</span>
-    <span class="kd">private</span> <span class="n">RestTemplate</span> <span class="n">restTemplate</span><span class="o">;</span>
-
-    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/tokenRelay/{userId}&#34;</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">UserDTO</span><span class="o">&gt;</span> <span class="nf">tokenRelay</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="n">Integer</span> <span class="n">userId</span><span class="o">,</span> <span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getHeader</span><span class="o">(</span><span class="s">&#34;X-Token&#34;</span><span class="o">);</span>
-        <span class="n">HttpHeaders</span> <span class="n">headers</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HttpHeaders</span><span class="o">();</span>
-        <span class="n">headers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;X-Token&#34;</span><span class="o">,</span> <span class="n">token</span><span class="o">);</span>
-
-        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">restTemplate</span>
-                <span class="o">.</span><span class="na">exchange</span><span class="o">(</span>
-                        <span class="s">&#34;http://user-center/users/{userId}&#34;</span><span class="o">,</span>
-                        <span class="n">HttpMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span>
-                        <span class="k">new</span> <span class="n">HttpEntity</span><span class="o">&lt;&gt;(</span><span class="n">headers</span><span class="o">),</span>
-                        <span class="n">UserDTO</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
-                        <span class="n">userId</span>
-                <span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">tech.punklu.contentcenter</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.apache.commons.lang3.StringUtils</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.http.HttpEntity</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.http.HttpHeaders</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.http.HttpMethod</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.http.ResponseEntity</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.GetMapping</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.PathVariable</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RestController</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.web.client.RestTemplate</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">tech.punklu.contentcenter.domain.dto.user.UserDTO</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">tech.punklu.contentcenter.domain.entity.content.Share</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequest</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@Slf4j</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@RestController</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TestController</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Autowired</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">RestTemplate</span> <span class="n">restTemplate</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/tokenRelay/{userId}&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">UserDTO</span><span class="o">&gt;</span> <span class="nf">tokenRelay</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="n">Integer</span> <span class="n">userId</span><span class="o">,</span> <span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getHeader</span><span class="o">(</span><span class="s">&#34;X-Token&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">HttpHeaders</span> <span class="n">headers</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HttpHeaders</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">headers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;X-Token&#34;</span><span class="o">,</span> <span class="n">token</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">restTemplate</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">exchange</span><span class="o">(</span>
+</span></span><span class="line"><span class="cl">                        <span class="s">&#34;http://user-center/users/{userId}&#34;</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">HttpMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">new</span> <span class="n">HttpEntity</span><span class="o">&lt;&gt;(</span><span class="n">headers</span><span class="o">),</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">UserDTO</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">userId</span>
+</span></span><span class="line"><span class="cl">                <span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -1120,7 +1100,7 @@
 <p>拦截器示例代码：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1151,47 +1131,45 @@
 </span><span class="lnt">29
 </span><span class="lnt">30
 </span><span class="lnt">31
-</span><span class="lnt">32
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.contentcenter</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">org.springframework.http.HttpHeaders</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.http.HttpRequest</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.http.client.ClientHttpRequestExecution</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.http.client.ClientHttpRequestInterceptor</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.http.client.ClientHttpResponse</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.web.context.request.RequestAttributes</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.web.context.request.RequestContextHolder</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.web.context.request.ServletRequestAttributes</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequest</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RestTemplateTokenRelayInterceptor</span> <span class="kd">implements</span> <span class="n">ClientHttpRequestInterceptor</span> <span class="o">{</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">ClientHttpResponse</span> <span class="nf">intercept</span><span class="o">(</span><span class="n">HttpRequest</span> <span class="n">httpRequest</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">bytes</span><span class="o">,</span> <span class="n">ClientHttpRequestExecution</span> <span class="n">clientHttpRequestExecution</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
-        <span class="c1">// 获取到token
-</span><span class="c1"></span>        <span class="c1">// 从Header中获取token
-</span><span class="c1"></span>        <span class="n">RequestAttributes</span> <span class="n">requestAttributes</span> <span class="o">=</span> <span class="n">RequestContextHolder</span><span class="o">.</span><span class="na">getRequestAttributes</span><span class="o">();</span>
-        <span class="n">ServletRequestAttributes</span> <span class="n">attributes</span> <span class="o">=</span> <span class="o">(</span><span class="n">ServletRequestAttributes</span><span class="o">)</span> <span class="n">requestAttributes</span><span class="o">;</span>
-        <span class="n">HttpServletRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="n">attributes</span><span class="o">.</span><span class="na">getRequest</span><span class="o">();</span>
-        <span class="n">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getHeader</span><span class="o">(</span><span class="s">&#34;X-Token&#34;</span><span class="o">);</span>
-
-        <span class="c1">// 将获取到的Token添加到RestTemplate的Header里
-</span><span class="c1"></span>        <span class="n">HttpHeaders</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">httpRequest</span><span class="o">.</span><span class="na">getHeaders</span><span class="o">();</span>
-        <span class="n">headers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;X-Token&#34;</span><span class="o">,</span><span class="n">token</span><span class="o">);</span>
-        <span class="k">return</span> <span class="n">clientHttpRequestExecution</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">httpRequest</span><span class="o">,</span><span class="n">bytes</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">tech.punklu.contentcenter</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.http.HttpHeaders</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.http.HttpRequest</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.http.client.ClientHttpRequestExecution</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.http.client.ClientHttpRequestInterceptor</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.http.client.ClientHttpResponse</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.web.context.request.RequestAttributes</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.web.context.request.RequestContextHolder</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.web.context.request.ServletRequestAttributes</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequest</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RestTemplateTokenRelayInterceptor</span> <span class="kd">implements</span> <span class="n">ClientHttpRequestInterceptor</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">ClientHttpResponse</span> <span class="nf">intercept</span><span class="o">(</span><span class="n">HttpRequest</span> <span class="n">httpRequest</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">bytes</span><span class="o">,</span> <span class="n">ClientHttpRequestExecution</span> <span class="n">clientHttpRequestExecution</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 获取到token
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// 从Header中获取token
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">RequestAttributes</span> <span class="n">requestAttributes</span> <span class="o">=</span> <span class="n">RequestContextHolder</span><span class="o">.</span><span class="na">getRequestAttributes</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ServletRequestAttributes</span> <span class="n">attributes</span> <span class="o">=</span> <span class="o">(</span><span class="n">ServletRequestAttributes</span><span class="o">)</span> <span class="n">requestAttributes</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">HttpServletRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="n">attributes</span><span class="o">.</span><span class="na">getRequest</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getHeader</span><span class="o">(</span><span class="s">&#34;X-Token&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// 将获取到的Token添加到RestTemplate的Header里
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">HttpHeaders</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">httpRequest</span><span class="o">.</span><span class="na">getHeaders</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">headers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;X-Token&#34;</span><span class="o">,</span><span class="n">token</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">clientHttpRequestExecution</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">httpRequest</span><span class="o">,</span><span class="n">bytes</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后修改项目主类里声明<code>RestTemplate</code>实例的代码：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1208,22 +1186,22 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
-</span><span class="cm"> * 在Spring容器中，创建一个对象，类型是RestTemplate，
-</span><span class="cm"> * 名称/id是方法名
-</span><span class="cm"> * @return
-</span><span class="cm">*/</span>
-<span class="nd">@Bean</span>
-<span class="nd">@LoadBalanced</span>
-<span class="nd">@SentinelRestTemplate</span>
-<span class="kd">public</span> <span class="n">RestTemplate</span> <span class="nf">restTemplate</span><span class="o">(){</span>
-    <span class="n">RestTemplate</span> <span class="n">template</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RestTemplate</span><span class="o">();</span>
-    <span class="n">template</span><span class="o">.</span><span class="na">setInterceptors</span><span class="o">(</span>
-        <span class="n">Collections</span><span class="o">.</span><span class="na">singletonList</span><span class="o">(</span><span class="k">new</span> <span class="n">RestTemplateTokenRelayInterceptor</span><span class="o">())</span>
-    <span class="o">);</span>
-    <span class="k">return</span> <span class="n">template</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 在Spring容器中，创建一个对象，类型是RestTemplate，
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 名称/id是方法名
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@Bean</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@LoadBalanced</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@SentinelRestTemplate</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">RestTemplate</span> <span class="nf">restTemplate</span><span class="o">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">RestTemplate</span> <span class="n">template</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RestTemplate</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">template</span><span class="o">.</span><span class="na">setInterceptors</span><span class="o">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Collections</span><span class="o">.</span><span class="na">singletonList</span><span class="o">(</span><span class="k">new</span> <span class="n">RestTemplateTokenRelayInterceptor</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl">    <span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">template</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ol>
@@ -1280,7 +1258,6 @@
       <div class="social-links">
       <a href="mailto:punk1u@protonmail.com" class="iconfont icon-email" title="email"></a>
       <a href="http://www.github.com/punk1u" class="iconfont icon-github" title="github"></a>
-      <a href="https://weibo.com/u/7541495676" class="iconfont icon-weibo" title="weibo"></a>
   <a href="https://punk1u.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
@@ -1299,7 +1276,7 @@
   <span class="copyright-year">
     &copy; 
     2020 - 
-    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>punk1u<br/>版权所有ICP证：<a href='http://beian.miit.gov.cn' target='_blank'>浙ICP备19032348号-1</a></span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>punk1u</span>
   </span>
 </div>
 
@@ -1316,7 +1293,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.191509a5c8442abdb6eb5020a332fd59bdd83a7e78a2d2241108df9113504292.js"></script>
 
 
 

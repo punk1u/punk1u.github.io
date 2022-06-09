@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.84.1 with theme even" />
+<meta name="generator" content="Hugo 0.100.1 with theme even" />
 
 
 <link rel="canonical" href="https://punk1u.github.io/post/spring-cloud-alibaba%E5%AE%9E%E8%B7%B5%E4%BD%BF%E7%94%A8gateway/" />
@@ -43,13 +43,13 @@
 <meta property="og:description" content="Spring Cloud Alibaba实践——使用Gateway 在微服务系统中，可能会有很多的微服务，且每个服务可能会有多个实例。如果在客户端直接使用每个微服务" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://punk1u.github.io/post/spring-cloud-alibaba%E5%AE%9E%E8%B7%B5%E4%BD%BF%E7%94%A8gateway/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-02-05T12:29:39&#43;08:00" />
-<meta property="article:modified_time" content="2021-02-05T12:29:39&#43;08:00" />
+<meta property="article:published_time" content="2021-02-05T12:29:39+08:00" />
+<meta property="article:modified_time" content="2021-02-05T12:29:39+08:00" />
 
 <meta itemprop="name" content="Spring Cloud Alibaba实践——使用Gateway">
-<meta itemprop="description" content="Spring Cloud Alibaba实践——使用Gateway 在微服务系统中，可能会有很多的微服务，且每个服务可能会有多个实例。如果在客户端直接使用每个微服务"><meta itemprop="datePublished" content="2021-02-05T12:29:39&#43;08:00" />
-<meta itemprop="dateModified" content="2021-02-05T12:29:39&#43;08:00" />
-<meta itemprop="wordCount" content="3915">
+<meta itemprop="description" content="Spring Cloud Alibaba实践——使用Gateway 在微服务系统中，可能会有很多的微服务，且每个服务可能会有多个实例。如果在客户端直接使用每个微服务"><meta itemprop="datePublished" content="2021-02-05T12:29:39+08:00" />
+<meta itemprop="dateModified" content="2021-02-05T12:29:39+08:00" />
+<meta itemprop="wordCount" content="3760">
 <meta itemprop="keywords" content="Spring Cloud,笔记,JAVA," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Spring Cloud Alibaba实践——使用Gateway"/>
 <meta name="twitter:description" content="Spring Cloud Alibaba实践——使用Gateway 在微服务系统中，可能会有很多的微服务，且每个服务可能会有多个实例。如果在客户端直接使用每个微服务"/>
@@ -124,7 +124,7 @@
             <a href="/categories/%E7%AC%94%E8%AE%B0/"> 笔记 </a>
             <a href="/categories/java/"> JAVA </a>
             </div>
-          <span class="more-meta"> 约 3915 字 </span>
+          <span class="more-meta"> 约 3760 字 </span>
           <span class="more-meta"> 预计阅读 8 分钟 </span>
         
       </div>
@@ -187,7 +187,7 @@
 <p>新建<code>Gateway</code>网关项目并添加相应的<code>Nacos</code>服务发现依赖、<code>Gateway</code>网关依赖，<code>Gateway</code>项目的<code>Maven</code>依赖：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -259,88 +259,86 @@
 </span><span class="lnt">70
 </span><span class="lnt">71
 </span><span class="lnt">72
-</span><span class="lnt">73
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span class="nt">&lt;project</span> <span class="na">xmlns=</span><span class="s">&#34;http://maven.apache.org/POM/4.0.0&#34;</span> <span class="na">xmlns:xsi=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
-         <span class="na">xsi:schemaLocation=</span><span class="s">&#34;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&#34;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;modelVersion&gt;</span>4.0.0<span class="nt">&lt;/modelVersion&gt;</span>
-    <span class="nt">&lt;parent&gt;</span>
-        <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
-        <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-parent<span class="nt">&lt;/artifactId&gt;</span>
-        <span class="nt">&lt;version&gt;</span>2.2.5.RELEASE<span class="nt">&lt;/version&gt;</span>
-        <span class="nt">&lt;relativePath/&gt;</span> <span class="c">&lt;!-- lookup parent from repository --&gt;</span>
-    <span class="nt">&lt;/parent&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>tech.punklu<span class="nt">&lt;/groupId&gt;</span>
-    <span class="nt">&lt;artifactId&gt;</span>gateway<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>0.0.1-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
-    <span class="nt">&lt;name&gt;</span>gateway<span class="nt">&lt;/name&gt;</span>
-    <span class="nt">&lt;description&gt;</span>网关<span class="nt">&lt;/description&gt;</span>
-
-    <span class="nt">&lt;dependencies&gt;</span>
-        <span class="nt">&lt;dependency&gt;</span>
-            <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
-            <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-gateway<span class="nt">&lt;/artifactId&gt;</span>
-        <span class="nt">&lt;/dependency&gt;</span>
-
-        <span class="c">&lt;!-- 为Gateway添加Nacos的依赖 --&gt;</span>
-        <span class="nt">&lt;dependency&gt;</span>
-            <span class="nt">&lt;groupId&gt;</span>com.alibaba.cloud<span class="nt">&lt;/groupId&gt;</span>
-            <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="nt">&lt;/artifactId&gt;</span>
-        <span class="nt">&lt;/dependency&gt;</span>
-
-        <span class="c">&lt;!-- 整合actuator --&gt;</span>
-        <span class="nt">&lt;dependency&gt;</span>
-            <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
-            <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-actuator<span class="nt">&lt;/artifactId&gt;</span>
-        <span class="nt">&lt;/dependency&gt;</span>
-
-        <span class="nt">&lt;dependency&gt;</span>
-            <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
-            <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-test<span class="nt">&lt;/artifactId&gt;</span>
-            <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
-        <span class="nt">&lt;/dependency&gt;</span>
-    <span class="nt">&lt;/dependencies&gt;</span>
-    <span class="nt">&lt;dependencyManagement&gt;</span>
-        <span class="nt">&lt;dependencies&gt;</span>
-
-            <span class="c">&lt;!--整合spring cloud--&gt;</span>
-            <span class="nt">&lt;dependency&gt;</span>
-                <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
-                <span class="nt">&lt;artifactId&gt;</span>spring-cloud-dependencies<span class="nt">&lt;/artifactId&gt;</span>
-                <span class="nt">&lt;version&gt;</span>Hoxton.RELEASE<span class="nt">&lt;/version&gt;</span>
-                <span class="nt">&lt;type&gt;</span>pom<span class="nt">&lt;/type&gt;</span>
-                <span class="nt">&lt;scope&gt;</span>import<span class="nt">&lt;/scope&gt;</span>
-            <span class="nt">&lt;/dependency&gt;</span>
-            <span class="c">&lt;!--整合spring cloud alibaba--&gt;</span>
-            <span class="nt">&lt;dependency&gt;</span>
-                <span class="nt">&lt;groupId&gt;</span>com.alibaba.cloud<span class="nt">&lt;/groupId&gt;</span>
-                <span class="nt">&lt;artifactId&gt;</span>spring-cloud-alibaba-dependencies<span class="nt">&lt;/artifactId&gt;</span>
-                <span class="nt">&lt;version&gt;</span>2.2.3.RELEASE<span class="nt">&lt;/version&gt;</span>
-                <span class="nt">&lt;type&gt;</span>pom<span class="nt">&lt;/type&gt;</span>
-                <span class="nt">&lt;scope&gt;</span>import<span class="nt">&lt;/scope&gt;</span>
-            <span class="nt">&lt;/dependency&gt;</span>
-        <span class="nt">&lt;/dependencies&gt;</span>
-    <span class="nt">&lt;/dependencyManagement&gt;</span>
-
-    <span class="nt">&lt;build&gt;</span>
-        <span class="nt">&lt;plugins&gt;</span>
-            <span class="nt">&lt;plugin&gt;</span>
-                <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
-                <span class="nt">&lt;artifactId&gt;</span>spring-boot-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
-            <span class="nt">&lt;/plugin&gt;</span>
-        <span class="nt">&lt;/plugins&gt;</span>
-    <span class="nt">&lt;/build&gt;</span>
-
-<span class="nt">&lt;/project&gt;</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;project</span> <span class="na">xmlns=</span><span class="s">&#34;http://maven.apache.org/POM/4.0.0&#34;</span> <span class="na">xmlns:xsi=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+</span></span><span class="line"><span class="cl">         <span class="na">xsi:schemaLocation=</span><span class="s">&#34;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;modelVersion&gt;</span>4.0.0<span class="nt">&lt;/modelVersion&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;parent&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-parent<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;version&gt;</span>2.2.5.RELEASE<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;relativePath/&gt;</span> <span class="c">&lt;!-- lookup parent from repository --&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/parent&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;groupId&gt;</span>tech.punklu<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;artifactId&gt;</span>gateway<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;version&gt;</span>0.0.1-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;name&gt;</span>gateway<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;description&gt;</span>网关<span class="nt">&lt;/description&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;dependencies&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-gateway<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c">&lt;!-- 为Gateway添加Nacos的依赖 --&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;groupId&gt;</span>com.alibaba.cloud<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c">&lt;!-- 整合actuator --&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-actuator<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-test<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/dependencies&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;dependencyManagement&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;dependencies&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c">&lt;!--整合spring cloud--&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;artifactId&gt;</span>spring-cloud-dependencies<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;version&gt;</span>Hoxton.RELEASE<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;type&gt;</span>pom<span class="nt">&lt;/type&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;scope&gt;</span>import<span class="nt">&lt;/scope&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="c">&lt;!--整合spring cloud alibaba--&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;groupId&gt;</span>com.alibaba.cloud<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;artifactId&gt;</span>spring-cloud-alibaba-dependencies<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;version&gt;</span>2.2.3.RELEASE<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;type&gt;</span>pom<span class="nt">&lt;/type&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;scope&gt;</span>import<span class="nt">&lt;/scope&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/dependencies&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/dependencyManagement&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;build&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;plugins&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;plugin&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;artifactId&gt;</span>spring-boot-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/plugin&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/plugins&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/build&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/project&gt;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>添加相应的配置，配置<code>Gateway</code>从<code>Nacos</code>发现服务：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -363,34 +361,32 @@
 </span><span class="lnt">21
 </span><span class="lnt">22
 </span><span class="lnt">23
-</span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">server</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">8040</span><span class="w">
-</span><span class="w"></span><span class="nt">spring</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">application</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="c"># 指定Gateway注册到Nacos上的名称</span><span class="w">
-</span><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">gateway</span><span class="w">
-</span><span class="w">  </span><span class="nt">cloud</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">nacos</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">discovery</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">server-addr</span><span class="p">:</span><span class="w"> </span><span class="l">localhost:8848</span><span class="w">
-</span><span class="w">    </span><span class="nt">gateway</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">discovery</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">locator</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="c"># 让Gateway通过服务发现组件找到其他的微服务</span><span class="w">
-</span><span class="w">          </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w"></span><span class="nt">management</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">endpoints</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">web</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">exposure</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">include</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;*&#39;</span><span class="w">
-</span><span class="w">  </span><span class="nt">endpoint</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">health</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">show-details</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
-</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">server</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">8040</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">application</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># 指定Gateway注册到Nacos上的名称</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">gateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">cloud</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">nacos</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">discovery</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">server-addr</span><span class="p">:</span><span class="w"> </span><span class="l">localhost:8848</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">gateway</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">discovery</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">locator</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="c"># 让Gateway通过服务发现组件找到其他的微服务</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">management</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">endpoints</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">web</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">exposure</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">include</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;*&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">endpoint</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">health</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">show-details</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>启动<code>用户中心</code>、<code>内容中心</code>、<code>Gateway</code>网关服务，访问<code>Gateway</code>的<code>http://127.0.0.1:8040/content-center/shares/1?origin=browser</code>以及<code>http://127.0.0.1:8040/user-center/users/1?origin=browser</code>，可以看到已经可以正常通过网关的反向代理访问<code>用户中心</code>、<code>内容中心</code>的接口并查询到相应的数据了。并且访问的时候并不是通过目标微服务的ip地址直接访问的，而是通过各个微服务自定义的服务名进行访问的，也就是网关实现了自动转发功能。</p>
 <h2 id="gateway核心概念">Gateway核心概念</h2>
@@ -411,7 +407,7 @@
 <p>以下面的配置为例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -423,35 +419,35 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">spring</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">cloud</span><span class="p">:</span><span class="w">
-</span><span class="w">	</span><span class="nt">gateway</span><span class="p">:</span><span class="w">
-</span><span class="w">	  </span><span class="nt">route</span><span class="p">:</span><span class="w">
-</span><span class="w">		</span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">some_route</span><span class="w">
-</span><span class="w">		</span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="l">http://127.0.0.1:8082</span><span class="w">
-</span><span class="w">		</span><span class="nt">predicates</span><span class="p">:</span><span class="w">
-</span><span class="w">		  </span><span class="l">Path=/users/{id}</span><span class="w">
-</span><span class="w">		</span><span class="nt">filters</span><span class="p">:</span><span class="w">
-</span><span class="w">		  </span><span class="l">AddRequestHeader=X-Request-Foo,Bar</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">cloud</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nt">gateway</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	  </span><span class="nt">route</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">some_route</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="l">http://127.0.0.1:8082</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nt">predicates</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		  </span><span class="l">Path=/users/{id}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nt">filters</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		  </span><span class="l">AddRequestHeader=X-Request-Foo,Bar</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以看出一个路由(Route)由<code>id</code>、<code>uri</code>、<code>predicates</code>、<code>filters</code>过滤器集合组成。代表如果访问<code>/users/{id}</code>这个路径就会进入这个路由规则，然后经过过滤器的规则过滤后被转发到<code>http://127.0.0.1:8082</code>这个<code>uri</code>。</p>
 <p>上面的初始化配置：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">gateway</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">discovery</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">locator</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="c"># 让Gateway通过服务发现组件找到其他的微服务</span><span class="w">
-</span><span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">gateway</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">discovery</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">locator</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># 让Gateway通过服务发现组件找到其他的微服务</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>代表没有特殊需求，让<code>Gateway</code>按照默认方式处理所有请求。</p>
 <h2 id="gateway路由谓词工厂">Gateway路由谓词工厂</h2>
@@ -499,7 +495,7 @@
 <p>首先添加配置项：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -509,20 +505,20 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">spring</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">cloud</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">gateway</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">routes</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">between_route</span><span class="w">
-</span><span class="w">          </span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="l">lb://user-center</span><span class="w">
-</span><span class="w">          </span><span class="nt">predicates</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span>- <span class="l">TimeBetween=上午9:00,下午11:00</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">cloud</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">gateway</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">routes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">between_route</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="l">lb://user-center</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">predicates</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="l">TimeBetween=上午9:00,下午11:00</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>为了解析这个自定义的配置信息需要新建一个配置信息类存放这个配置：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -541,35 +537,33 @@
 </span><span class="lnt">17
 </span><span class="lnt">18
 </span><span class="lnt">19
-</span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.gateway</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">lombok.Data</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">java.time.LocalTime</span><span class="o">;</span>
-
-<span class="nd">@Data</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TimeBetweenConfig</span> <span class="o">{</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 起始时间
-</span><span class="cm">     */</span>
-    <span class="kd">private</span> <span class="n">LocalTime</span> <span class="n">start</span><span class="o">;</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 结束时间
-</span><span class="cm">     */</span>
-    <span class="kd">private</span> <span class="n">LocalTime</span> <span class="n">end</span><span class="o">;</span>
-<span class="o">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">tech.punklu.gateway</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">lombok.Data</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.time.LocalTime</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@Data</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TimeBetweenConfig</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 起始时间
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">LocalTime</span> <span class="n">start</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 结束时间
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">LocalTime</span> <span class="n">end</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后新建<code>谓词规则</code>类：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -614,73 +608,71 @@
 </span><span class="lnt">43
 </span><span class="lnt">44
 </span><span class="lnt">45
-</span><span class="lnt">46
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.gateway</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">org.springframework.cloud.gateway.handler.predicate.AbstractRoutePredicateFactory</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.web.server.ServerWebExchange</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">java.time.LocalTime</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.Arrays</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.function.Predicate</span><span class="o">;</span>
-
-<span class="cm">/**
-</span><span class="cm"> * 自定义谓词规则类
-</span><span class="cm"> */</span>
-<span class="nd">@Component</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TimeBetweenRoutePredicateFactory</span> <span class="kd">extends</span> <span class="n">AbstractRoutePredicateFactory</span><span class="o">&lt;</span><span class="n">TimeBetweenConfig</span><span class="o">&gt;</span> <span class="o">{</span>
-
-    <span class="kd">public</span> <span class="nf">TimeBetweenRoutePredicateFactory</span><span class="o">()</span> <span class="o">{</span>
-        <span class="kd">super</span><span class="o">(</span><span class="n">TimeBetweenConfig</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 判断路由谓词规则的方法
-</span><span class="cm">     * @param config
-</span><span class="cm">     * @return
-</span><span class="cm">     */</span>
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">Predicate</span><span class="o">&lt;</span><span class="n">ServerWebExchange</span><span class="o">&gt;</span> <span class="nf">apply</span><span class="o">(</span><span class="n">TimeBetweenConfig</span> <span class="n">config</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">LocalTime</span> <span class="n">start</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="na">getStart</span><span class="o">();</span>
-        <span class="n">LocalTime</span> <span class="n">end</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="na">getEnd</span><span class="o">();</span>
-        <span class="k">return</span> <span class="n">exchange</span><span class="o">-&gt;{</span>
-          <span class="n">LocalTime</span> <span class="n">now</span> <span class="o">=</span> <span class="n">LocalTime</span><span class="o">.</span><span class="na">now</span><span class="o">();</span>
-          <span class="k">return</span> <span class="n">now</span><span class="o">.</span><span class="na">isAfter</span><span class="o">(</span><span class="n">start</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">now</span><span class="o">.</span><span class="na">isBefore</span><span class="o">(</span><span class="n">end</span><span class="o">);</span>
-        <span class="o">};</span>
-    <span class="o">}</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 从配置文件获取配置的谓词规则信息并把值赋给配置对象(TimeBetweenConfig)里的属性的方法
-</span><span class="cm">     * @return
-</span><span class="cm">     */</span>
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">shortcutFieldOrder</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">&#34;start&#34;</span><span class="o">,</span><span class="s">&#34;end&#34;</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">tech.punklu.gateway</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.cloud.gateway.handler.predicate.AbstractRoutePredicateFactory</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.web.server.ServerWebExchange</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.time.LocalTime</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.Arrays</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.function.Predicate</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 自定义谓词规则类
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@Component</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TimeBetweenRoutePredicateFactory</span> <span class="kd">extends</span> <span class="n">AbstractRoutePredicateFactory</span><span class="o">&lt;</span><span class="n">TimeBetweenConfig</span><span class="o">&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="nf">TimeBetweenRoutePredicateFactory</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">super</span><span class="o">(</span><span class="n">TimeBetweenConfig</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 判断路由谓词规则的方法
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param config
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">Predicate</span><span class="o">&lt;</span><span class="n">ServerWebExchange</span><span class="o">&gt;</span> <span class="nf">apply</span><span class="o">(</span><span class="n">TimeBetweenConfig</span> <span class="n">config</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">LocalTime</span> <span class="n">start</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="na">getStart</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">LocalTime</span> <span class="n">end</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="na">getEnd</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">exchange</span><span class="o">-&gt;{</span>
+</span></span><span class="line"><span class="cl">          <span class="n">LocalTime</span> <span class="n">now</span> <span class="o">=</span> <span class="n">LocalTime</span><span class="o">.</span><span class="na">now</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">          <span class="k">return</span> <span class="n">now</span><span class="o">.</span><span class="na">isAfter</span><span class="o">(</span><span class="n">start</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">now</span><span class="o">.</span><span class="na">isBefore</span><span class="o">(</span><span class="n">end</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">};</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 从配置文件获取配置的谓词规则信息并把值赋给配置对象(TimeBetweenConfig)里的属性的方法
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">shortcutFieldOrder</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">&#34;start&#34;</span><span class="o">,</span><span class="s">&#34;end&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>需要注意的是，这个类的类名必须以<code>RoutePredicateFactory</code>结尾（Gateway的默认规定）。</p>
 <p>然后启动网关服务，访问<code>http://127.0.0.1:8040/users/1?origin=browser</code>可以看到网关直接返回<code>404</code>，而当修改配置文件内的时间区间，使当前时间处于设置的区间内时，再次访问这个<code>url</code>就可以正常访问了。需要特别注意的是，这个<code>url</code>中并没有指定这个接口所在的<code>user-center</code>标识，但是依然<code>Gateway</code>可以正常找到对应的<code>用户服务</code>并调用，是因为在配置项里已经通过<code>uri</code>的形式指定了<code>用户服务</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="l">lb://user-center</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="l">lb://user-center</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="gateway过滤器工厂">Gateway过滤器工厂</h2>
 <p>过滤器可以为请求和响应添加一些业务逻辑。可以灵活的操作请求和响应，比如操作请求的<code>parameter</code>和<code>header</code>等信息。</p>
 <p>比如，现在要在<code>Gateway</code>加一个在发送向<code>用户中心</code>的请求上添加一个名为<code>X-Request-Foo</code>，值为<code>Bar</code>的<code>Header</code>项。可以添加如下配置：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -693,18 +685,18 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">spring</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">cloud</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">gateway</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">routes</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">between_route</span><span class="w">
-</span><span class="w">          </span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="l">lb://user-center</span><span class="w">
-</span><span class="w">          </span><span class="nt">predicates</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span>- <span class="l">TimeBetween=上午0:00,下午11:59</span><span class="w">
-</span><span class="w">          </span><span class="c"># 添加一个向发往用户中心的请求上添加Header项的拦截器,key为X-Request-Foo,value为Bar</span><span class="w">
-</span><span class="w">          </span><span class="nt">filters</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span>- <span class="l">AddRequestHeader=X-Request-Foo, Bar</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">cloud</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">gateway</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">routes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">between_route</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="l">lb://user-center</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">predicates</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="l">TimeBetween=上午0:00,下午11:59</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="c"># 添加一个向发往用户中心的请求上添加Header项的拦截器,key为X-Request-Foo,value为Bar</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">filters</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="l">AddRequestHeader=X-Request-Foo, Bar</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>启动项目后，在<code>NettyRoutingFilter</code>的<code>Mono&lt;Void&gt; filter(ServerWebExchange exchange, GatewayFilterChain chain)</code>方法上打上注解，然后访问<code>http://127.0.0.1:8040/users/1?origin=browser</code>，可以在断点处看到请求的<code>Header</code>中已经被加上了配置文件中指定的<code>Header</code>项的<code>K-V</code>值。</p>
 <h2 id="自定义过滤器工厂">自定义过滤器工厂</h2>
@@ -724,7 +716,7 @@
 <p>首先新建过滤器工厂类：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -749,42 +741,40 @@
 </span><span class="lnt">23
 </span><span class="lnt">24
 </span><span class="lnt">25
-</span><span class="lnt">26
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.gateway</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.cloud.gateway.filter.GatewayFilter</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.cloud.gateway.filter.factory.AbstractNameValueGatewayFilterFactory</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.http.server.reactive.ServerHttpRequest</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.web.server.ServerWebExchange</span><span class="o">;</span>
-
-<span class="nd">@Slf4j</span>
-<span class="nd">@Component</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PreLogGatewayFilterFactory</span> <span class="kd">extends</span> <span class="n">AbstractNameValueGatewayFilterFactory</span> <span class="o">{</span>
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">GatewayFilter</span> <span class="nf">apply</span><span class="o">(</span><span class="n">NameValueConfig</span> <span class="n">config</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="o">((</span><span class="n">exchange</span><span class="o">,</span> <span class="n">chain</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
-            <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;请求进来了...{},{}&#34;</span><span class="o">,</span><span class="n">config</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span><span class="n">config</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
-            <span class="n">ServerHttpRequest</span> <span class="n">modifiedRequest</span> <span class="o">=</span> <span class="n">exchange</span>
-                    <span class="o">.</span><span class="na">getRequest</span><span class="o">()</span>
-                    <span class="o">.</span><span class="na">mutate</span><span class="o">()</span>
-                    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
-            <span class="n">ServerWebExchange</span> <span class="n">modifiedExchange</span> <span class="o">=</span> <span class="n">exchange</span><span class="o">.</span><span class="na">mutate</span><span class="o">().</span><span class="na">request</span><span class="o">(</span><span class="n">modifiedRequest</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
-            <span class="k">return</span> <span class="n">chain</span><span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">modifiedExchange</span><span class="o">);</span>
-        <span class="o">});</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">tech.punklu.gateway</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.cloud.gateway.filter.GatewayFilter</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.cloud.gateway.filter.factory.AbstractNameValueGatewayFilterFactory</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.http.server.reactive.ServerHttpRequest</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.web.server.ServerWebExchange</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@Slf4j</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@Component</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PreLogGatewayFilterFactory</span> <span class="kd">extends</span> <span class="n">AbstractNameValueGatewayFilterFactory</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">GatewayFilter</span> <span class="nf">apply</span><span class="o">(</span><span class="n">NameValueConfig</span> <span class="n">config</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="o">((</span><span class="n">exchange</span><span class="o">,</span> <span class="n">chain</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;请求进来了...{},{}&#34;</span><span class="o">,</span><span class="n">config</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span><span class="n">config</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ServerHttpRequest</span> <span class="n">modifiedRequest</span> <span class="o">=</span> <span class="n">exchange</span>
+</span></span><span class="line"><span class="cl">                    <span class="o">.</span><span class="na">getRequest</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl">                    <span class="o">.</span><span class="na">mutate</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl">                    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ServerWebExchange</span> <span class="n">modifiedExchange</span> <span class="o">=</span> <span class="n">exchange</span><span class="o">.</span><span class="na">mutate</span><span class="o">().</span><span class="na">request</span><span class="o">(</span><span class="n">modifiedRequest</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">chain</span><span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">modifiedExchange</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">});</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>需要注意的是，过滤器类类名必须以<code>GatewayFilterFactory</code>结尾。</p>
 <p>然后增加过滤器配置项：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -797,18 +787,18 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">spring</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">cloud</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">gateway</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">routes</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">between_route</span><span class="w">
-</span><span class="w">          </span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="l">lb://user-center</span><span class="w">
-</span><span class="w">          </span><span class="nt">predicates</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span>- <span class="l">TimeBetween=上午0:00,下午11:59</span><span class="w">
-</span><span class="w">          </span><span class="c"># 添加一个向发往用户中心的请求上添加Header项的拦截器,key为X-Request-Foo,value为Bar</span><span class="w">
-</span><span class="w">          </span><span class="nt">filters</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span>- <span class="l">PreLog=a,b</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">cloud</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">gateway</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">routes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">between_route</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="l">lb://user-center</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">predicates</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="l">TimeBetween=上午0:00,下午11:59</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="c"># 添加一个向发往用户中心的请求上添加Header项的拦截器,key为X-Request-Foo,value为Bar</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">filters</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="l">PreLog=a,b</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>在过滤器中添加一个配置项，将参数传递进过滤器工厂类里，参数的key<code>PreLog</code>需要和过滤器工厂类的前缀保持一致。</p>
 <p>重启<code>Gateway</code>，访问<code>http://127.0.0.1:8040/users/1?origin=browser</code>，可以看到日志里已经打印了请求执行的日志以及传入的参数。</p>
@@ -816,7 +806,7 @@
 <p>只要为Spring Cloud Gateway添加Spring Boot Actuator（ <code>spring-boot-starter-actuator</code> ）的依赖，并将 <code>gateway</code> 端点暴露，即可获得若干监控端点，监控 &amp; 操作Spring Cloud Gateway的方方面面。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -824,13 +814,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">management</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">endpoints</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">web</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">exposure</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="c"># 当然暴露&#39;*&#39; 更好啦..</span><span class="w">
-</span><span class="w">        </span><span class="nt">include</span><span class="p">:</span><span class="w"> </span><span class="l">gateway</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">management</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">endpoints</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">web</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">exposure</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c"># 当然暴露&#39;*&#39; 更好啦..</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">include</span><span class="p">:</span><span class="w"> </span><span class="l">gateway</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>监控端点一览表：</p>
 <p>以下所有端点都挂在<code>/actuator/gateway/</code> 下面。
@@ -933,7 +923,6 @@
       <div class="social-links">
       <a href="mailto:punk1u@protonmail.com" class="iconfont icon-email" title="email"></a>
       <a href="http://www.github.com/punk1u" class="iconfont icon-github" title="github"></a>
-      <a href="https://weibo.com/u/7541495676" class="iconfont icon-weibo" title="weibo"></a>
   <a href="https://punk1u.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
@@ -952,7 +941,7 @@
   <span class="copyright-year">
     &copy; 
     2020 - 
-    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>punk1u<br/>版权所有ICP证：<a href='http://beian.miit.gov.cn' target='_blank'>浙ICP备19032348号-1</a></span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>punk1u</span>
   </span>
 </div>
 
@@ -969,7 +958,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.191509a5c8442abdb6eb5020a332fd59bdd83a7e78a2d2241108df9113504292.js"></script>
 
 
 

@@ -15,10 +15,11 @@ pygmentsUseClasses = true
 pygmentsCodefencesGuessSyntax = true
 
 hasCJKLanguage = true     # has chinese/japanese/korean ? # 自动检测是否包含 中文\日文\韩文
-paginate = 5                                              # 首页每页显示的文章数
+paginate = 10                                              # 首页每页显示的文章数
 disqusShortname = ""      # disqus_shortname
-googleAnalytics = ""      # UA-XXXXXXXX-X
-copyright = "punk1u<br/>版权所有ICP证：<a href='http://beian.miit.gov.cn' target='_blank'>浙ICP备19032348号-1</a>"            # default: author.name ↓        # 默认为下面配置的author.name ↓
+googleAnalytics = ""      # UA-XXXXXXXX-X           
+
+# default: author.name ↓        # 默认为下面配置的author.name ↓
 
 [author]                  # essential                     # 必需
   name = "punk1u"
@@ -181,7 +182,6 @@ copyright = "punk1u<br/>版权所有ICP证：<a href='http://beian.miit.gov.cn' 
   [params.social]                                         # 社交链接
     a-email = "mailto:punk1u@protonmail.com"
     g-github = "http://www.github.com/punk1u"
-    h-weibo = "https://weibo.com/u/7541495676"
     # a-email = "mailto:your@email.com"
     # b-stack-overflow = "http://localhost:1313"
     # c-twitter = "http://localhost:1313"

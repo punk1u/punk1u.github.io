@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.84.1 with theme even" />
+<meta name="generator" content="Hugo 0.100.1 with theme even" />
 
 
 <link rel="canonical" href="https://punk1u.github.io/post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B05java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/" />
@@ -43,12 +43,12 @@
 <meta property="og:description" content="在许多场景下，让计算机同时去做几件事情，不仅是因为计算机的运算能力强大了，还有一个很重要的原因是计算机的运算速度与它的存储和通信子系统的速度" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://punk1u.github.io/post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B05java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-06-26T14:29:39&#43;08:00" />
-<meta property="article:modified_time" content="2021-06-26T14:29:39&#43;08:00" />
+<meta property="article:published_time" content="2021-06-26T14:29:39+08:00" />
+<meta property="article:modified_time" content="2021-06-26T14:29:39+08:00" />
 
 <meta itemprop="name" content="深入理解Java虚拟机笔记5——Java内存模型与线程">
-<meta itemprop="description" content="在许多场景下，让计算机同时去做几件事情，不仅是因为计算机的运算能力强大了，还有一个很重要的原因是计算机的运算速度与它的存储和通信子系统的速度"><meta itemprop="datePublished" content="2021-06-26T14:29:39&#43;08:00" />
-<meta itemprop="dateModified" content="2021-06-26T14:29:39&#43;08:00" />
+<meta itemprop="description" content="在许多场景下，让计算机同时去做几件事情，不仅是因为计算机的运算能力强大了，还有一个很重要的原因是计算机的运算速度与它的存储和通信子系统的速度"><meta itemprop="datePublished" content="2021-06-26T14:29:39+08:00" />
+<meta itemprop="dateModified" content="2021-06-26T14:29:39+08:00" />
 <meta itemprop="wordCount" content="13266">
 <meta itemprop="keywords" content="JVM,笔记," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="深入理解Java虚拟机笔记5——Java内存模型与线程"/>
@@ -231,7 +231,7 @@
 <p><strong><code>volatile</code>变量在各个线程的工作内存中是不存在一致性问题的</strong>（从物理存储的角度看，各个线程的工作内存中<code>volatile</code>变量也可以存在不一致的情况，但由于每次使用之前都要先刷新，执行引擎看不到不一致的情况，因此可以认为不存在一致性问题），<strong>但是<code>Java</code>里面的运算操作符并非原子操作，这导致volatile变量的运算在并发下一样是不安全的</strong>：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -264,44 +264,44 @@
 </span><span class="lnt">31
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
-</span><span class="cm">* volatile变量自增运算测试
-</span><span class="cm">*/</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">VolatileTest</span> <span class="o">{</span>
-
-	<span class="kd">public</span> <span class="kd">static</span> <span class="kd">volatile</span> <span class="kt">int</span> <span class="n">race</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">increase</span><span class="o">()</span> <span class="o">{</span>
-		<span class="n">race</span><span class="o">++;</span>
-	<span class="o">}</span>
-
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">THREADS_COUNT</span> <span class="o">=</span> <span class="n">20</span><span class="o">;</span>
-    
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Thread</span><span class="o">[]</span> <span class="n">threads</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">[</span><span class="n">THREADS_COUNT</span><span class="o">];</span>
-        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">THREADS_COUNT</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-            <span class="n">threads</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
-                <span class="nd">@Override</span>
-                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-                <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">10000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-                    <span class="n">increase</span><span class="o">();</span>
-                    <span class="o">}</span>
-                <span class="o">}</span>
-            <span class="o">});</span>
-            <span class="n">threads</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">start</span><span class="o">();</span>
-        <span class="o">}</span>
-        <span class="c1">// 等待所有累加线程都结束
-</span><span class="c1"></span>        <span class="k">while</span> <span class="o">(</span><span class="n">Thread</span><span class="o">.</span><span class="na">activeCount</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">1</span><span class="o">)</span>
-            <span class="n">Thread</span><span class="o">.</span><span class="na">yield</span><span class="o">();</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">race</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">* volatile变量自增运算测试
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">VolatileTest</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kd">volatile</span> <span class="kt">int</span> <span class="n">race</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">increase</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">race</span><span class="o">++;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">THREADS_COUNT</span> <span class="o">=</span> <span class="n">20</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Thread</span><span class="o">[]</span> <span class="n">threads</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">[</span><span class="n">THREADS_COUNT</span><span class="o">];</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">THREADS_COUNT</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">threads</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">10000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">increase</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">                    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">                <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="o">});</span>
+</span></span><span class="line"><span class="cl">            <span class="n">threads</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 等待所有累加线程都结束
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">while</span> <span class="o">(</span><span class="n">Thread</span><span class="o">.</span><span class="na">activeCount</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">1</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Thread</span><span class="o">.</span><span class="na">yield</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">race</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这段代码发起了20个线程，每个线程对race变量进行10000次自增操作，如果这段代码能够正确并发的话，最后输出的结果应该是200000。但是运行完这段代码之后，并不会获得期望的结果，而且会发现每次运行程序，输出的结果都不一样，都是一个小于200000的数字。</p>
 <p>问题就出在自增运算“<code>race++</code>”之中，用<code>Javap</code>反编译这段代码后会得到如下所示的代码，发现只有一行代码的<code>increase()</code>方法在<code>Class</code>文件中是由<code>4条字节码指令</code>构成（<code>return</code>指令不是由<code>race++</code>产生的，这条指令可以不计算），从字节码层面上已经很容易分析出并发失败的原因了：当<code>getstatic</code>指令把<code>race</code>的值取到操作栈顶时，<code>volatile</code>关键字保证了<code>race</code>的值在此时是正确的，但是在执行<code>iconst_1</code>、<code>iadd</code>这些指令的时候，其他线程可能已经把<code>race</code>的值改变了，而操作栈顶的值就变成了过期的数据，所以<code>putstatic</code>指令执行后就可能把较小的race值同步回主内存之中。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -314,18 +314,18 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">increase</span><span class="o">();</span>
-    <span class="n">Code</span><span class="o">:</span>
-        <span class="n">Stack</span><span class="o">=</span><span class="n">2</span><span class="o">,</span> <span class="n">Locals</span><span class="o">=</span><span class="n">0</span><span class="o">,</span> <span class="n">Args_size</span><span class="o">=</span><span class="n">0</span>
-        <span class="n">0</span><span class="o">:</span> <span class="n">getstatic</span> <span class="err">#</span><span class="n">13</span><span class="o">;</span> <span class="c1">//Field race:I
-</span><span class="c1"></span>        <span class="n">3</span><span class="o">:</span> <span class="n">iconst_1</span>
-        <span class="n">4</span><span class="o">:</span> <span class="n">iadd</span>
-        <span class="n">5</span><span class="o">:</span> <span class="n">putstatic</span> <span class="err">#</span><span class="n">13</span><span class="o">;</span> <span class="c1">//Field race:I
-</span><span class="c1"></span>        <span class="n">8</span><span class="o">:</span> <span class="k">return</span>
-    <span class="n">LineNumberTable</span><span class="o">:</span>
-        <span class="n">line</span> <span class="n">14</span><span class="o">:</span> <span class="n">0</span>
-        <span class="n">line</span> <span class="n">15</span><span class="o">:</span> <span class="n">8</span>	
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">increase</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Code</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Stack</span><span class="o">=</span><span class="n">2</span><span class="o">,</span> <span class="n">Locals</span><span class="o">=</span><span class="n">0</span><span class="o">,</span> <span class="n">Args_size</span><span class="o">=</span><span class="n">0</span>
+</span></span><span class="line"><span class="cl">        <span class="n">0</span><span class="o">:</span> <span class="n">getstatic</span> <span class="err">#</span><span class="n">13</span><span class="o">;</span> <span class="c1">//Field race:I
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">3</span><span class="o">:</span> <span class="n">iconst_1</span>
+</span></span><span class="line"><span class="cl">        <span class="n">4</span><span class="o">:</span> <span class="n">iadd</span>
+</span></span><span class="line"><span class="cl">        <span class="n">5</span><span class="o">:</span> <span class="n">putstatic</span> <span class="err">#</span><span class="n">13</span><span class="o">;</span> <span class="c1">//Field race:I
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">8</span><span class="o">:</span> <span class="k">return</span>
+</span></span><span class="line"><span class="cl">    <span class="n">LineNumberTable</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">line</span> <span class="n">14</span><span class="o">:</span> <span class="n">0</span>
+</span></span><span class="line"><span class="cl">        <span class="n">line</span> <span class="n">15</span><span class="o">:</span> <span class="n">8</span>	
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>使用字节码来分析并发问题仍然是不严谨的，因为即使编译出来只有一条字节码指令，也并不意味执行这条指令就是一个原子操作。一条字节码指令在解释执行时，解释器要运行许多行代码才能实现它的语义</strong>。但是此处字节码就已经可以很好地说明问题了。</p>
 <p>由于<code>volatile</code>变量只能保证可见性，在不符合以下两条规则的运算场景中，仍然要通过加锁（使用<code>synchronized</code>、<code>java.util.concurrent</code>中的锁或原子类）来保证原子性：</p>
@@ -336,7 +336,7 @@
 <p>而在像下面所示的这类场景中就很适合使用<code>volatile</code>变量来控制并发，当<code>shutdown()</code>方法被调用时，能保证所有线程中执行的<code>doWork()</code>方法都立即停下来：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -349,24 +349,24 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">volatile</span> <span class="kt">boolean</span> <span class="n">shutdownRequested</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">shutdown</span><span class="o">()</span> <span class="o">{</span>
-	<span class="n">shutdownRequested</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-<span class="o">}</span>
-
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">doWork</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">while</span> <span class="o">(!</span><span class="n">shutdownRequested</span><span class="o">)</span> <span class="o">{</span>
-    	<span class="c1">// 代码的业务逻辑
-</span><span class="c1"></span>    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">volatile</span> <span class="kt">boolean</span> <span class="n">shutdownRequested</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">shutdown</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">shutdownRequested</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">doWork</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="o">(!</span><span class="n">shutdownRequested</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    	<span class="c1">// 代码的业务逻辑
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>使用volatile变量的第二个语义是禁止指令重排序优化</strong>，<strong>普通的变量仅会保证在该方法的执行过程中所有依赖赋值结果的地方都能获取到正确的结果，而不能保证变量赋值操作的顺序与程序代码中的执行顺序一致</strong>。因为在同一个线程的方法执行过程中无法感知到这点，这就是Java内存模型中描述的所谓“线程内表现为串行的语义”（Within-Thread As-If-Serial Semantics）。</p>
 <p>通过一个例子来看看为何指令重排序会干扰程序的并发执行：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -388,33 +388,33 @@
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Map</span> <span class="n">configOptions</span><span class="o">;</span>
-<span class="kt">char</span><span class="o">[]</span> <span class="n">configText</span><span class="o">;</span>
-<span class="c1">// 此变量必须定义为volatile
-</span><span class="c1"></span><span class="kd">volatile</span> <span class="kt">boolean</span> <span class="n">initialized</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
-
-<span class="c1">// 假设以下代码在线程A中执行
-</span><span class="c1">// 模拟读取配置信息，当读取完成后
-</span><span class="c1">// 将initialized设置为true,通知其他线程配置可用
-</span><span class="c1"></span><span class="n">configOptions</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
-<span class="n">configText</span> <span class="o">=</span> <span class="n">readConfigFile</span><span class="o">(</span><span class="n">fileName</span><span class="o">);</span>
-<span class="n">processConfigOptions</span><span class="o">(</span><span class="n">configText</span><span class="o">,</span> <span class="n">configOptions</span><span class="o">);</span>
-<span class="n">initialized</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-
-<span class="c1">// 假设以下代码在线程B中执行
-</span><span class="c1">// 等待initialized为true，代表线程A已经把配置信息初始化完成
-</span><span class="c1"></span><span class="k">while</span> <span class="o">(!</span><span class="n">initialized</span><span class="o">)</span> <span class="o">{</span>
-	<span class="n">sleep</span><span class="o">();</span>
-<span class="o">}</span>
-<span class="c1">// 使用线程A中初始化好的配置信息
-</span><span class="c1"></span><span class="n">doSomethingWithConfig</span><span class="o">();</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Map</span> <span class="n">configOptions</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">char</span><span class="o">[]</span> <span class="n">configText</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 此变量必须定义为volatile
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">volatile</span> <span class="kt">boolean</span> <span class="n">initialized</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 假设以下代码在线程A中执行
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 模拟读取配置信息，当读取完成后
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 将initialized设置为true,通知其他线程配置可用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">configOptions</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">configText</span> <span class="o">=</span> <span class="n">readConfigFile</span><span class="o">(</span><span class="n">fileName</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">processConfigOptions</span><span class="o">(</span><span class="n">configText</span><span class="o">,</span> <span class="n">configOptions</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">initialized</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 假设以下代码在线程B中执行
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 等待initialized为true，代表线程A已经把配置信息初始化完成
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">while</span> <span class="o">(!</span><span class="n">initialized</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">sleep</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 使用线程A中初始化好的配置信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">doSomethingWithConfig</span><span class="o">();</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>其中描述的场景是开发中常见配置读取过程，只是在处理配置文件时一般不会出现并发，所以没有察觉这会有问题。试想一下，如果定义<code>initialized</code>变量时没有使用<code>volatile</code>修饰，就可能会由于指令重排序的优化，导致位于线程A中最后一条代码“<code>initialized=true</code>”被提前执行（这里虽然使用<code>Java</code>作为伪代码，但所指的重排序优化是机器级的优化操作，提前执行是指这条语句对应的汇编代码被提前执行），这样在线程B中使用配置信息的代码就可能出现错误，而<code>volatile</code>关键字则可以避免此类情况的发生。</p>
 <p>再举一个可以实际操作运行的双锁检测例子来分析<code>volatile</code>关键字是如何禁止指令重排序优化的 :</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -434,30 +434,30 @@
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Singleton</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kd">volatile</span> <span class="kd">static</span> <span class="n">Singleton</span> <span class="n">instance</span><span class="o">;</span>
-    
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Singleton</span> <span class="nf">getInstance</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">instance</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-            <span class="kd">synchronized</span> <span class="o">(</span><span class="n">Singleton</span><span class="o">.</span><span class="na">class</span><span class="o">)</span> <span class="o">{</span>
-                <span class="k">if</span> <span class="o">(</span><span class="n">instance</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-                	<span class="n">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Singleton</span><span class="o">();</span>
-            	<span class="o">}</span>
-            <span class="o">}</span>
-        <span class="o">}</span>
-        <span class="k">return</span> <span class="n">instance</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Singleton</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Singleton</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">volatile</span> <span class="kd">static</span> <span class="n">Singleton</span> <span class="n">instance</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Singleton</span> <span class="nf">getInstance</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">instance</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">synchronized</span> <span class="o">(</span><span class="n">Singleton</span><span class="o">.</span><span class="na">class</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="o">(</span><span class="n">instance</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                	<span class="n">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Singleton</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">instance</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Singleton</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>编译后，这段代码对instance变量赋值的部分：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -467,15 +467,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">0x01a3de0f: mov $0x3375cdb0,%esi 			;...beb0cd75 33
-											; {oop(&#39;Singleton&#39;)}
-0x01a3de14: mov %eax,0x150(%esi) 			;...89865001 0000
-0x01a3de1a: shr $0x9,%esi 					;...c1ee09
-0x01a3de1d: movb $0x0,0x1104800(%esi) 		;...c6860048 100100
-0x01a3de24: lock addl $0x0,(%esp) 			;...f0830424 00
-                                            ;*putstatic instance
-                                            ; - Singleton::getInstance@24
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">0x01a3de0f: mov $0x3375cdb0,%esi 			;...beb0cd75 33
+</span></span><span class="line"><span class="cl">											; {oop(&#39;Singleton&#39;)}
+</span></span><span class="line"><span class="cl">0x01a3de14: mov %eax,0x150(%esi) 			;...89865001 0000
+</span></span><span class="line"><span class="cl">0x01a3de1a: shr $0x9,%esi 					;...c1ee09
+</span></span><span class="line"><span class="cl">0x01a3de1d: movb $0x0,0x1104800(%esi) 		;...c6860048 100100
+</span></span><span class="line"><span class="cl">0x01a3de24: lock addl $0x0,(%esp) 			;...f0830424 00
+</span></span><span class="line"><span class="cl">                                            ;*putstatic instance
+</span></span><span class="line"><span class="cl">                                            ; - Singleton::getInstance@24
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>通过对比发现，关键变化在于有<code>volatile</code>修饰的变量，赋值后（前面<code>mov%eax，0x150(%esi)</code>这句便是赋值操作）多执行了一个“<code>lock addl$0x0，(%esp)</code>”操作，这个操作的作用相当于一个内存屏障，只有一个处理器访问内存时，并不需要内存屏障；但如果有两个或更多处理器访问同一块内存，且其中有一个在观测另一个，就需要内存屏障来保证一致性了。</p>
 <p>这句指令中的“<code>addl$0x0，(%esp)</code>”（把ESP寄存器的值加0）显然是一个空操作，这里的关键在于<code>lock</code>前缀，<strong>它的作用是将本处理器的缓存写入了内存，该写入动作也会引起别的处理器或者别的内核无效化（Invalidate）其缓存</strong>，这种操作相当于对缓存中的变量做了一次前面介绍Java内存模式中所说的“<code>store</code>和<code>write</code>”操作。所以通过这样一个空操作，可<strong>让前面<code>volatile</code>变量的修改对其他处理器立即可见</strong>。</p>
@@ -504,7 +504,7 @@
 <p>先行发生原则示例1：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -512,13 +512,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 以下操作在线程A中执行
-</span><span class="c1"></span><span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
-<span class="c1">// 以下操作在线程B中执行
-</span><span class="c1"></span><span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
-<span class="c1">// 以下操作在线程C中执行
-</span><span class="c1"></span><span class="n">i</span> <span class="o">=</span> <span class="n">2</span><span class="o">;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 以下操作在线程A中执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 以下操作在线程B中执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 以下操作在线程C中执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">i</span> <span class="o">=</span> <span class="n">2</span><span class="o">;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>假设线程A中的操作“<code>i=1</code>”先行发生于线程B的操作“<code>j=i</code>”，那就可以确定在线程B的操作执行后，变量j的值一定是等于1，得出这个结论的依据有两个：一是根据先行发生原则，“i=1”的结果可以被观察到；二是线程C还没登场，线程A操作结束之后没有其他线程会修改变量i的值。现在再来考虑线程C，我们依然保持线程A和B之间的先行发生关系，而C出现在线程A和B的操作之间，但是C与B没有先行发生关系，那j的值会是多少呢？答案是不确定！1和2都有可能，因为线程C对变量i的影响可能会被线程B观察到，也可能不会，这时候线程B就存在读取到过期数据的风险，不具备多线程安全性。</p>
 <p>下面是Java内存模型下一些“天然的”先行发生关系，<strong>这些先行发生关系无须任何同步器协助就已经存在，可以在编码中直接使用。如果两个操作之间的关系不在此列，并且无法从下列规则推导出来，则它们就没有顺序性保障，虚拟机可以对它们随意地进行重排序</strong>：</p>
@@ -560,7 +560,7 @@
 <p>先行发生原则示例2：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -571,16 +571,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
-
-<span class="n">pubilc</span> <span class="kt">void</span> <span class="nf">setValue</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">){</span>
-	<span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
-<span class="o">}</span>
-
-<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getValue</span><span class="o">(){</span>
-	<span class="k">return</span> <span class="n">value</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">private</span> <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">pubilc</span> <span class="kt">void</span> <span class="nf">setValue</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">	<span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">int</span> <span class="nf">getValue</span><span class="o">(){</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">value</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>显示的是一组再普通不过的<code>getter/setter</code>方法，假设存在线程A和B，线程A<strong>先（时间上的先后）调用</strong>了<code>setValue(1)</code>，然后线程B调用了同一个对象的<code>getValue()</code>，那么线程B收到的返回值是什么？</p>
 <p>依次分析一下先行发生原则中的各项规则。由于两个方法分别由线程A和B调用，不在一个线程中，所以程序次序规则在这里不适用；由于没有同步块，自然就不会发生lock和unlock操作，所以管程锁定规则不适用；由于value变量没有被<code>volatile</code>关键字修饰，所以<code>volatile</code>变量规则不适用；后面的线程启动、终止、中断规则和对象终结规则也和这里完全没有关系。因为没有一个适用的先行发生规则，所以最后一条传递性也无从谈起，因此我们可以判定，<strong>尽管线程A在操作时间上先于线程B，但是无法确定线程B中<code>getValue()</code>方法的返回结果，换句话说，这里面的操作不是线程安全的。</strong></p>
@@ -590,15 +590,15 @@
 <p>先行发生原则示例3：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 以下操作在同一个线程中执行
-</span><span class="c1"></span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
-<span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">2</span><span class="o">;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 以下操作在同一个线程中执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">2</span><span class="o">;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>两条赋值语句在同一个线程之中，根据程序次序规则，“<code>int i=1</code>的操作先行发生于“<code>int j=2</code>”，但是“<code>int j=2</code>”的代码完全可能先被处理器执行，这并不影响先行发生原则的正确性，因为我们在这条线程之中没有办法感知到这一点。</p>
 <p>上面两个例子综合起来证明了一个结论：<strong>时间先后顺序与先行发生原则之间基本没有因果关系</strong>，所以衡量并发安全问题的时候不要受时间顺序的干扰，一切必须以先行发生原则为准。</p>
@@ -663,11 +663,11 @@
 <p>假设发生了这样一次线程切换：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">线程A -&gt; 系统中断 -&gt; 线程B
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">线程A -&gt; 系统中断 -&gt; 线程B
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>处理器要去执行线程A的程序代码时，并不是仅有代码程序就能跑得起来，程序是数据与代码的组合体，代码执行时还必须要有上下文数据的支撑</strong>。而<strong>这里说的“上下文”，以程序员的角度来看，是方法调用过程中的各种局部的变量与资源；以线程的角度来看，是方法的调用栈中存储的各类信息；而以操作系统和硬件的角度来看，则是存储在内存、缓存和寄存器中的一个个具体数值</strong>。<strong>物理硬件的各种存储设备和寄存器是被操作系统内所有线程共享的资源，当中断发生，从线程A切换到线程B去执行之前，操作系统首先要把线程A的上下文数据妥善保管好</strong>，然后把寄存器、内存分页等恢复到线程B挂起时候的状态，这样线程B被重新激活后才能仿佛从来没有被挂起过。<strong>这种保护和恢复现场的工作，免不了涉及一系列数据在各种寄存器、缓存中的来回拷贝，当然不可能是一种轻量级的操作</strong>。</p>
 <p>改为采用用户线程，内核线程的切换开销是来自于保护和恢复现场的成本也不能省略掉，但是，一旦把保护、恢复现场及调度的工作从操作系统交到程序员手上，那就可以打开脑洞，通过玩出很多新的花样来缩减这些开销。</p>
@@ -724,7 +724,6 @@
       <div class="social-links">
       <a href="mailto:punk1u@protonmail.com" class="iconfont icon-email" title="email"></a>
       <a href="http://www.github.com/punk1u" class="iconfont icon-github" title="github"></a>
-      <a href="https://weibo.com/u/7541495676" class="iconfont icon-weibo" title="weibo"></a>
   <a href="https://punk1u.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
@@ -743,7 +742,7 @@
   <span class="copyright-year">
     &copy; 
     2020 - 
-    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>punk1u<br/>版权所有ICP证：<a href='http://beian.miit.gov.cn' target='_blank'>浙ICP备19032348号-1</a></span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>punk1u</span>
   </span>
 </div>
 
@@ -760,7 +759,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.191509a5c8442abdb6eb5020a332fd59bdd83a7e78a2d2241108df9113504292.js"></script>
 
 
 

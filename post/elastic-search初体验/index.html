@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="punk1u" /><meta name="description" content="Elastic Search初体验 Elastic Search对比MySQL Elastic Search和MySQL的概念对比： MySQL ES Database Index Table Type Row Document Column Field Schema Mapping 使用例子： MySQL： 1 SEL" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="punk1u" /><meta name="description" content="Elastic Search初体验 Elastic Search对比MySQL Elastic Search和MySQL的概念对比： MySQL ES Database Index Table Type Row Document Column Field Schema Mapping 使用例子： MySQL： 1 SELECT * FROM" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.84.1 with theme even" />
+<meta name="generator" content="Hugo 0.100.1 with theme even" />
 
 
 <link rel="canonical" href="https://punk1u.github.io/post/elastic-search%E5%88%9D%E4%BD%93%E9%AA%8C/" />
@@ -40,19 +40,19 @@
 
 
 <meta property="og:title" content="Elastic Search初体验" />
-<meta property="og:description" content="Elastic Search初体验 Elastic Search对比MySQL Elastic Search和MySQL的概念对比： MySQL ES Database Index Table Type Row Document Column Field Schema Mapping 使用例子： MySQL： 1 SEL" />
+<meta property="og:description" content="Elastic Search初体验 Elastic Search对比MySQL Elastic Search和MySQL的概念对比： MySQL ES Database Index Table Type Row Document Column Field Schema Mapping 使用例子： MySQL： 1 SELECT * FROM" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://punk1u.github.io/post/elastic-search%E5%88%9D%E4%BD%93%E9%AA%8C/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-02-19T22:54:39&#43;08:00" />
-<meta property="article:modified_time" content="2021-02-19T22:54:39&#43;08:00" />
+<meta property="article:published_time" content="2021-02-19T22:54:39+08:00" />
+<meta property="article:modified_time" content="2021-02-19T22:54:39+08:00" />
 
 <meta itemprop="name" content="Elastic Search初体验">
-<meta itemprop="description" content="Elastic Search初体验 Elastic Search对比MySQL Elastic Search和MySQL的概念对比： MySQL ES Database Index Table Type Row Document Column Field Schema Mapping 使用例子： MySQL： 1 SEL"><meta itemprop="datePublished" content="2021-02-19T22:54:39&#43;08:00" />
-<meta itemprop="dateModified" content="2021-02-19T22:54:39&#43;08:00" />
-<meta itemprop="wordCount" content="6637">
+<meta itemprop="description" content="Elastic Search初体验 Elastic Search对比MySQL Elastic Search和MySQL的概念对比： MySQL ES Database Index Table Type Row Document Column Field Schema Mapping 使用例子： MySQL： 1 SELECT * FROM"><meta itemprop="datePublished" content="2021-02-19T22:54:39+08:00" />
+<meta itemprop="dateModified" content="2021-02-19T22:54:39+08:00" />
+<meta itemprop="wordCount" content="6260">
 <meta itemprop="keywords" content="Elastic Search,笔记,JAVA," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Elastic Search初体验"/>
-<meta name="twitter:description" content="Elastic Search初体验 Elastic Search对比MySQL Elastic Search和MySQL的概念对比： MySQL ES Database Index Table Type Row Document Column Field Schema Mapping 使用例子： MySQL： 1 SEL"/>
+<meta name="twitter:description" content="Elastic Search初体验 Elastic Search对比MySQL Elastic Search和MySQL的概念对比： MySQL ES Database Index Table Type Row Document Column Field Schema Mapping 使用例子： MySQL： 1 SELECT * FROM"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -124,8 +124,8 @@
             <a href="/categories/%E7%AC%94%E8%AE%B0/"> 笔记 </a>
             <a href="/categories/java/"> JAVA </a>
             </div>
-          <span class="more-meta"> 约 6637 字 </span>
-          <span class="more-meta"> 预计阅读 14 分钟 </span>
+          <span class="more-meta"> 约 6260 字 </span>
+          <span class="more-meta"> 预计阅读 13 分钟 </span>
         
       </div>
     </header>
@@ -212,20 +212,20 @@
 <p><code>MySQL</code>：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">USER</span><span class="p">.</span><span class="n">USER_INFO</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;张三&#39;</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">USER</span><span class="p">.</span><span class="n">USER_INFO</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;张三&#39;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>Elastic Search</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-json" data-lang="json"><span class="err">GET/user/user_info/_search?q=name:张三</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">GET/user/user_info/_search?q=name:张三</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="安装elasticsearch">安装ElasticSearch</h2>
 <p>在<a href="https://www.elastic.co/cn/downloads/elasticsearch">Elastic Search官网</a>下载<code>Elastic Search</code>的对应系统的安装包，解压后，进入<code>/bin</code>目录，执行对应的<code>./elasticsearch.bat</code>或<code>./elasticsearch.sh</code>的脚本即可启动<code>Elastic Search</code>。</p>
@@ -236,61 +236,61 @@
 <p>解压后，进入<code>config/</code>目录，配置如下信息：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># kinaba运行使用的端口</span><span class="w">
-</span><span class="w"></span><span class="nt">server.port</span><span class="p">:</span><span class="w"> </span><span class="m">5601</span><span class="w">
-</span><span class="w"></span><span class="c"># kibana要连接的elastic search的地址</span><span class="w">
-</span><span class="w"></span><span class="nt">elasticsearch.hosts</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;http://localhost:9200&#34;</span><span class="p">]</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># kinaba运行使用的端口</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">server.port</span><span class="p">:</span><span class="w"> </span><span class="m">5601</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># kibana要连接的elastic search的地址</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">elasticsearch.hosts</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;http://localhost:9200&#34;</span><span class="p">]</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="elastic-search的api示例">Elastic Search的API示例</h2>
 <p>可以使用HTTP协议直接向<code>Elastic Search</code>发送对应的<code>增删改查</code>请求。</p>
 <h3 id="查看所有索引">查看所有索引</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-YAML" data-lang="YAML"><span class="l">GET 127.0.0.1:9200/_all</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-YAML" data-lang="YAML"><span class="line"><span class="cl"><span class="l">GET 127.0.0.1:9200/_all</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="创建索引">创建索引</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-YAML" data-lang="YAML"><span class="l">PUT 127.0.0.1:9200/test</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-YAML" data-lang="YAML"><span class="line"><span class="cl"><span class="l">PUT 127.0.0.1:9200/test</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>即创建名为<code>test</code>的索引。</p>
 <h3 id="删除索引">删除索引</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">DELETE 127.0.0.1:9200/test</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">DELETE 127.0.0.1:9200/test</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>删除名为<code>test</code>的索引。</p>
 <h3 id="创建索引并新增数据">创建索引并新增数据</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">PUT 127.0.0.1:9200/person</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">PUT 127.0.0.1:9200/person</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -300,34 +300,34 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">PUT 127.0.0.1:9200/person/_doc/1</span><span class="w">
-</span><span class="w"></span>{<span class="w">
-</span><span class="w">    </span><span class="s2">&#34;first_name&#34;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;John&#34;</span><span class="p">,</span><span class="w">
-</span><span class="w">    </span><span class="s2">&#34;last_name&#34;</span><span class="p">:</span><span class="s2">&#34;Smith&#34;</span><span class="p">,</span><span class="w">
-</span><span class="w">    </span><span class="s2">&#34;age&#34;</span><span class="p">:</span><span class="m">25</span><span class="p">,</span><span class="w">
-</span><span class="w">    </span><span class="s2">&#34;about&#34;</span><span class="p">:</span><span class="s2">&#34;I Love to go rock climbing&#34;</span><span class="p">,</span><span class="w">
-</span><span class="w">    </span><span class="s2">&#34;interests&#34;</span><span class="p">:[</span><span class="s2">&#34;sports&#34;</span><span class="p">,</span><span class="s2">&#34;music&#34;</span><span class="p">]</span><span class="w">
-</span><span class="w"></span>}<span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">PUT 127.0.0.1:9200/person/_doc/1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>{<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;first_name&#34;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;John&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;last_name&#34;</span><span class="p">:</span><span class="s2">&#34;Smith&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;age&#34;</span><span class="p">:</span><span class="m">25</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;about&#34;</span><span class="p">:</span><span class="s2">&#34;I Love to go rock climbing&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;interests&#34;</span><span class="p">:[</span><span class="s2">&#34;sports&#34;</span><span class="p">,</span><span class="s2">&#34;music&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以看到创建了一个名为<code>person</code>的索引，并向这个索引增加了<code>id</code>为<code>1</code>的用户数据。</p>
 <h3 id="通过id搜索数据">通过id搜索数据</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">GET 127.0.0.1:9200/person/_doc/1</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">GET 127.0.0.1:9200/person/_doc/1</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="通过指定的字段搜索数据">通过指定的字段搜索数据</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">GET 127.0.0.1:9200/person/_doc/_search?q=first_name:john</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">GET 127.0.0.1:9200/person/_doc/_search?q=first_name:john</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>查询索引名为<code>person</code>中的<code>first_name</code>值为<code>john</code>的数据。</p>
 <p>在返回<code>JSON</code>的<code>hits</code>列中可以看到已经查询出了对应的<code>first_name</code>为<code>john</code>的用户数据。</p>
@@ -336,26 +336,26 @@
 <h3 id="查看所有索引-1">查看所有索引</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">GET _all</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">GET _all</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="通过id搜索数据-1">通过id搜索数据</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">GET 127.0.0.1:9200/person/_doc/1</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">GET 127.0.0.1:9200/person/_doc/1</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="通过指定的字段搜索数据-1">通过指定的字段搜索数据</h3>
 <p>查询<code>firsr_name</code>字段为<code>john</code>的数据:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -371,27 +371,27 @@
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">GET /person/_search</span><span class="w">
-</span><span class="w"></span>{<span class="w">
-</span><span class="w">  </span><span class="nt">&#34;query&#34;: </span>{<span class="w">
-</span><span class="w">    </span><span class="nt">&#34;bool&#34;: </span>{<span class="w">
-</span><span class="w">      </span><span class="nt">&#34;should&#34;: </span><span class="p">[</span><span class="w">
-</span><span class="w">        </span>{<span class="w">
-</span><span class="w">          </span><span class="nt">&#34;match&#34;: </span>{<span class="w">
-</span><span class="w">            </span><span class="nt">&#34;first_name&#34;: </span><span class="s2">&#34;john&#34;</span><span class="w">
-</span><span class="w">          </span>}<span class="w">
-</span><span class="w">        </span>}<span class="w">
-</span><span class="w">      </span><span class="p">]</span><span class="w">
-</span><span class="w">    </span>}<span class="w">
-</span><span class="w">  </span>}<span class="w">
-</span><span class="w"></span>}<span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">GET /person/_search</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>{<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">&#34;query&#34;: </span>{<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">&#34;bool&#34;: </span>{<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">&#34;should&#34;: </span><span class="p">[</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>{<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">&#34;match&#34;: </span>{<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">&#34;first_name&#34;: </span><span class="s2">&#34;john&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>}<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>}<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>}<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>同样的，可以在返回结果里的<code>hits</code>中看到对应的查询数据结果。</p>
 <p>也可以指定多个字段的查询，例如查询<code>first_name</code>字段和<code>about</code>字段：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -412,26 +412,26 @@
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">GET /person/_search</span><span class="w">
-</span><span class="w"></span>{<span class="w">
-</span><span class="w">  </span><span class="nt">&#34;query&#34;: </span>{<span class="w">
-</span><span class="w">    </span><span class="nt">&#34;bool&#34;: </span>{<span class="w">
-</span><span class="w">      </span><span class="nt">&#34;should&#34;: </span><span class="p">[</span><span class="w">
-</span><span class="w">        </span>{<span class="w">
-</span><span class="w">          </span><span class="nt">&#34;match&#34;: </span>{<span class="w">
-</span><span class="w">            </span><span class="nt">&#34;first_name&#34;: </span><span class="s2">&#34;john&#34;</span><span class="w">
-</span><span class="w">          </span>}<span class="w">
-</span><span class="w">        </span>}<span class="p">,</span><span class="w">
-</span><span class="w">         </span>{<span class="w">
-</span><span class="w">          </span><span class="nt">&#34;match&#34;: </span>{<span class="w">
-</span><span class="w">            </span><span class="nt">&#34;about&#34;: </span><span class="s2">&#34;rock&#34;</span><span class="w">
-</span><span class="w">          </span>}<span class="w">
-</span><span class="w">        </span>}<span class="w">
-</span><span class="w">      </span><span class="p">]</span><span class="w">
-</span><span class="w">    </span>}<span class="w">
-</span><span class="w">  </span>}<span class="w">
-</span><span class="w"></span>}<span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">GET /person/_search</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>{<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">&#34;query&#34;: </span>{<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">&#34;bool&#34;: </span>{<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">&#34;should&#34;: </span><span class="p">[</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>{<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">&#34;match&#34;: </span>{<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">&#34;first_name&#34;: </span><span class="s2">&#34;john&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>}<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>}<span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">         </span>{<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">&#34;match&#34;: </span>{<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">&#34;about&#34;: </span><span class="s2">&#34;rock&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>}<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>}<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>}<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>但是，需要特别注意的是，这段请求中的<code>should</code>是类似于<code>SQL</code>中的<code>OR</code>的功能，就是只要满足<code>should</code>标签下的多个条件中的一个，就会在响应结果中返回。如果想要实现<code>SQL</code>中的<code>AND</code>功能，可以将<code>should</code>改为<code>must</code>。</strong></p>
 <p>可以看出，通过<code>Dev tools</code>比通过<code>PostMan</code>模拟请求的方式更加简单，只需要指定<code>HTTP</code>请求<code>Method</code>以及对应的指令即可，且<code>Dev tools</code>会有自动提示的功能，非常方便。</p>
@@ -439,7 +439,7 @@
 <p>接下来在项目中使用<code>Elastic Search</code>，例如一个<code>博客项目</code>中的<code>搜索功能</code>，首先新建对应的表：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -450,28 +450,28 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">blog</span><span class="o">`</span><span class="p">.</span><span class="o">`</span><span class="n">t_blog</span><span class="o">`</span><span class="w">  </span><span class="p">(</span><span class="w">
-</span><span class="w">  </span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;自增id&#39;</span><span class="p">,</span><span class="w">
-</span><span class="w">  </span><span class="o">`</span><span class="n">title</span><span class="o">`</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;博客标题&#39;</span><span class="p">,</span><span class="w">
-</span><span class="w">  </span><span class="o">`</span><span class="n">author</span><span class="o">`</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;博客作者&#39;</span><span class="p">,</span><span class="w">
-</span><span class="w">  </span><span class="o">`</span><span class="n">content</span><span class="o">`</span><span class="w"> </span><span class="n">mediumtext</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;博客内容&#39;</span><span class="p">,</span><span class="w">
-</span><span class="w">  </span><span class="o">`</span><span class="n">create_time</span><span class="o">`</span><span class="w"> </span><span class="n">datetime</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;创建时间&#39;</span><span class="p">,</span><span class="w">
-</span><span class="w">  </span><span class="o">`</span><span class="n">update_time</span><span class="o">`</span><span class="w"> </span><span class="n">datetime</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;更新时间&#39;</span><span class="p">,</span><span class="w">
-</span><span class="w">  </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">)</span><span class="w">
-</span><span class="w"></span><span class="p">)</span><span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="o">=</span><span class="mi">12</span><span class="p">;</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">blog</span><span class="o">`</span><span class="p">.</span><span class="o">`</span><span class="n">t_blog</span><span class="o">`</span><span class="w">  </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;自增id&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">title</span><span class="o">`</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;博客标题&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">author</span><span class="o">`</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;博客作者&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">content</span><span class="o">`</span><span class="w"> </span><span class="n">mediumtext</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;博客内容&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">create_time</span><span class="o">`</span><span class="w"> </span><span class="n">datetime</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;创建时间&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">update_time</span><span class="o">`</span><span class="w"> </span><span class="n">datetime</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;更新时间&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="o">=</span><span class="mi">12</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="es搜索速度快的原因">ES搜索速度快的原因</h3>
 <p>对照表结构，如果不使用<code>Elastic Search</code>，想要实现<code>博客内容搜索</code>的话，需要通过类似下面这样的<code>SQL</code>来实现：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="o">#</span><span class="w"> </span><span class="err">博客标题或内容模糊查询</span><span class="w">
-</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">T_BLOG</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">TITLE</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%springboot%&#39;</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">CONTENT</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%springboot%&#39;</span><span class="p">;</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="o">#</span><span class="w"> </span><span class="err">博客标题或内容模糊查询</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">T_BLOG</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">TITLE</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%springboot%&#39;</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">CONTENT</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%springboot%&#39;</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>对于<code>SQL</code>中的<code>LIKE</code>模糊查询，性能非常差，而且对于<code>like</code>来说，使用索引也是没有效果的，索引对于模糊匹配没有用。</p>
 <p><code>Elastic Search</code>对于内部最小的<code>词元(term)</code>使用的是<code>倒排索引</code>，所谓的<code>倒排索引</code>的实现原理如下图所示：</p>
@@ -495,7 +495,7 @@
 <p>前往<a href="https://www.elastic.co/cn/downloads/logstash">logstash官网</a>下载对应的包并解压，在解压后的文件夹内添加对应的<code>MySQL Connector Jar</code>包，并在<code>config</code>目录下新增<code>mysql.conf</code>配置文件添加如下配置：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -535,74 +535,74 @@
 </span><span class="lnt">38
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">input {
-  jdbc {
-  	# jdbc驱动包位置
-	jdbc_driver_library =&gt; &#34;C:\Users\punk1u\Desktop\logstash-7.9.2\mysql-connector-java-5.1.33.jar&#34;
-	# 要使用的驱动包类
-	jdbc_driver_class =&gt; &#34;com.mysql.jdbc.Driver&#34;
-	# mysql数据库的连接信息
-	jdbc_connection_string =&gt; &#34;jdbc:mysql://localhost:3306/blog&#34;
-	# mysql用户
-	jdbc_user =&gt; &#34;root&#34;
-	# mysql密码
-	jdbc_password =&gt; &#34;123456&#34;
-	# 定时任务，多久执行一次查询，默认一分钟
-	schedule =&gt; &#34;* * * * *&#34;
-	# 清空上次的sql_last_value记录
-	clean_run =&gt; true
-	# 指定数据库时区,避免出现时间和MySQL中记录的时间对不上的情况
-	jdbc_default_timezone =&gt;&#34;Asia/Shanghai&#34;
-	# 要执行的语句
-	statement =&gt; &#34;SELECT * FROM T_BLOG WHERE UPDATE_TIME &gt; :sql_last_value AND UPDATE_TIME &lt; NOW() ORDER BY UPDATE_TIME DESC&#34;
-  }
-}
-
-
-
-output {
-  elasticsearch {
-  	# es host : port
-	hosts =&gt; [&#34;localhost:9200&#34;]
-	# 索引
-    index =&gt; &#34;blog&#34;
-	# _id,要以mysql中的哪个字段作为es文档的id
-	document_id =&gt; &#34;%{id}&#34;
-	
-
-  }
-
-}
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">input {
+</span></span><span class="line"><span class="cl">  jdbc {
+</span></span><span class="line"><span class="cl">  	# jdbc驱动包位置
+</span></span><span class="line"><span class="cl">	jdbc_driver_library =&gt; &#34;C:\Users\punk1u\Desktop\logstash-7.9.2\mysql-connector-java-5.1.33.jar&#34;
+</span></span><span class="line"><span class="cl">	# 要使用的驱动包类
+</span></span><span class="line"><span class="cl">	jdbc_driver_class =&gt; &#34;com.mysql.jdbc.Driver&#34;
+</span></span><span class="line"><span class="cl">	# mysql数据库的连接信息
+</span></span><span class="line"><span class="cl">	jdbc_connection_string =&gt; &#34;jdbc:mysql://localhost:3306/blog&#34;
+</span></span><span class="line"><span class="cl">	# mysql用户
+</span></span><span class="line"><span class="cl">	jdbc_user =&gt; &#34;root&#34;
+</span></span><span class="line"><span class="cl">	# mysql密码
+</span></span><span class="line"><span class="cl">	jdbc_password =&gt; &#34;123456&#34;
+</span></span><span class="line"><span class="cl">	# 定时任务，多久执行一次查询，默认一分钟
+</span></span><span class="line"><span class="cl">	schedule =&gt; &#34;* * * * *&#34;
+</span></span><span class="line"><span class="cl">	# 清空上次的sql_last_value记录
+</span></span><span class="line"><span class="cl">	clean_run =&gt; true
+</span></span><span class="line"><span class="cl">	# 指定数据库时区,避免出现时间和MySQL中记录的时间对不上的情况
+</span></span><span class="line"><span class="cl">	jdbc_default_timezone =&gt;&#34;Asia/Shanghai&#34;
+</span></span><span class="line"><span class="cl">	# 要执行的语句
+</span></span><span class="line"><span class="cl">	statement =&gt; &#34;SELECT * FROM T_BLOG WHERE UPDATE_TIME &gt; :sql_last_value AND UPDATE_TIME &lt; NOW() ORDER BY UPDATE_TIME DESC&#34;
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">output {
+</span></span><span class="line"><span class="cl">  elasticsearch {
+</span></span><span class="line"><span class="cl">  	# es host : port
+</span></span><span class="line"><span class="cl">	hosts =&gt; [&#34;localhost:9200&#34;]
+</span></span><span class="line"><span class="cl">	# 索引
+</span></span><span class="line"><span class="cl">    index =&gt; &#34;blog&#34;
+</span></span><span class="line"><span class="cl">	# _id,要以mysql中的哪个字段作为es文档的id
+</span></span><span class="line"><span class="cl">	document_id =&gt; &#34;%{id}&#34;
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>配置好作为<code>logstash</code>入口的<code>MySQL</code>连接信息以及作为出口的<code>logstash</code>连接<code>Elastic Search</code>的信息。需要注意的是，为了避免<code>MySQL</code>中的时间和<code>Elastic Search</code>中数据的时间对不上，需要在<code>MySQL</code>配置项中添加时区配置：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 指定数据库时区,避免出现时间和MySQL中记录的时间对不上的情况
-jdbc_default_timezone =&gt;&#34;Asia/Shanghai&#34;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># 指定数据库时区,避免出现时间和MySQL中记录的时间对不上的情况
+</span></span><span class="line"><span class="cl">jdbc_default_timezone =&gt;&#34;Asia/Shanghai&#34;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后切换到<code>logstash/bin</code>目录下，使用如下命令启动<code>logstash</code>：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">./logstash.bat -f ../config/mysql.conf
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">./logstash.bat -f ../config/mysql.conf
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>启动后即可看到<code>logstash</code>首先执行如下SQL同步存量数据：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">T_BLOG</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">UPDATE_TIME</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="s1">&#39;1970-01-01 08:00:00&#39;</span><span class="w"> </span><span class="n">UPDATE_TIME</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">NOW</span><span class="p">()</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">UPDATE_TIME</span><span class="w"> </span><span class="k">DESC</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">T_BLOG</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">UPDATE_TIME</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="s1">&#39;1970-01-01 08:00:00&#39;</span><span class="w"> </span><span class="n">UPDATE_TIME</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">NOW</span><span class="p">()</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">UPDATE_TIME</span><span class="w"> </span><span class="k">DESC</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后会按照配置文件设置好的每隔一分钟重新执行一次，<code>sql_last_value</code>的值实时变化，便于查询出上次查询到当前时间节点的数据。</p>
 <h3 id="es分词器">ES分词器</h3>
@@ -628,24 +628,24 @@ jdbc_default_timezone =&gt;&#34;Asia/Shanghai&#34;
 <p>以<code>standard</code>默认分词器为例，打开<code>Kibana</code>的<code>Dev tools</code>，输入如下内容：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-json" data-lang="json"><span class="err">POST</span> <span class="err">_analyze</span>
-<span class="p">{</span>
-  <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;standard&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;spring boot&#34;</span><span class="p">]</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">_analyze</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;standard&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;spring boot&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>运行后可在右侧看到分词的结果：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -663,51 +663,49 @@ jdbc_default_timezone =&gt;&#34;Asia/Shanghai&#34;
 </span><span class="lnt">16
 </span><span class="lnt">17
 </span><span class="lnt">18
-</span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
-  <span class="nt">&#34;tokens&#34;</span> <span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;spring&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">0</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;boot&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">1</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
-<span class="p">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;tokens&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;spring&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;boot&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>对于中文也可支持，输入：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-json" data-lang="json"><span class="err">POST</span> <span class="err">_analyze</span>
-<span class="p">{</span>
-  <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;standard&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;我是中国人&#34;</span><span class="p">]</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">_analyze</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;standard&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;我是中国人&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>运行结果：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -746,50 +744,48 @@ jdbc_default_timezone =&gt;&#34;Asia/Shanghai&#34;
 </span><span class="lnt">37
 </span><span class="lnt">38
 </span><span class="lnt">39
-</span><span class="lnt">40
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
-  <span class="nt">&#34;tokens&#34;</span> <span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;我&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">0</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;是&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">1</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;中&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">2</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;国&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">3</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;人&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">4</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
-<span class="p">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;tokens&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;我&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;是&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;中&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;国&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;人&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">4</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>但是可以看到对于中文的分词，只是简单地分为了一个又一个汉字，并不能实现<code>中国</code>或<code>中国人</code>这样的分词，为了实现这种效果，可以使用第三方的分词器，例如效果最好的<a href="https://github.com/medcl/elasticsearch-analysis-ik">elasticsearch-analysis-ik</a>。</p>
 <h3 id="使用中文分词器">使用中文分词器</h3>
@@ -797,24 +793,24 @@ jdbc_default_timezone =&gt;&#34;Asia/Shanghai&#34;
 <p>访问<code>Kibana</code>的<code>Dev tools</code>，先使用<code>elasticsearch-analysis-ik</code>的智能分词算法：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-json" data-lang="json"><span class="err">POST</span> <span class="err">_analyze</span>
-<span class="p">{</span>
-  <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;ik_smart&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;我是中国人&#34;</span><span class="p">]</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">_analyze</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;ik_smart&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;我是中国人&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>得到的结果如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -839,58 +835,56 @@ jdbc_default_timezone =&gt;&#34;Asia/Shanghai&#34;
 </span><span class="lnt">23
 </span><span class="lnt">24
 </span><span class="lnt">25
-</span><span class="lnt">26
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
-  <span class="nt">&#34;tokens&#34;</span> <span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;我&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_CHAR&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">0</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;是&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_CHAR&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">1</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;中国人&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">2</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
-<span class="p">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;tokens&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;我&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_CHAR&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;是&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_CHAR&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;中国人&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以看到<code>中国人</code>三个字已经被放在了一个结果里。但是，这三个字还可以组成其他的组合，如果想展示所有的结果，可以使用<code>ik_max_word</code>分词器：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">POST _analyze
-{
-  &#34;analyzer&#34;: &#34;ik_max_word&#34;,
-  &#34;text&#34;: [&#34;我是中国人&#34;]
-}
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">POST _analyze
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;analyzer&#34;: &#34;ik_max_word&#34;,
+</span></span><span class="line"><span class="cl">  &#34;text&#34;: [&#34;我是中国人&#34;]
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>得到的结果如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -929,50 +923,48 @@ jdbc_default_timezone =&gt;&#34;Asia/Shanghai&#34;
 </span><span class="lnt">37
 </span><span class="lnt">38
 </span><span class="lnt">39
-</span><span class="lnt">40
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
-  <span class="nt">&#34;tokens&#34;</span> <span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;我&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_CHAR&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">0</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;是&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_CHAR&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">1</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;中国人&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">2</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;中国&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">3</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;国人&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">4</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
-<span class="p">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;tokens&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;我&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_CHAR&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;是&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_CHAR&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;中国人&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;中国&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;国人&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">4</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>elasticsearch-alalysis-ik</code>之所以能达到这么好的中文分词效果，主要是因为其内置了很多<code>词典</code>，分词时会根据输入的<code>内容</code>去<code>词典</code>中查找有没有对应的单词，有的话就作为结果展示出来。词典位置位于其内部的<code>config</code>目录下（.dic结尾的文件）。</p>
 <p>所以如果在<code>elasticsearch-analysis-ik</code>的词典中没有我们想要的词语，也可以自己添加进去实现我们自己想要的分词效果。</p>
@@ -980,7 +972,7 @@ jdbc_default_timezone =&gt;&#34;Asia/Shanghai&#34;
 <p><code>MEVAN</code>依赖:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1031,61 +1023,61 @@ jdbc_default_timezone =&gt;&#34;Asia/Shanghai&#34;
 </span><span class="lnt">49
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-XML" data-lang="XML"><span class="nt">&lt;dependencies&gt;</span>
-    <span class="nt">&lt;dependency&gt;</span>
-        <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
-        <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-data-jpa<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;/dependency&gt;</span>
-    <span class="nt">&lt;dependency&gt;</span>
-        <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
-        <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;/dependency&gt;</span>
-
-    <span class="nt">&lt;dependency&gt;</span>
-        <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
-        <span class="nt">&lt;artifactId&gt;</span>spring-boot-devtools<span class="nt">&lt;/artifactId&gt;</span>
-        <span class="nt">&lt;scope&gt;</span>runtime<span class="nt">&lt;/scope&gt;</span>
-        <span class="nt">&lt;optional&gt;</span>true<span class="nt">&lt;/optional&gt;</span>
-    <span class="nt">&lt;/dependency&gt;</span>
-    <span class="nt">&lt;dependency&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>mysql<span class="nt">&lt;/groupId&gt;</span>
-        <span class="nt">&lt;artifactId&gt;</span>mysql-connector-java<span class="nt">&lt;/artifactId&gt;</span>
-        <span class="nt">&lt;scope&gt;</span>runtime<span class="nt">&lt;/scope&gt;</span>
-    <span class="nt">&lt;/dependency&gt;</span>
-    <span class="nt">&lt;dependency&gt;</span>
-        <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
-        <span class="nt">&lt;artifactId&gt;</span>spring-boot-configuration-processor<span class="nt">&lt;/artifactId&gt;</span>
-        <span class="nt">&lt;optional&gt;</span>true<span class="nt">&lt;/optional&gt;</span>
-    <span class="nt">&lt;/dependency&gt;</span>
-    <span class="nt">&lt;dependency&gt;</span>
-        <span class="nt">&lt;groupId&gt;</span>org.projectlombok<span class="nt">&lt;/groupId&gt;</span>
-        <span class="nt">&lt;artifactId&gt;</span>lombok<span class="nt">&lt;/artifactId&gt;</span>
-        <span class="nt">&lt;optional&gt;</span>true<span class="nt">&lt;/optional&gt;</span>
-    <span class="nt">&lt;/dependency&gt;</span>
-    <span class="nt">&lt;dependency&gt;</span>
-        <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
-        <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-test<span class="nt">&lt;/artifactId&gt;</span>
-        <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
-        <span class="nt">&lt;exclusions&gt;</span>
-            <span class="nt">&lt;exclusion&gt;</span>
-                <span class="nt">&lt;groupId&gt;</span>org.junit.vintage<span class="nt">&lt;/groupId&gt;</span>
-                <span class="nt">&lt;artifactId&gt;</span>junit-vintage-engine<span class="nt">&lt;/artifactId&gt;</span>
-            <span class="nt">&lt;/exclusion&gt;</span>
-        <span class="nt">&lt;/exclusions&gt;</span>
-    <span class="nt">&lt;/dependency&gt;</span>
-
-    <span class="c">&lt;!--引入Elastic Search依赖 --&gt;</span>
-    <span class="nt">&lt;dependency&gt;</span>
-        <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
-        <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-data-elasticsearch<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;/dependency&gt;</span>
-<span class="nt">&lt;/dependencies&gt;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-XML" data-lang="XML"><span class="line"><span class="cl"><span class="nt">&lt;dependencies&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-data-jpa<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;artifactId&gt;</span>spring-boot-devtools<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;scope&gt;</span>runtime<span class="nt">&lt;/scope&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;optional&gt;</span>true<span class="nt">&lt;/optional&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;groupId&gt;</span>mysql<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;artifactId&gt;</span>mysql-connector-java<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;scope&gt;</span>runtime<span class="nt">&lt;/scope&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;artifactId&gt;</span>spring-boot-configuration-processor<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;optional&gt;</span>true<span class="nt">&lt;/optional&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;groupId&gt;</span>org.projectlombok<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;artifactId&gt;</span>lombok<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;optional&gt;</span>true<span class="nt">&lt;/optional&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-test<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;exclusions&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;exclusion&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;groupId&gt;</span>org.junit.vintage<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;artifactId&gt;</span>junit-vintage-engine<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/exclusion&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/exclusions&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!--引入Elastic Search依赖 --&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-data-elasticsearch<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependencies&gt;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>Spring Boot</code>配置文件如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1109,40 +1101,38 @@ jdbc_default_timezone =&gt;&#34;Asia/Shanghai&#34;
 </span><span class="lnt">22
 </span><span class="lnt">23
 </span><span class="lnt">24
-</span><span class="lnt">25
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 通用配置源配置
-spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
-spring.datasource.url=jdbc:mysql://127.0.0.1:3306/blog?useUnicode=true&amp;characterEncoding=utf8
-spring.datasource.username=root
-spring.datasource.password=123456
-
-# Hikari数据源专用配置
-spring.datasource.hikari.maximum-pool-size=20
-spring.datasource.hikari.minimum-idle=5
-
-# JPA相关配置
-spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
-#es
-spring.elasticsearch.rest.uris=127.0.0.1:9200
-
-
-#mvc
-spring.mvc.static-path-pattern=/**
-
-spring.devtools.livereload.enabled=true
-spring.devtools.restart.additional-paths=static/**
-
-#配置Spring MVC返回JSON数据时的日期格式化格式
-spring.jackson.date-format=yyyy-MM-dd HH:mm:ss
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># 通用配置源配置
+</span></span><span class="line"><span class="cl">spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
+</span></span><span class="line"><span class="cl">spring.datasource.url=jdbc:mysql://127.0.0.1:3306/blog?useUnicode=true&amp;characterEncoding=utf8
+</span></span><span class="line"><span class="cl">spring.datasource.username=root
+</span></span><span class="line"><span class="cl">spring.datasource.password=123456
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Hikari数据源专用配置
+</span></span><span class="line"><span class="cl">spring.datasource.hikari.maximum-pool-size=20
+</span></span><span class="line"><span class="cl">spring.datasource.hikari.minimum-idle=5
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># JPA相关配置
+</span></span><span class="line"><span class="cl">spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
+</span></span><span class="line"><span class="cl">#es
+</span></span><span class="line"><span class="cl">spring.elasticsearch.rest.uris=127.0.0.1:9200
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#mvc
+</span></span><span class="line"><span class="cl">spring.mvc.static-path-pattern=/**
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">spring.devtools.livereload.enabled=true
+</span></span><span class="line"><span class="cl">spring.devtools.restart.additional-paths=static/**
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#配置Spring MVC返回JSON数据时的日期格式化格式
+</span></span><span class="line"><span class="cl">spring.jackson.date-format=yyyy-MM-dd HH:mm:ss
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Blog的实体类代码和<code>Spring Boot</code>对<code>MySQL</code>连接的代码如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1187,60 +1177,58 @@ spring.jackson.date-format=yyyy-MM-dd HH:mm:ss
 </span><span class="lnt">43
 </span><span class="lnt">44
 </span><span class="lnt">45
-</span><span class="lnt">46
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.elasticsearchdemo.entity.mysql</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">lombok.Data</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">javax.persistence.*</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.Date</span><span class="o">;</span>
-
-<span class="nd">@Data</span>
-<span class="nd">@Table</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;t_blog&#34;</span><span class="o">)</span>
-<span class="nd">@Entity</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MysqlBlog</span> <span class="o">{</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 自增id
-</span><span class="cm">     */</span>
-    <span class="nd">@Id</span>
-    <span class="nd">@GeneratedValue</span><span class="o">(</span><span class="n">strategy</span> <span class="o">=</span> <span class="n">GenerationType</span><span class="o">.</span><span class="na">IDENTITY</span><span class="o">)</span>
-    <span class="kd">private</span> <span class="n">Integer</span> <span class="n">id</span><span class="o">;</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 博客标题
-</span><span class="cm">     */</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">title</span><span class="o">;</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 博客作者
-</span><span class="cm">     */</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">author</span><span class="o">;</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 博客内容
-</span><span class="cm">     */</span>
-    <span class="nd">@Column</span><span class="o">(</span><span class="n">columnDefinition</span> <span class="o">=</span> <span class="s">&#34;mediumtext&#34;</span><span class="o">)</span> <span class="c1">// 指定特殊字段的类型
-</span><span class="c1"></span>    <span class="kd">private</span> <span class="n">String</span> <span class="n">content</span><span class="o">;</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 博客创建时间
-</span><span class="cm">     */</span>
-    <span class="kd">private</span> <span class="n">Date</span> <span class="n">createTime</span><span class="o">;</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 博客更新时间
-</span><span class="cm">     */</span>
-    <span class="kd">private</span> <span class="n">Date</span> <span class="n">updateTime</span><span class="o">;</span>
-<span class="o">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">tech.punklu.elasticsearchdemo.entity.mysql</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">lombok.Data</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.persistence.*</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.Date</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@Data</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@Table</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;t_blog&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@Entity</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MysqlBlog</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 自增id
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Id</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@GeneratedValue</span><span class="o">(</span><span class="n">strategy</span> <span class="o">=</span> <span class="n">GenerationType</span><span class="o">.</span><span class="na">IDENTITY</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">Integer</span> <span class="n">id</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 博客标题
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">String</span> <span class="n">title</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 博客作者
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">String</span> <span class="n">author</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 博客内容
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Column</span><span class="o">(</span><span class="n">columnDefinition</span> <span class="o">=</span> <span class="s">&#34;mediumtext&#34;</span><span class="o">)</span> <span class="c1">// 指定特殊字段的类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">private</span> <span class="n">String</span> <span class="n">content</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 博客创建时间
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">Date</span> <span class="n">createTime</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 博客更新时间
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">Date</span> <span class="n">updateTime</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1261,37 +1249,35 @@ spring.jackson.date-format=yyyy-MM-dd HH:mm:ss
 </span><span class="lnt">19
 </span><span class="lnt">20
 </span><span class="lnt">21
-</span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.elasticsearchdemo.repository.mysql</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">org.springframework.data.jpa.repository.JpaRepository</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.data.jpa.repository.Query</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.data.repository.query.Param</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">tech.punklu.elasticsearchdemo.entity.mysql.MysqlBlog</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MysqlBlogRepository</span> <span class="kd">extends</span> <span class="n">JpaRepository</span><span class="o">&lt;</span><span class="n">MysqlBlog</span><span class="o">,</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="o">{</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 按时间倒序查询所有博客
-</span><span class="cm">     * @return
-</span><span class="cm">     */</span>
-    <span class="nd">@Query</span><span class="o">(</span><span class="s">&#34;select e from MysqlBlog e order by e.createTime desc&#34;</span><span class="o">)</span>
-    <span class="n">List</span><span class="o">&lt;</span><span class="n">MysqlBlog</span><span class="o">&gt;</span> <span class="nf">queryAll</span><span class="o">();</span>
-
-    <span class="nd">@Query</span><span class="o">(</span><span class="s">&#34;select e from MysqlBlog e where e.title like concat(&#39;%&#39;,:keyword,&#39;%&#39;) or e.content like concat(&#39;%&#39;,:keyword,&#39;%&#39;)&#34;</span><span class="o">)</span>
-    <span class="n">List</span><span class="o">&lt;</span><span class="n">MysqlBlog</span><span class="o">&gt;</span> <span class="nf">queryBlogs</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;keyword&#34;</span><span class="o">)</span><span class="n">String</span> <span class="n">keyword</span><span class="o">);</span>
-<span class="o">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">tech.punklu.elasticsearchdemo.repository.mysql</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.data.jpa.repository.JpaRepository</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.data.jpa.repository.Query</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.data.repository.query.Param</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">tech.punklu.elasticsearchdemo.entity.mysql.MysqlBlog</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MysqlBlogRepository</span> <span class="kd">extends</span> <span class="n">JpaRepository</span><span class="o">&lt;</span><span class="n">MysqlBlog</span><span class="o">,</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 按时间倒序查询所有博客
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Query</span><span class="o">(</span><span class="s">&#34;select e from MysqlBlog e order by e.createTime desc&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">List</span><span class="o">&lt;</span><span class="n">MysqlBlog</span><span class="o">&gt;</span> <span class="nf">queryAll</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Query</span><span class="o">(</span><span class="s">&#34;select e from MysqlBlog e where e.title like concat(&#39;%&#39;,:keyword,&#39;%&#39;) or e.content like concat(&#39;%&#39;,:keyword,&#39;%&#39;)&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">List</span><span class="o">&lt;</span><span class="n">MysqlBlog</span><span class="o">&gt;</span> <span class="nf">queryBlogs</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;keyword&#34;</span><span class="o">)</span><span class="n">String</span> <span class="n">keyword</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>博客数据对应的<code>Elastic Search</code>对象的代码如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1348,73 +1334,71 @@ spring.jackson.date-format=yyyy-MM-dd HH:mm:ss
 </span><span class="lnt">55
 </span><span class="lnt">56
 </span><span class="lnt">57
-</span><span class="lnt">58
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">tech.punklu.elasticsearchdemo.entity.es</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">lombok.Data</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.data.annotation.Id</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.data.elasticsearch.annotations.DateFormat</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.data.elasticsearch.annotations.Document</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.data.elasticsearch.annotations.Field</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.data.elasticsearch.annotations.FieldType</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">java.util.Date</span><span class="o">;</span>
-
-<span class="nd">@Data</span>
-<span class="cm">/** Elastic Search的注解，用于指定ES中对应的索引名字和文档类型
-</span><span class="cm"> * useServerConfiguration:是否使用线上ES Server内的的index的mapping和配置
-</span><span class="cm"> * createIndex:是否在启动项目时重新在ES中创建这个索引
-</span><span class="cm"> */</span>
-<span class="nd">@Document</span><span class="o">(</span><span class="n">indexName</span> <span class="o">=</span> <span class="s">&#34;blog&#34;</span><span class="o">,</span><span class="n">type</span> <span class="o">=</span> <span class="s">&#34;doc&#34;</span><span class="o">,</span><span class="n">useServerConfiguration</span> <span class="o">=</span> <span class="kc">true</span><span class="o">,</span><span class="n">createIndex</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">EsBlog</span> <span class="o">{</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 自增id
-</span><span class="cm">     */</span>
-    <span class="c1">// 使用的是org.springframework.data.annotation包下的Id注解而不是javax下的
-</span><span class="c1"></span>    <span class="nd">@Id</span>
-    <span class="kd">private</span> <span class="n">Integer</span> <span class="n">id</span><span class="o">;</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 博客标题
-</span><span class="cm">     */</span>
-    <span class="c1">// Field用于标注字段在ES中的类型及对应的分词器以及日期格式化等
-</span><span class="c1"></span>    <span class="nd">@Field</span><span class="o">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">FieldType</span><span class="o">.</span><span class="na">Text</span><span class="o">,</span><span class="n">analyzer</span> <span class="o">=</span> <span class="s">&#34;ik_max_word&#34;</span><span class="o">)</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">title</span><span class="o">;</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 博客作者
-</span><span class="cm">     */</span>
-    <span class="nd">@Field</span><span class="o">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">FieldType</span><span class="o">.</span><span class="na">Text</span><span class="o">,</span><span class="n">analyzer</span> <span class="o">=</span> <span class="s">&#34;ik_max_word&#34;</span><span class="o">)</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">author</span><span class="o">;</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 博客内容
-</span><span class="cm">     */</span>
-    <span class="nd">@Field</span><span class="o">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">FieldType</span><span class="o">.</span><span class="na">Text</span><span class="o">,</span><span class="n">analyzer</span> <span class="o">=</span> <span class="s">&#34;ik_max_word&#34;</span><span class="o">)</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">content</span><span class="o">;</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 博客创建时间
-</span><span class="cm">     */</span>
-    <span class="nd">@Field</span><span class="o">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">FieldType</span><span class="o">.</span><span class="na">Date</span><span class="o">,</span><span class="n">format</span> <span class="o">=</span> <span class="n">DateFormat</span><span class="o">.</span><span class="na">custom</span><span class="o">,</span><span class="n">pattern</span> <span class="o">=</span> <span class="s">&#34;yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis&#34;</span><span class="o">)</span>
-    <span class="kd">private</span> <span class="n">Date</span> <span class="n">createTime</span><span class="o">;</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 博客更新时间
-</span><span class="cm">     */</span>
-    <span class="nd">@Field</span><span class="o">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">FieldType</span><span class="o">.</span><span class="na">Date</span><span class="o">,</span><span class="n">format</span> <span class="o">=</span> <span class="n">DateFormat</span><span class="o">.</span><span class="na">custom</span><span class="o">,</span><span class="n">pattern</span> <span class="o">=</span> <span class="s">&#34;yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis&#34;</span><span class="o">)</span>
-    <span class="kd">private</span> <span class="n">Date</span> <span class="n">updateTime</span><span class="o">;</span>
-<span class="o">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">tech.punklu.elasticsearchdemo.entity.es</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">lombok.Data</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.data.annotation.Id</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.data.elasticsearch.annotations.DateFormat</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.data.elasticsearch.annotations.Document</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.data.elasticsearch.annotations.Field</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.data.elasticsearch.annotations.FieldType</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.Date</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@Data</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/** Elastic Search的注解，用于指定ES中对应的索引名字和文档类型
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * useServerConfiguration:是否使用线上ES Server内的的index的mapping和配置
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * createIndex:是否在启动项目时重新在ES中创建这个索引
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@Document</span><span class="o">(</span><span class="n">indexName</span> <span class="o">=</span> <span class="s">&#34;blog&#34;</span><span class="o">,</span><span class="n">type</span> <span class="o">=</span> <span class="s">&#34;doc&#34;</span><span class="o">,</span><span class="n">useServerConfiguration</span> <span class="o">=</span> <span class="kc">true</span><span class="o">,</span><span class="n">createIndex</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">EsBlog</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 自增id
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 使用的是org.springframework.data.annotation包下的Id注解而不是javax下的
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nd">@Id</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">Integer</span> <span class="n">id</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 博客标题
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Field用于标注字段在ES中的类型及对应的分词器以及日期格式化等
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nd">@Field</span><span class="o">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">FieldType</span><span class="o">.</span><span class="na">Text</span><span class="o">,</span><span class="n">analyzer</span> <span class="o">=</span> <span class="s">&#34;ik_max_word&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">String</span> <span class="n">title</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 博客作者
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Field</span><span class="o">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">FieldType</span><span class="o">.</span><span class="na">Text</span><span class="o">,</span><span class="n">analyzer</span> <span class="o">=</span> <span class="s">&#34;ik_max_word&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">String</span> <span class="n">author</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 博客内容
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Field</span><span class="o">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">FieldType</span><span class="o">.</span><span class="na">Text</span><span class="o">,</span><span class="n">analyzer</span> <span class="o">=</span> <span class="s">&#34;ik_max_word&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">String</span> <span class="n">content</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 博客创建时间
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Field</span><span class="o">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">FieldType</span><span class="o">.</span><span class="na">Date</span><span class="o">,</span><span class="n">format</span> <span class="o">=</span> <span class="n">DateFormat</span><span class="o">.</span><span class="na">custom</span><span class="o">,</span><span class="n">pattern</span> <span class="o">=</span> <span class="s">&#34;yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">Date</span> <span class="n">createTime</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 博客更新时间
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Field</span><span class="o">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">FieldType</span><span class="o">.</span><span class="na">Date</span><span class="o">,</span><span class="n">format</span> <span class="o">=</span> <span class="n">DateFormat</span><span class="o">.</span><span class="na">custom</span><span class="o">,</span><span class="n">pattern</span> <span class="o">=</span> <span class="s">&#34;yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">Date</span> <span class="n">updateTime</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>测试<code>Elastic Search</code>的查询单元测试方法：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1436,27 +1420,27 @@ spring.jackson.date-format=yyyy-MM-dd HH:mm:ss
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Autowired</span>
-<span class="kd">private</span> <span class="n">ElasticsearchRestTemplate</span> <span class="n">elasticsearchRestTemplate</span><span class="o">;</span>
-
-<span class="nd">@Test</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">test</span><span class="o">(){</span>
-    <span class="n">NativeSearchQueryBuilder</span> <span class="n">searchQueryBuilder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NativeSearchQueryBuilder</span><span class="o">();</span>
-    <span class="n">searchQueryBuilder</span><span class="o">.</span><span class="na">withQuery</span><span class="o">(</span><span class="n">QueryBuilders</span><span class="o">.</span><span class="na">matchPhraseQuery</span><span class="o">(</span><span class="s">&#34;title&#34;</span><span class="o">,</span><span class="s">&#34;测试&#34;</span><span class="o">))</span>
-        <span class="o">.</span><span class="na">withQuery</span><span class="o">(</span><span class="n">QueryBuilders</span><span class="o">.</span><span class="na">matchPhraseQuery</span><span class="o">(</span><span class="s">&#34;content&#34;</span><span class="o">,</span><span class="s">&#34;测试&#34;</span><span class="o">));</span>
-    <span class="n">SearchHits</span><span class="o">&lt;</span><span class="n">EsBlog</span><span class="o">&gt;</span> <span class="n">searchResult</span> <span class="o">=</span> <span class="n">elasticsearchRestTemplate</span><span class="o">.</span><span class="na">search</span><span class="o">(</span><span class="n">searchQueryBuilder</span><span class="o">.</span><span class="na">build</span><span class="o">(),</span><span class="n">EsBlog</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-
-    <span class="n">List</span><span class="o">&lt;</span><span class="n">EsBlog</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
-    <span class="n">List</span><span class="o">&lt;</span><span class="n">SearchHit</span><span class="o">&lt;</span><span class="n">EsBlog</span><span class="o">&gt;&gt;</span> <span class="n">content</span> <span class="o">=</span> <span class="n">searchResult</span><span class="o">.</span><span class="na">getSearchHits</span><span class="o">();</span>
-    <span class="k">for</span> <span class="o">(</span><span class="n">SearchHit</span><span class="o">&lt;</span><span class="n">EsBlog</span><span class="o">&gt;</span> <span class="n">blog</span> <span class="o">:</span> <span class="n">content</span><span class="o">){</span>
-        <span class="n">EsBlog</span> <span class="n">esBlog</span> <span class="o">=</span> <span class="n">blog</span><span class="o">.</span><span class="na">getContent</span><span class="o">();</span>
-        <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">esBlog</span><span class="o">);</span>
-    <span class="o">}</span>
-    <span class="k">for</span> <span class="o">(</span><span class="n">EsBlog</span> <span class="n">blog</span> <span class="o">:</span> <span class="n">result</span><span class="o">){</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">blog</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Autowired</span>
+</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="n">ElasticsearchRestTemplate</span> <span class="n">elasticsearchRestTemplate</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@Test</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">test</span><span class="o">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">NativeSearchQueryBuilder</span> <span class="n">searchQueryBuilder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NativeSearchQueryBuilder</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">searchQueryBuilder</span><span class="o">.</span><span class="na">withQuery</span><span class="o">(</span><span class="n">QueryBuilders</span><span class="o">.</span><span class="na">matchPhraseQuery</span><span class="o">(</span><span class="s">&#34;title&#34;</span><span class="o">,</span><span class="s">&#34;测试&#34;</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">        <span class="o">.</span><span class="na">withQuery</span><span class="o">(</span><span class="n">QueryBuilders</span><span class="o">.</span><span class="na">matchPhraseQuery</span><span class="o">(</span><span class="s">&#34;content&#34;</span><span class="o">,</span><span class="s">&#34;测试&#34;</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">SearchHits</span><span class="o">&lt;</span><span class="n">EsBlog</span><span class="o">&gt;</span> <span class="n">searchResult</span> <span class="o">=</span> <span class="n">elasticsearchRestTemplate</span><span class="o">.</span><span class="na">search</span><span class="o">(</span><span class="n">searchQueryBuilder</span><span class="o">.</span><span class="na">build</span><span class="o">(),</span><span class="n">EsBlog</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">List</span><span class="o">&lt;</span><span class="n">EsBlog</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">List</span><span class="o">&lt;</span><span class="n">SearchHit</span><span class="o">&lt;</span><span class="n">EsBlog</span><span class="o">&gt;&gt;</span> <span class="n">content</span> <span class="o">=</span> <span class="n">searchResult</span><span class="o">.</span><span class="na">getSearchHits</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="o">(</span><span class="n">SearchHit</span><span class="o">&lt;</span><span class="n">EsBlog</span><span class="o">&gt;</span> <span class="n">blog</span> <span class="o">:</span> <span class="n">content</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">EsBlog</span> <span class="n">esBlog</span> <span class="o">=</span> <span class="n">blog</span><span class="o">.</span><span class="na">getContent</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">esBlog</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="o">(</span><span class="n">EsBlog</span> <span class="n">blog</span> <span class="o">:</span> <span class="n">result</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">blog</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>启动后，可以在控制台中看到<code>Elastic Search</code>中的所有博客数据，说明查询ES成功。</p>
 <p>相应代码仓库地址：<a href="https://github.com/punk1u/java-tools-demo/tree/main/elastic-search-demo">elastic-search-demo</a>。</p>
@@ -1512,7 +1496,6 @@ spring.jackson.date-format=yyyy-MM-dd HH:mm:ss
       <div class="social-links">
       <a href="mailto:punk1u@protonmail.com" class="iconfont icon-email" title="email"></a>
       <a href="http://www.github.com/punk1u" class="iconfont icon-github" title="github"></a>
-      <a href="https://weibo.com/u/7541495676" class="iconfont icon-weibo" title="weibo"></a>
   <a href="https://punk1u.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
@@ -1531,7 +1514,7 @@ spring.jackson.date-format=yyyy-MM-dd HH:mm:ss
   <span class="copyright-year">
     &copy; 
     2020 - 
-    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>punk1u<br/>版权所有ICP证：<a href='http://beian.miit.gov.cn' target='_blank'>浙ICP备19032348号-1</a></span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>punk1u</span>
   </span>
 </div>
 
@@ -1548,7 +1531,7 @@ spring.jackson.date-format=yyyy-MM-dd HH:mm:ss
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.191509a5c8442abdb6eb5020a332fd59bdd83a7e78a2d2241108df9113504292.js"></script>
 
 
 

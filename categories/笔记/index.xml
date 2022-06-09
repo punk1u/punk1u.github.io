@@ -6,7 +6,6 @@
     <description>Recent content in 笔记 on 想自由的Punk 1u</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <copyright>punk1u&lt;br/&gt;版权所有ICP证：&lt;a href=&#39;http://beian.miit.gov.cn&#39; target=&#39;_blank&#39;&gt;浙ICP备19032348号-1&lt;/a&gt;</copyright>
     <lastBuildDate>Sun, 27 Jun 2021 23:44:39 +0800</lastBuildDate><atom:link href="https://punk1u.github.io/categories/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>深入理解Java虚拟机笔记6——线程安全与锁优化</title>
@@ -68,7 +67,7 @@
       <pubDate>Fri, 19 Feb 2021 22:54:39 +0800</pubDate>
       
       <guid>https://punk1u.github.io/post/elastic-search%E5%88%9D%E4%BD%93%E9%AA%8C/</guid>
-      <description>Elastic Search初体验 Elastic Search对比MySQL Elastic Search和MySQL的概念对比： MySQL ES Database Index Table Type Row Document Column Field Schema Mapping 使用例子： MySQL： 1 SEL</description>
+      <description>Elastic Search初体验 Elastic Search对比MySQL Elastic Search和MySQL的概念对比： MySQL ES Database Index Table Type Row Document Column Field Schema Mapping 使用例子： MySQL： 1 SELECT * FROM</description>
     </item>
     
     <item>
@@ -113,7 +112,7 @@
       <pubDate>Wed, 03 Feb 2021 12:29:39 +0800</pubDate>
       
       <guid>https://punk1u.github.io/post/spring-cloudalibaba%E5%AE%9E%E8%B7%B5%E4%BD%BF%E7%94%A8rocketmq/</guid>
-      <description>使用Spring Cloud Alibaba RocketMQ 初步完成管理员审核功能 在内容中心中，编写管理员审核的相关接口： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 package tech.punklu.contentcenter.controller.content; import org.springframework.beans.factory.annotation.Autowired; import</description>
+      <description>使用Spring Cloud Alibaba RocketMQ 初步完成管理员审核功能 在内容中心中，编写管理员审核的相关接口： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 package tech.punklu.contentcenter.controller.content; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.web.bind.annotation.*;</description>
     </item>
     
     <item>
