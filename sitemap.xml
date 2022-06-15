@@ -3,7 +3,63 @@
   
   <url>
     <loc>https://punk1u.github.io/categories/</loc>
-    <lastmod>2021-06-27T23:44:39+08:00</lastmod>
+    <lastmod>2022-06-08T23:32:39+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://punk1u.github.io/tags/html/</loc>
+    <lastmod>2022-06-08T23:32:39+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://punk1u.github.io/categories/html/</loc>
+    <lastmod>2022-06-08T23:32:39+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://punk1u.github.io/post/html-note/</loc>
+    <lastmod>2022-06-08T23:32:39+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://punk1u.github.io/post/</loc>
+    <lastmod>2022-06-08T23:32:39+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://punk1u.github.io/tags/</loc>
+    <lastmod>2022-06-08T23:32:39+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://punk1u.github.io/tags/web/</loc>
+    <lastmod>2022-06-08T23:32:39+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://punk1u.github.io/categories/web/</loc>
+    <lastmod>2022-06-08T23:32:39+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://punk1u.github.io/</loc>
+    <lastmod>2022-06-08T23:32:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -17,20 +73,6 @@
   
   <url>
     <loc>https://punk1u.github.io/categories/jvm/</loc>
-    <lastmod>2021-06-27T23:44:39+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://punk1u.github.io/post/</loc>
-    <lastmod>2021-06-27T23:44:39+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://punk1u.github.io/tags/</loc>
     <lastmod>2021-06-27T23:44:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -52,13 +94,6 @@
   
   <url>
     <loc>https://punk1u.github.io/post/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B06%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E4%B8%8E%E9%94%81%E4%BC%98%E5%8C%96/</loc>
-    <lastmod>2021-06-27T23:44:39+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://punk1u.github.io/</loc>
     <lastmod>2021-06-27T23:44:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
