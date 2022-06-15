@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>html学习笔记(5)——图像、多媒体和链接标签 - 想自由的Punk 1u</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="punk1u" /><meta name="description" content="本文来自于对 HTML教程 的整理。 1. 图像标签 图片是互联网的重要组成部分，让网页变得丰富多彩。本章介绍如何在网页插入图片。 1. &amp;lt;img&amp;gt; &amp;lt;img&amp;g" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.100.1 with theme even" />
+
+
+<link rel="canonical" href="https://punk1u.github.io/post/html-note-%E6%A0%87%E7%AD%BE-%E5%9B%BE%E5%83%8F%E5%A4%9A%E5%AA%92%E4%BD%93%E5%92%8C%E9%93%BE%E6%8E%A5%E6%A0%87%E7%AD%BE/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="html学习笔记(5)——图像、多媒体和链接标签" />
+<meta property="og:description" content="本文来自于对 HTML教程 的整理。 1. 图像标签 图片是互联网的重要组成部分，让网页变得丰富多彩。本章介绍如何在网页插入图片。 1. &lt;img&gt; &lt;img&g" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://punk1u.github.io/post/html-note-%E6%A0%87%E7%AD%BE-%E5%9B%BE%E5%83%8F%E5%A4%9A%E5%AA%92%E4%BD%93%E5%92%8C%E9%93%BE%E6%8E%A5%E6%A0%87%E7%AD%BE/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-06-12T23:32:39+08:00" />
+<meta property="article:modified_time" content="2022-06-12T23:32:39+08:00" />
+
+<meta itemprop="name" content="html学习笔记(5)——图像、多媒体和链接标签">
+<meta itemprop="description" content="本文来自于对 HTML教程 的整理。 1. 图像标签 图片是互联网的重要组成部分，让网页变得丰富多彩。本章介绍如何在网页插入图片。 1. &lt;img&gt; &lt;img&g"><meta itemprop="datePublished" content="2022-06-12T23:32:39+08:00" />
+<meta itemprop="dateModified" content="2022-06-12T23:32:39+08:00" />
+<meta itemprop="wordCount" content="14487">
+<meta itemprop="keywords" content="web,html," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="html学习笔记(5)——图像、多媒体和链接标签"/>
+<meta name="twitter:description" content="本文来自于对 HTML教程 的整理。 1. 图像标签 图片是互联网的重要组成部分，让网页变得丰富多彩。本章介绍如何在网页插入图片。 1. &lt;img&gt; &lt;img&g"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Punk 1u</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Punk 1u</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">html学习笔记(5)——图像、多媒体和链接标签</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-06-12 </span>
+        <div class="post-category">
+            <a href="/categories/web/"> web </a>
+            <a href="/categories/html/"> html </a>
+            </div>
+          <span class="more-meta"> 约 14487 字 </span>
+          <span class="more-meta"> 预计阅读 29 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-图像标签">1. 图像标签</a>
+      <ul>
+        <li><a href="#1-img">1. &lt;img&gt;</a></li>
+        <li><a href="#2-figurefigcaption">2. &lt;figure&gt;,&lt;figcaption&gt;</a></li>
+        <li><a href="#3-响应式图像">3. 响应式图像</a>
+          <ul>
+            <li><a href="#31-问题的由来">3.1 问题的由来</a></li>
+            <li><a href="#32-srcset属性">3.2 srcset属性</a></li>
+            <li><a href="#33-sizes属性">3.3 sizes属性</a></li>
+          </ul>
+        </li>
+        <li><a href="#4-picture">4. &lt;picture&gt;</a>
+          <ul>
+            <li><a href="#41-响应式用法">4.1 响应式用法</a></li>
+            <li><a href="#42-图像格式的选择">4.2 图像格式的选择</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#2-链接标签">2. 链接标签</a>
+      <ul>
+        <li><a href="#1-a">1. &lt;a&gt;</a></li>
+        <li><a href="#2-邮件链接">2. 邮件链接</a></li>
+        <li><a href="#3-电话协议">3. 电话协议</a></li>
+        <li><a href="#4-link">4. &lt;link&gt;</a>
+          <ul>
+            <li><a href="#41-基本用法">4.1 基本用法</a></li>
+            <li><a href="#42-rel属性">4.2 rel属性</a></li>
+            <li><a href="#43-资源的预加载">4.3 资源的预加载</a></li>
+            <li><a href="#44-media属性">4.4 media属性</a></li>
+            <li><a href="#45-其他属性">4.5 其他属性</a></li>
+          </ul>
+        </li>
+        <li><a href="#5-script">5. &lt;script&gt;</a></li>
+        <li><a href="#6-noscript">6. &lt;noscript&gt;</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-多媒体标签">3. 多媒体标签</a>
+      <ul>
+        <li><a href="#1-video">1. &lt;video&gt;</a></li>
+        <li><a href="#2-audio">2. &lt;audio&gt;</a></li>
+        <li><a href="#3-track">3. &lt;track&gt;</a></li>
+        <li><a href="#4-source">4. &lt;source&gt;</a></li>
+        <li><a href="#5-embed">5. &lt;embed&gt;</a></li>
+        <li><a href="#6-objectparam">6. &lt;object&gt;,&lt;param&gt;</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>本文来自于对 <a href="https://wangdoc.com/html/">HTML教程</a> 的整理。</p>
+<h1 id="1-图像标签">1. 图像标签</h1>
+<p>图片是互联网的重要组成部分，让网页变得丰富多彩。本章介绍如何在网页插入图片。</p>
+<h2 id="1-img">1. &lt;img&gt;</h2>
+<p><code>&lt;img&gt;</code>标签用于插入图片。它是单独使用的，没有闭合标签。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;foo.jpg&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码在网页插入一张图片<code>foo.jpg</code>。<code>src</code>属性指定图片的网址，上例是相对 <code>URL</code>，表示图片与网页在同一个目录。</p>
+<p><code>&lt;img&gt;</code>默认是一个行内元素，与前后的文字处在同一行。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Hello<span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;foo.jpg&#34;</span><span class="p">&gt;</span>World<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码的渲染结果是，文字和图片在同一行显示。</p>
+<p>图像默认以原始大小显示。如果图片很大，又与文字处在同一行，那么图片将把当前行的行高撑高，并且图片的底边与文字的底边在同一条水平线上。</p>
+<p><code>&lt;img&gt;</code>可以放在<code>&lt;a&gt;</code>标签内部，使得图片变成一个可以点击的链接。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;example.html&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;foo.jpg&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，图片可以像链接那样点击，点击后会产生跳转。</p>
+<ol>
+<li>
+<p><strong>alt属性</strong></p>
+<p><code>alt</code>属性用来设定图片的文字说明。图片不显示时（比如下载失败，或用户关闭图片加载），图片的位置上会显示该文本。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;foo.jpg&#34;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&#34;示例图片&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，<code>alt</code>是图片的说明。图片下载失败时，浏览器会在图片位置，显示文字“示例图片”。</p>
+</li>
+<li>
+<p><strong>width属性,height属性</strong></p>
+<p>图片默认以原始大小插入网页，<code>width</code>属性和<code>height</code>属性可以指定图片显示时的宽度和高度，单位是像素或百分比。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;foo.jpg&#34;</span> <span class="na">width</span><span class="o">=</span><span class="s">&#34;400&#34;</span> <span class="na">height</span><span class="o">=</span><span class="s">&#34;300&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，<code>width</code>属性指定图片显示的宽度为400像素，<code>height</code>属性指定显示高度为300像素。</p>
+<p>注意，一旦设置了这两个属性，浏览器会在网页中预先留出这个大小的空间，不管图片有没有加载成功。不过，由于图片的显示大小可以用 <code>CSS</code> 设置，所以不建议使用这两个属性。</p>
+<p>一种特殊情况是，<code>width</code>属性和<code>height</code>属性只设置了一个，另一个没有设置。这时，浏览器会根据图片的原始大小，自动设置对应比例的图片宽度或高度。举例来说，图片大小是 800像素 x 800像素，<code>width</code>属性设置成200，那么浏览器会自动将<code>height</code>设成200。</p>
+</li>
+<li>
+<p><strong>srcset,sizes</strong></p>
+<p>详见下文的《响应式图像》部分。</p>
+</li>
+<li>
+<p><strong>referrerpolicy</strong></p>
+<p><code>&lt;img&gt;</code>导致的图片加载的 <code>HTTP</code> 请求，默认会带有<code>Referer</code>的头信息。<code>referrerpolicy</code>属性对这个行为进行设置。</p>
+</li>
+<li>
+<p><strong>crossorigin</strong></p>
+<p>有时，图片和网页属于不同的网站，网页加载图片就会导致跨域请求，对方服务器可能要求跨域认证。<code>crossorigin</code>属性用来告诉浏览器，是否采用跨域的形式下载图片，默认是不采用。</p>
+<p>简单说，只要打开了这个属性，HTTP 请求的头信息里面，就会加入<code>origin</code>字段，给出请求发出的域名，不打开这个属性就不加。</p>
+<p>一旦打开该属性，它可以设为两个值。</p>
+<ul>
+<li><code>anonymous</code>：跨域请求不带有用户凭证（通常是 Cookie）。</li>
+<li><code>use-credentials</code>：跨域请求带有用户凭证。</li>
+</ul>
+<p>下面是一个例子。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;foo.jpg&#34;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&#34;anonymous&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>crossorigin</code>属性如果省略值的部分，则等同于<code>anonymous</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;foo.jpg&#34;</span> <span class="na">crossorigin</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>loading</strong></p>
+<p>浏览器的默认行为是，只要解析到<code>&lt;img&gt;</code>标签，就开始加载图片。对于很长的网页，这样做很浪费带宽，因为用户不一定会往下滚动，一直看到网页结束。用户很可能是点开网页，看了一会就关掉了，那些不在视口的图片加载的流量，就都浪费了。</p>
+<p><code>loading</code>属性改变了这个行为，可以指定图片的懒加载，即图片默认不加载，只有即将滚动进入视口，变成用户可见时才会加载，这样就节省了带宽。</p>
+<p><code>loading</code>属性可以取以下三个值。</p>
+<ul>
+<li><code>auto</code>：浏览器默认行为，等同于不使用<code>loading</code>属性。</li>
+<li><code>lazy</code>：启用懒加载。</li>
+<li><code>eager</code>：立即加载资源，无论它在页面上的哪个位置。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;image.png&#34;</span> <span class="na">loading</span><span class="o">=</span><span class="s">&#34;lazy&#34;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&#34;…&#34;</span> <span class="na">width</span><span class="o">=</span><span class="s">&#34;200&#34;</span> <span class="na">height</span><span class="o">=</span><span class="s">&#34;200&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>由于行内图片的懒加载，可能会导致页面布局重排，所以使用这个属性的时候，最好指定图片的高和宽。</p>
+</li>
+</ol>
+<h2 id="2-figurefigcaption">2. &lt;figure&gt;,&lt;figcaption&gt;</h2>
+<p><code>&lt;figure&gt;</code>标签可以理解为一个图像区块，将图像和相关信息封装在一起。<code>&lt;figcaption&gt;</code>是它的可选子元素，表示图像的文本描述，通常用于放置标题，可以出现多个。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">figure</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://example.com/foo.jpg&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">figcaption</span><span class="p">&gt;</span>示例图片<span class="p">&lt;/</span><span class="nt">figcaption</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">figure</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>除了图像，<code>&lt;figure&gt;</code>还可以封装引言、代码、诗歌等等。它等于是一个将主体内容与附加信息，封装在一起的语义容器。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">figure</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">figcaption</span><span class="p">&gt;</span>JavaScript 代码示例<span class="p">&lt;/</span><span class="nt">figcaption</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">code</span><span class="p">&gt;</span>const foo = &#39;hello&#39;;<span class="p">&lt;/</span><span class="nt">code</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">figure</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="3-响应式图像">3. 响应式图像</h2>
+<p>网页在不同尺寸的设备上，都能产生良好的显示效果，叫做响应式设计（responsive web design）。响应式设计的网页图像，就是“响应式图像”（responsive image）。</p>
+<p>响应式图像的解决方案有很多，<code>JavaScript</code> 和 <code>CSS</code> 都可以实现。这里只介绍语义性最好的 HTML 方法，浏览器原生支持。</p>
+<h3 id="31-问题的由来">3.1 问题的由来</h3>
+<p>我们知道，<code>&lt;img&gt;</code>标签用于插入网页图像，所有情况默认插入的都是同一张图像。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;foo.jpg&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码在桌面端和手机上，插入的都是图像文件<code>foo.jpg</code>。</p>
+<p>这种处理方法固然简单，但是有三大弊端。</p>
+<p><strong>（1）体积</strong></p>
+<p>一般来说，桌面端显示的是大尺寸的图像，文件体积较大。手机的屏幕较小，只需要小尺寸的图像，可以节省带宽，加速网页渲染。</p>
+<p><strong>（2）像素密度</strong></p>
+<p>桌面显示器一般是单倍像素密度，而手机的显示屏往往是多倍像素密度，即显示时多个像素合成为一个像素，这种屏幕称为 Retina 屏幕。图像文件很可能在桌面端很清晰，放到手机上会有点模糊，因为图像没有那么高的像素密度，浏览器自动把图像的每个像素复制到周围像素，满足像素密度的要求，导致图像的锐利度有所下降。</p>
+<p><strong>（3）视觉风格</strong></p>
+<p>桌面显示器的面积较大，图像可以容纳更多细节。手机的屏幕较小，许多细节是看不清的，需要突出重点。</p>
+<h3 id="32-srcset属性">3.2 srcset属性</h3>
+<p>为了解决上面这些问题，<code>HTML</code> 语言提供了一套完整的解决方案。首先，<code>&lt;img&gt;</code>标签引入了<code>srcset</code>属性。</p>
+<p><code>srcset</code>属性用来指定多张图像，适应不同像素密度的屏幕。它的值是一个逗号分隔的字符串，每个部分都是一张图像的 URL，后面接一个空格，然后是像素密度的描述符。请看下面的例子。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">img</span> <span class="na">srcset</span><span class="o">=</span><span class="s">&#34;foo-320w.jpg,
+</span></span></span><span class="line"><span class="cl"><span class="s">             foo-480w.jpg 1.5x,
+</span></span></span><span class="line"><span class="cl"><span class="s">             foo-640w.jpg 2x&#34;</span>
+</span></span><span class="line"><span class="cl">     <span class="na">src</span><span class="o">=</span><span class="s">&#34;foo-640w.jpg&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，<code>srcset</code>属性给出了三个图像 URL，适应三种不同的像素密度。</p>
+<p>图像 URL 后面的像素密度描述符，格式是像素密度倍数 + 字母<code>x</code>。<code>1x</code>表示单倍像素密度，可以省略。浏览器根据当前设备的像素密度，选择需要加载的图像。</p>
+<p>如果<code>srcset</code>属性都不满足条件，那么就加载<code>src</code>属性指定的默认图像。</p>
+<h3 id="33-sizes属性">3.3 sizes属性</h3>
+<p>像素密度的适配，只适合显示区域一样大小的图像。如果希望不同尺寸的屏幕，显示不同大小的图像，<code>srcset</code>属性就不够用了，必须搭配<code>sizes</code>属性。</p>
+<p>第一步，<code>srcset</code>属性列出所有可用的图像。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">img</span> <span class="na">srcset</span><span class="o">=</span><span class="s">&#34;foo-160.jpg 160w,
+</span></span></span><span class="line"><span class="cl"><span class="s">             foo-320.jpg 320w,
+</span></span></span><span class="line"><span class="cl"><span class="s">             foo-640.jpg 640w,
+</span></span></span><span class="line"><span class="cl"><span class="s">             foo-1280.jpg 1280w&#34;</span>
+</span></span><span class="line"><span class="cl">     <span class="na">src</span><span class="o">=</span><span class="s">&#34;foo-1280.jpg&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，<code>srcset</code>属性列出四张可用的图像，每张图像的 URL 后面是一个空格，再加上宽度描述符。</p>
+<p>宽度描述符就是图像原始的宽度，加上字符<code>w</code>。上例的四种图片的原始宽度分别为160像素、320像素、640像素和1280像素。</p>
+<p>第二步，<code>sizes</code>属性列出不同设备的图像显示宽度。</p>
+<p><code>sizes</code>属性的值是一个逗号分隔的字符串，除了最后一部分，前面每个部分都是一个放在括号里面的媒体查询表达式，后面是一个空格，再加上图像的显示宽度。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">img</span> <span class="na">srcset</span><span class="o">=</span><span class="s">&#34;foo-160.jpg 160w,
+</span></span></span><span class="line"><span class="cl"><span class="s">             foo-320.jpg 320w,
+</span></span></span><span class="line"><span class="cl"><span class="s">             foo-640.jpg 640w,
+</span></span></span><span class="line"><span class="cl"><span class="s">             foo-1280.jpg 1280w&#34;</span>
+</span></span><span class="line"><span class="cl">     <span class="na">sizes</span><span class="o">=</span><span class="s">&#34;(max-width: 440px) 100vw,
+</span></span></span><span class="line"><span class="cl"><span class="s">            (max-width: 900px) 33vw,
+</span></span></span><span class="line"><span class="cl"><span class="s">            254px&#34;</span>
+</span></span><span class="line"><span class="cl">     <span class="na">src</span><span class="o">=</span><span class="s">&#34;foo-1280.jpg&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，<code>sizes</code>属性给出了三种屏幕条件，以及对应的图像显示宽度。宽度不超过440像素的设备，图像显示宽度为100%；宽度441像素到900像素的设备，图像显示宽度为33%；宽度900像素以上的设备，图像显示宽度为<code>254px</code>。</p>
+<p>第三步，浏览器根据当前设备的宽度，从<code>sizes</code>属性获得图像的显示宽度，然后从<code>srcset</code>属性找出最接近该宽度的图像，进行加载。</p>
+<p>假定当前设备的屏幕宽度是<code>480px</code>，浏览器从<code>sizes</code>属性查询得到，图片的显示宽度是<code>33vw</code>（即33%），等于<code>160px</code>。<code>srcset</code>属性里面，正好有宽度等于<code>160px</code>的图片，于是加载<code>foo-160.jpg</code>。</p>
+<p>如果省略<code>sizes</code>属性，那么浏览器将根据实际的图像显示宽度，从<code>srcset</code>属性选择最接近的图片。一旦使用<code>sizes</code>属性，就必须与<code>srcset</code>属性搭配使用，单独使用<code>sizes</code>属性是无效的。</p>
+<h2 id="4-picture">4. &lt;picture&gt;</h2>
+<h3 id="41-响应式用法">4.1 响应式用法</h3>
+<p><code>&lt;img&gt;</code>标签的<code>srcset</code>属性和<code>sizes</code>属性分别解决了像素密度和屏幕大小的适配，但如果要同时适配不同像素密度、不同大小的屏幕，就要用到<code>&lt;picture&gt;</code>标签。</p>
+<p><code>&lt;picture&gt;</code>是一个容器标签，内部使用<code>&lt;source&gt;</code>和<code>&lt;img&gt;</code>，指定不同情况下加载的图像。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">picture</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">source</span> <span class="na">media</span><span class="o">=</span><span class="s">&#34;(max-width: 500px)&#34;</span> <span class="na">srcset</span><span class="o">=</span><span class="s">&#34;cat-vertical.jpg&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">source</span> <span class="na">media</span><span class="o">=</span><span class="s">&#34;(min-width: 501px)&#34;</span> <span class="na">srcset</span><span class="o">=</span><span class="s">&#34;cat-horizontal.jpg&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;cat.jpg&#34;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&#34;cat&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">picture</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，<code>&lt;picture&gt;</code>标签内部有两个<code>&lt;source&gt;</code>标签和一个<code>&lt;img&gt;</code>标签。</p>
+<p><code>&lt;picture&gt;</code>内部的<code>&lt;source&gt;</code>标签，主要使用<code>media</code>属性和<code>srcset</code>属性。<code>media</code>属性给出媒体查询表达式，<code>srcset</code>属性就是<code>&lt;img&gt;</code>标签的<code>srcset</code>属性，给出加载的图像文件。<code>sizes</code>属性其实这里也可以用，但由于有了<code>media</code>属性，就没有必要了。</p>
+<p>浏览器按照<code>&lt;source&gt;</code>标签出现的顺序，依次判断当前设备是否满足<code>media</code>属性的媒体查询表达式，如果满足就加载<code>srcset</code>属性指定的图片文件，并且不再执行后面的<code>&lt;source&gt;</code>标签和<code>&lt;img&gt;</code>标签。</p>
+<p><code>&lt;img&gt;</code>标签是默认情况下加载的图像，用来满足上面所有<code>&lt;source&gt;</code>都不匹配的情况，或者不支持<code>&lt;picture&gt;</code>的老式浏览器。</p>
+<p>上面例子中，设备宽度如果不超过<code>500px</code>，就加载竖屏的图像，否则加载横屏的图像。</p>
+<p>下面给出一个例子，同时考虑屏幕尺寸和像素密度的适配。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">picture</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">source</span> <span class="na">srcset</span><span class="o">=</span><span class="s">&#34;homepage-person@desktop.png,
+</span></span></span><span class="line"><span class="cl"><span class="s">                  homepage-person@desktop-2x.png 2x&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="na">media</span><span class="o">=</span><span class="s">&#34;(min-width: 990px)&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">source</span> <span class="na">srcset</span><span class="o">=</span><span class="s">&#34;homepage-person@tablet.png,
+</span></span></span><span class="line"><span class="cl"><span class="s">                  homepage-person@tablet-2x.png 2x&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="na">media</span><span class="o">=</span><span class="s">&#34;(min-width: 750px)&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">img</span> <span class="na">srcset</span><span class="o">=</span><span class="s">&#34;homepage-person@mobile.png,
+</span></span></span><span class="line"><span class="cl"><span class="s">               homepage-person@mobile-2x.png 2x&#34;</span>
+</span></span><span class="line"><span class="cl">       <span class="na">alt</span><span class="o">=</span><span class="s">&#34;Shopify Merchant, Corrine Anestopoulos&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">picture</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，<code>&lt;source&gt;</code>标签的<code>media</code>属性给出屏幕尺寸的适配条件，每个条件都用<code>srcset</code>属性，再给出两种像素密度的图像 URL。</p>
+<h3 id="42-图像格式的选择">4.2 图像格式的选择</h3>
+<p>除了响应式图像，<code>&lt;picture&gt;</code>标签还可以用来选择不同格式的图像。比如，如果当前浏览器支持 <code>Webp</code> 格式，就加载这种格式的图像，否则加载 <code>PNG</code> 图像。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">picture</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;image/svg+xml&#34;</span> <span class="na">srcset</span><span class="o">=</span><span class="s">&#34;logo.xml&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">source</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;image/webp&#34;</span> <span class="na">srcset</span><span class="o">=</span><span class="s">&#34;logo.webp&#34;</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;logo.png&#34;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&#34;ACME Corp&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">picture</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，<code>&lt;source&gt;</code>标签的<code>type</code>属性给出图像的 MIME 类型，<code>srcset</code>是对应的图像 URL。</p>
+<p>浏览器按照<code>&lt;source&gt;</code>标签出现的顺序，依次检查是否支持<code>type</code>属性指定的图像格式，如果支持就加载图像，并且不再检查后面的<code>&lt;source&gt;</code>标签了。上面例子中，图像加载优先顺序依次为 <code>svg</code> 格式、<code>webp</code> 格式和 <code>png</code> 格式。</p>
+<h1 id="2-链接标签">2. 链接标签</h1>
+<p>链接（<code>hyperlink</code>）是互联网的核心。它允许用户在页面上，从一个网址跳转到另一个网址，从而把所有资源联系在一起。</p>
+<p><code>URL</code> 是链接指向的地址。链接不仅可以指向另一个网页，也可以指向文本、图像、文件等资源。可以这样说，所有互联网上的资源，都可以通过链接访问。</p>
+<h2 id="1-a">1. &lt;a&gt;</h2>
+<p>链接通过<code>&lt;a&gt;</code>标签表示，用户点击后，浏览器会跳转到指定的网址。下面就是一个典型的链接。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;https://wikipedia.org/&#34;</span><span class="p">&gt;</span>维基百科<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码就定义了一个超级链接。浏览器显示“维基百科”，文字下面默认会有下划线，表示这是一个链接。用户点击后，浏览器跳转到<code>href</code>属性指定的网址。</p>
+<p><code>&lt;a&gt;</code>标签内部不仅可以放置文字，也可以放置其他元素，比如段落、图像、多媒体等等。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;https://www.example.com/&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://www.example.com/foo.jpg&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，<code>&lt;a&gt;</code>标签内部就是一个图像。用户点击图像，就会跳转到指定网址。</p>
+<p><code>&lt;a&gt;</code>标签有如下属性。</p>
+<ol>
+<li>
+<p><strong>href</strong></p>
+<p><code>href</code>属性给出链接指向的网址。它的值应该是一个 URL 或者锚点。</p>
+<p>上文已经给出了完整 URL 的例子，下面是锚点的例子。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;#demo&#34;</span><span class="p">&gt;</span>示例<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，<code>href</code>属性的值是<code>#</code>加上锚点名称。点击后，浏览器会自动滚动，停在当前页面里面<code>demo</code>锚点所在的位置。</p>
+</li>
+<li>
+<p><strong>hreflang</strong></p>
+<p><code>hreflang</code>属性给出链接指向的网址所使用的语言，纯粹是提示性的，没有实际功能。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">a</span>
+</span></span><span class="line"><span class="cl">  <span class="na">href</span><span class="o">=</span><span class="s">&#34;https://www.example.com&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">hreflang</span><span class="o">=</span><span class="s">&#34;en&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&gt;</span>示例网址<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码表明，<code>href</code>属性指向的网址的语言是英语。</p>
+<p>该属性的值跟通用属性<code>lang</code>一样，语言代码可以参考《属性》一章的<code>lang</code>属性的介绍。</p>
+</li>
+<li>
+<p><strong>title</strong></p>
+<p><code>title</code>属性给出链接的说明信息。鼠标悬停在链接上方时，浏览器会将这个属性的值，以提示块的形式显示出来。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">a</span>
+</span></span><span class="line"><span class="cl">  <span class="na">href</span><span class="o">=</span><span class="s">&#34;https://www.example.com/&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">title</span><span class="o">=</span><span class="s">&#34;hello&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&gt;</span>示例<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>。
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，用户鼠标停留在链接上面，会出现文字提示<code>hello</code>。</p>
+</li>
+<li>
+<p><strong>target</strong></p>
+<p><code>target</code>属性指定如何展示打开的链接。它可以是在指定的窗口打开，也可以在<code>&lt;iframe&gt;</code>里面打开。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;http://foo.com&#34;</span> <span class="na">target</span><span class="o">=</span><span class="s">&#34;test&#34;</span><span class="p">&gt;</span>foo<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;http://bar.com&#34;</span> <span class="na">target</span><span class="o">=</span><span class="s">&#34;test&#34;</span><span class="p">&gt;</span>bar<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，两个链接都在名叫<code>test</code>的窗口打开。首先点击链接<code>foo</code>，浏览器发现没有叫做<code>test</code>的窗口，就新建一个窗口，起名为<code>test</code>，在该窗口打开<code>foo.com</code>。然后，用户又点击链接<code>bar</code>，由于已经存在<code>test</code>窗口，浏览器就在该窗口打开<code>bar.com</code>，取代里面已经打开的<code>foo.com</code>。</p>
+<p><code>target</code>属性的值也可以是以下四个关键字之一。</p>
+<ul>
+<li><code>_self</code>：当前窗口打开，这是默认值。</li>
+<li><code>_blank</code>：新窗口打开。</li>
+<li><code>_parent</code>：上层窗口打开，这通常用于从父窗口打开的子窗口，或者<code>&lt;iframe&gt;</code>里面的链接。如果当前窗口没有上层窗口，这个值等同于<code>_self</code>。</li>
+<li><code>_top</code>：顶层窗口打开。如果当前窗口就是顶层窗口，这个值等同于<code>_self</code>。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">a</span>
+</span></span><span class="line"><span class="cl">  <span class="na">href</span><span class="o">=</span><span class="s">&#34;https://www.example.com&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">target</span><span class="o">=</span><span class="s">&#34;_blank&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&gt;</span>示例链接<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码点击后，浏览器会新建一个窗口，在该窗口打开链接，并且新窗口没有名字。</p>
+<p>注意，使用<code>target</code>属性的时候，最好跟<code>rel=&quot;noreferrer&quot;</code>一起使用，这样可以避免安全风险。</p>
+</li>
+<li>
+<p><strong>rel</strong></p>
+<p><code>rel</code>属性说明链接与当前页面的关系。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;help.html&#34;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;help&#34;</span><span class="p">&gt;</span>帮助<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码的<code>rel</code>属性，说明链接是当前页面的帮助文档。</p>
+<p>下面是一些常见的<code>rel</code>属性的值。</p>
+<ul>
+<li><code>alternate</code>：当前文档的另一种形式，比如翻译。</li>
+<li><code>author</code>：作者链接。</li>
+<li><code>bookmark</code>：用作书签的永久地址。</li>
+<li><code>external</code>：当前文档的外部参考文档。</li>
+<li><code>help</code>：帮助链接。</li>
+<li><code>license</code>：许可证链接。</li>
+<li><code>next</code>：系列文档的下一篇。</li>
+<li><code>nofollow</code>：告诉搜索引擎忽略该链接，主要用于用户提交的内容，防止有人企图通过添加链接，提高该链接的搜索排名。</li>
+<li><code>noreferrer</code>：告诉浏览器打开链接时，不要将当前网址作为 HTTP 头信息的<code>Referer</code>字段发送出去，这样可以隐藏点击的来源。</li>
+<li><code>noopener</code>：告诉浏览器打开链接时，不让链接窗口通过 JavaScript 的<code>window.opener</code>属性引用原始窗口，这样就提高了安全性。</li>
+<li><code>prev</code>：系列文档的上一篇。</li>
+<li><code>search</code>：文档的搜索链接。</li>
+<li><code>tag</code>：文档的标签链接。</li>
+</ul>
+</li>
+<li>
+<p><strong>referrerpolicy</strong></p>
+<p><code>referrerpolicy</code>属性用于精确设定点击链接时，浏览器发送 HTTP 头信息的<code>Referer</code>字段的行为。</p>
+<p>该属性可以取下面八个值：<code>no-referrer</code>、<code>no-referrer-when-downgrade</code>、<code>origin</code>、<code>origin-when-cross-origin</code>、<code>unsafe-url</code>、<code>same-origin</code>、<code>strict-origin</code>、<code>strict-origin-when-cross-origin</code>。</p>
+<p>其中，<code>no-referrer</code>表示不发送<code>Referer</code>字段，<code>same-origin</code>表示同源时才发送<code>Referer</code>字段，<code>origin</code>表示只发送源信息（协议+域名+端口）。其他几项的解释，请查阅 HTTP 文档。</p>
+</li>
+<li>
+<p><strong>ping</strong></p>
+<p><code>ping</code>属性指定一个网址，用户点击的时候，会向该网址发出一个 POST 请求，通常用于跟踪用户的行为。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;http://localhost:3000/other&#34;</span> <span class="na">ping</span><span class="o">=</span><span class="s">&#34;http://localhost:3000/log&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  Go to Other Page
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面示例中，用户点击链接时，除了发生跳转，还会向<code>http://localhost:3000/log</code>发送一个 POST 请求。服务端收到这个请求以后，就会知道用户点击了这个链接。</p>
+<p>这个请求的 HTTP 标头，包含了<code>ping-from</code>属性（点击行为发生的页面）和<code>ping-to</code>属性（<code>href</code>属性所指向的页面）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">headers: {
+</span></span><span class="line"><span class="cl">  &#39;ping-from&#39;: &#39;http://localhost:3000/&#39;,
+</span></span><span class="line"><span class="cl">  &#39;ping-to&#39;: &#39;http://localhost:3000/other&#39;
+</span></span><span class="line"><span class="cl">  &#39;content-type&#39;: &#39;text/ping&#39;
+</span></span><span class="line"><span class="cl">  // ...other headers
+</span></span><span class="line"><span class="cl">},
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意，<code>ping</code>属性只对链接有效，对其他的交互行为无效，比如按钮点击或表单提交。另外，<code>Firefox</code> 浏览器不支持该属性。并且，也无法让它发送任何的自定义数据。</p>
+</li>
+<li>
+<p><strong>type</strong></p>
+<p><code>type</code>属性给出链接 URL 的 MIME 类型，比如到底是网页，还是图像或文件。它也是纯粹提示性的属性，没有实际功能。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">a</span>
+</span></span><span class="line"><span class="cl">  <span class="na">href</span><span class="o">=</span><span class="s">&#34;smile.jpg&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">type</span><span class="o">=</span><span class="s">&#34;image/jpeg&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&gt;</span>示例图片<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，<code>type</code>属性提示这是一张图片。</p>
+</li>
+<li>
+<p><strong>download</strong></p>
+<p><code>download</code>属性表明当前链接用于下载，而不是跳转到另一个 URL。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;demo.txt&#34;</span> <span class="na">download</span><span class="p">&gt;</span>下载<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码点击后，会出现下载对话框。</p>
+<p>注意，<code>download</code>属性只在链接与网址同源时，才会生效。也就是说，链接应该与网址属于同一个网站。</p>
+<p>如果<code>download</code>属性设置了值，那么这个值就是下载的文件名。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">a</span>
+</span></span><span class="line"><span class="cl">  <span class="na">href</span><span class="o">=</span><span class="s">&#34;foo.exe&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">download</span><span class="o">=</span><span class="s">&#34;bar.exe&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&gt;</span>点击下载<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，下载文件的原始文件名是<code>foo.exe</code>。点击后，下载对话框提示的文件名是<code>bar.exe</code>。</p>
+<p>注意，如果链接点击后，服务器的 HTTP 回应的头信息设置了<code>Content-Disposition</code>字段，并且该字段的值与<code>download</code>属性不一致，那么该字段优先，下载时将显示其设置的文件名。</p>
+<p><code>download</code>属性还有一个用途，就是有些地址不是真实网址，而是数据网址，比如<code>data:</code>开头的网址。这时，<code>download</code>属性可以为虚拟网址指定下载的文件名。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;data:,Hello%2C%20World!&#34;</span><span class="p">&gt;</span>点击<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面链接点击后，会打开一个虚拟网页，上面显示<code>Hello World!</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">a</span>
+</span></span><span class="line"><span class="cl">  <span class="na">href</span><span class="o">=</span><span class="s">&#34;data:,Hello%2C%20World!&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">download</span><span class="o">=</span><span class="s">&#34;hello.txt&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&gt;</span>点击<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面链接点击后，下载的<code>hello.txt</code>文件内容就是“Hello, World!”。</p>
+</li>
+</ol>
+<h2 id="2-邮件链接">2. 邮件链接</h2>
+<p>链接也可以指向一个邮件地址，使用<code>mailto</code>协议。用户点击后，浏览器会打开本机默认的邮件程序，让用户向指定的地址发送邮件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;mailto:contact@example.com&#34;</span><span class="p">&gt;</span>联系我们<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，链接就指向邮件地址。点击后，浏览器会打开一个邮件地址，让你可以向<code>contact@example.com</code>发送邮件。</p>
+<p>除了邮箱，邮件协议还允许指定其他几个邮件要素。</p>
+<ul>
+<li><code>subject</code>：主题</li>
+<li><code>cc</code>：抄送</li>
+<li><code>bcc</code>：密送</li>
+<li><code>body</code>：邮件内容</li>
+</ul>
+<p>使用方法是将这些邮件要素，以查询字符串的方式，附加在邮箱地址后面。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">a</span>
+</span></span><span class="line"><span class="cl">  <span class="na">href</span><span class="o">=</span><span class="s">&#34;mailto:foo@bar.com?cc=test@test.com&amp;subject=The%20subject&amp;body=The%20body&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&gt;</span>发送邮件<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，邮件链接里面不仅包含了邮箱地址，还包含了<code>cc</code>、<code>subject</code>、<code>body</code>等邮件要素。这些要素的值需要经过 URL 转义，比如空格转成<code>%20</code>。</p>
+<p>不指定邮箱也是允许的，就像下面这样。这时用户自己在邮件程序里面，填写想要发送的邮箱，通常用于邮件分享网页。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;mailto:&#34;</span><span class="p">&gt;</span>告诉朋友<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="3-电话协议">3. 电话协议</h2>
+<p>如果是手机浏览的页面，还可以使用<code>tel</code>协议，创建电话链接。用户点击该链接，会唤起电话，可以进行拨号。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;tel:13312345678&#34;</span><span class="p">&gt;</span>13312345678<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码在手机中，点击链接会唤起拨号界面，可以直接拨打指定号码。</p>
+<h2 id="4-link">4. &lt;link&gt;</h2>
+<h3 id="41-基本用法">4.1 基本用法</h3>
+<p><code>&lt;link&gt;</code>标签主要用于将当前网页与相关的外部资源联系起来，通常放在<code>&lt;head&gt;</code>元素里面。最常见的用途就是加载 <code>CSS</code> 样式表。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;stylesheet&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/css&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;theme.css&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码为网页加载样式表<code>theme.css</code>。</p>
+<p>除了默认样式表，网页还可以加载替代样式表，即默认不生效、需要用户手动切换的样式表。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;default.css&#34;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;stylesheet&#34;</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;Default Style&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;fancy.css&#34;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;alternate stylesheet&#34;</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;Fancy&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;basic.css&#34;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;alternate stylesheet&#34;</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;Basic&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，<code>default.css</code>是默认样式表，默认就会生效。<code>fancy.css</code>和<code>basic.css</code>是替换样式表（<code>rel=&quot;alternate stylesheet&quot;</code>），默认不生效。<code>title</code>属性在这里是必需的，用来在浏览器菜单里面列出这些样式表的名字，供用户选择，以替代默认样式表。</p>
+<p><code>&lt;link&gt;</code>还可以加载网站的 <code>favicon</code> 图标文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;icon&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/favicon.ico&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;image/x-icon&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>手机访问时，网站通常需要提供不同分辨率的图标文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;apple-touch-icon-precomposed&#34;</span> <span class="na">sizes</span><span class="o">=</span><span class="s">&#34;114x114&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;favicon114.png&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;apple-touch-icon-precomposed&#34;</span> <span class="na">sizes</span><span class="o">=</span><span class="s">&#34;72x72&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;favicon72.png&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码指定 iPhone 设备需要的114像素和72像素的图标。</p>
+<p><code>&lt;link&gt;</code>也用于提供文档的相关链接，比如下面是给出文档的 <code>RSS Feed</code> 地址。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;alternate&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;application/atom+xml&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/blog/news/atom&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="42-rel属性">4.2 rel属性</h3>
+<p><code>rel</code>属性表示外部资源与当前文档之间的关系，是<code>&lt;link&gt;</code>标签的必需属性。它可以但不限于取以下值。</p>
+<ul>
+<li><code>alternate</code>：文档的另一种表现形式的链接，比如打印版。</li>
+<li><code>author</code>：文档作者的链接。</li>
+<li><code>dns-prefetch</code>：要求浏览器提前执行指定网址的 DNS 查询。</li>
+<li><code>help</code>：帮助文档的链接。</li>
+<li><code>icon</code>：加载文档的图标文件。</li>
+<li><code>license</code>：许可证链接。</li>
+<li><code>next</code>：系列文档下一篇的链接。</li>
+<li><code>pingback</code>：接收当前文档 pingback 请求的网址。</li>
+<li><code>preconnect</code>：要求浏览器提前与给定服务器，建立 HTTP 连接。</li>
+<li><code>prefetch</code>：要求浏览器提前下载并缓存指定资源，供下一个页面使用。它的优先级较低，浏览器可以不下载。</li>
+<li><code>preload</code>：要求浏览器提前下载并缓存指定资源，当前页面稍后就会用到。它的优先级较高，浏览器必须立即下载。</li>
+<li><code>prerender</code>：要求浏览器提前渲染指定链接。这样的话，用户稍后打开该链接，就会立刻显示，感觉非常快。</li>
+<li><code>prev</code>：表示当前文档是系列文档的一篇，这里给出上一篇文档的链接。</li>
+<li><code>search</code>：提供当前网页的搜索链接。</li>
+<li><code>stylesheet</code>：加载一张样式表。</li>
+</ul>
+<p>下面是一些示例。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="c">&lt;!-- 作者信息 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;author&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;humans.txt&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 版权信息 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;license&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;copyright.html&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 另一个语言的版本 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;alternate&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;https://es.example.com/&#34;</span> <span class="na">hreflang</span><span class="o">=</span><span class="s">&#34;es&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 联系方式 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;me&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;https://google.com/profiles/someone&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/html&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;me&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;mailto:name@example.com&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;me&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;sms:+15035550125&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 历史资料 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;archives&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;http://example.com/archives/&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 目录 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;index&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;http://example.com/article/&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 导航 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;first&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;http://example.com/article/&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;last&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;http://example.com/article/?page=42&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;prev&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;http://example.com/article/?page=1&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;next&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;http://example.com/article/?page=3&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="43-资源的预加载">4.3 资源的预加载</h3>
+<p>某些情况下，你需要浏览器预加载某些资源，也就是先把资源缓存下来，等到使用的时候，就不用再从网上下载了，立即就能使用。预处理指令可以做到这一点。</p>
+<p>预加载主要有下面五种类型。</p>
+<ol>
+<li>
+<p>&lt;link rel=&ldquo;preload&rdquo;&gt;</p>
+<p><code>&lt;link rel=&quot;preload&quot;&gt;</code>告诉浏览器尽快下载并缓存资源（如脚本或样式表），该指令优先级较高，浏览器肯定会执行。当加载页面几秒钟后需要该资源时，它会很有用。下载后，浏览器不会对资源执行任何操作，脚本未执行，样式表未应用。它只是缓存，当其他东西需要它时，它立即可用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;preload&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;image.png&#34;</span> <span class="na">as</span><span class="o">=</span><span class="s">&#34;image&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>rel=&quot;preload&quot;</code>除了优先级较高，还有两个优点：一是允许指定预加载资源的类型，二是允许<code>onload</code>事件的回调函数。下面是<code>rel=&quot;preload&quot;</code>配合<code>as</code>属性，告诉浏览器预处理资源的类型，以便正确处理。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;preload&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;style.css&#34;</span> <span class="na">as</span><span class="o">=</span><span class="s">&#34;style&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;preload&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;main.js&#34;</span> <span class="na">as</span><span class="o">=</span><span class="s">&#34;script&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码要求浏览器提前下载并缓存<code>style.css</code>和<code>main.js</code>。</p>
+<p><code>as</code>属性指定加载资源的类型，它的值一般有下面几种。</p>
+<ul>
+<li>&ldquo;script&rdquo;</li>
+<li>&ldquo;style&rdquo;</li>
+<li>&ldquo;image&rdquo;</li>
+<li>&ldquo;media&rdquo;</li>
+<li>&ldquo;document&rdquo;</li>
+</ul>
+<p>如果不指定<code>as</code>属性，或者它的值是浏览器不认识的，那么浏览器会以较低的优先级下载这个资源。</p>
+<p>有时还需要<code>type</code>属性，进一步明确 MIME 类型。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;preload&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;sintel-short.mp4&#34;</span> <span class="na">as</span><span class="o">=</span><span class="s">&#34;video&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;video/mp4&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码要求浏览器提前下载视频文件，并且说明这是 MP4 编码。</p>
+<p>下面是预下载字体文件的例子。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;preload&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;font.woff2&#34;</span> <span class="na">as</span><span class="o">=</span><span class="s">&#34;font&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;font/woff2&#34;</span> <span class="na">crossorigin</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意，所有预下载的资源，只是下载到浏览器的缓存，并没有执行。如果希望资源预下载后立刻执行，可以参考下面的写法。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;preload&#34;</span> <span class="na">as</span><span class="o">=</span><span class="s">&#34;style&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;async_style.css&#34;</span> <span class="na">onload</span><span class="o">=</span><span class="s">&#34;this.rel=&#39;stylesheet&#39;&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，<code>onload</code>指定的回调函数会在脚本下载完成后执行，立即插入页面。</p>
+</li>
+<li>
+<p>&lt;link rel=&ldquo;prefetch&rdquo;&gt;</p>
+<p><code>&lt;link rel=&quot;prefetch&quot;&gt;</code>的使用场合是，如果后续的页面需要某个资源，并且希望预加载该资源，以便加速页面渲染。该指令不是强制性的，优先级较低，浏览器不一定会执行。这意味着，浏览器可以不下载该资源，比如连接速度很慢时。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;prefetch&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;https://www.example.com/&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>&lt;link rel=&ldquo;preconnect&rdquo;&gt;</p>
+<p><code>&lt;link rel=&quot;preconnect&quot;&gt;</code>要求浏览器提前与某个域名建立 TCP 连接。当你知道，很快就会请求该域名时，这会很有帮助。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;preconnect&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;https://www.example.com/&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>&lt;link rel=&ldquo;dns-prefetch&rdquo;&gt;</p>
+<p><code>&lt;link rel=&quot;dns-prefetch&quot;&gt;</code>要求浏览器提前执行某个域名的 DNS 解析。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;dns-prefetch&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;//example.com/&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>&lt;link rel=&ldquo;prerender&rdquo;&gt;</p>
+<p><code>&lt;link rel=&quot;prerender&quot;&gt;</code>要求浏览器加载某个网页，并且提前渲染它。用户点击指向该网页的链接时，就会立即呈现该页面。如果确定用户下一步会访问该页面，这会很有帮助。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;prerender&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;http://example.com/&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<h3 id="44-media属性">4.4 media属性</h3>
+<p><code>media</code>属性给出外部资源生效的媒介条件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;print.css&#34;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;stylesheet&#34;</span> <span class="na">media</span><span class="o">=</span><span class="s">&#34;print&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;mobile.css&#34;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;stylesheet&#34;</span> <span class="na">media</span><span class="o">=</span><span class="s">&#34;screen and (max-width: 600px)&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，打印时加载<code>print.css</code>，移动设备访问时（设备宽度小于600像素）加载<code>mobile.css</code>。</p>
+<p>下面是使用<code>media</code>属性实现条件加载的例子。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;preload&#34;</span> <span class="na">as</span><span class="o">=</span><span class="s">&#34;image&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;map.png&#34;</span> <span class="na">media</span><span class="o">=</span><span class="s">&#34;(max-width: 600px)&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;preload&#34;</span> <span class="na">as</span><span class="o">=</span><span class="s">&#34;script&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;map.js&#34;</span> <span class="na">media</span><span class="o">=</span><span class="s">&#34;(min-width: 601px)&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，如果屏幕宽度在600像素以下，则只加载第一个资源，否则就加载第二个资源。</p>
+<h3 id="45-其他属性">4.5 其他属性</h3>
+<p><code>&lt;link&gt;</code>标签的其他属性如下。</p>
+<ul>
+<li><code>crossorigin</code>：加载外部资源的跨域设置。</li>
+<li><code>href</code>：外部资源的网址。</li>
+<li><code>referrerpolicy</code>：加载时<code>Referer</code>头信息字段的处理方法。</li>
+<li><code>as</code>：<code>rel=&quot;preload&quot;</code>或<code>rel=&quot;prefetch&quot;</code>时，设置外部资源的类型。</li>
+<li><code>type</code>：外部资源的 MIME 类型，目前仅用于<code>rel=&quot;preload&quot;</code>或<code>rel=&quot;prefetch&quot;</code>的情况。</li>
+<li><code>title</code>：加载样式表时，用来标识样式表的名称。</li>
+<li><code>sizes</code>：用来声明图标文件的尺寸，比如加载苹果手机的图标文件。</li>
+</ul>
+<h2 id="5-script">5. &lt;script&gt;</h2>
+<p><code>&lt;script&gt;</code>用于加载脚本代码，目前主要是加载 <code>JavaScript</code> 代码。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;hello world&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码嵌入网页，会立即执行。</p>
+<p><code>&lt;script&gt;</code>也可以加载外部脚本，<code>src</code>属性给出外部脚本的地址。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;javascript.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码会加载<code>javascript.js</code>脚本文件，并执行。</p>
+<p><code>type</code>属性给出脚本的类型，默认是 <code>JavaScript</code> 代码，所以可省略。完整的写法其实是下面这样。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;javascript.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>type</code>属性也可以设成<code>module</code>，表示这是一个 <code>ES6</code> 模块，不是传统脚本。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;module&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;main.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>对于那些不支持 <code>ES6</code> 模块的浏览器，可以设置<code>nomodule</code>属性。支持 <code>ES6</code> 模块的浏览器，会不加载指定的脚本。这个属性通常与<code>type=&quot;module&quot;</code>配合使用，作为老式浏览器的回退方案。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;module&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;main.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">nomodule</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;fallback.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>&lt;script&gt;</code>还有下面一些其他属性，大部分跟 <code>JavaScript</code> 语言有关，可以参考相关的 <code>JavaScript</code> 教程。</p>
+<ul>
+<li><code>async</code>：该属性指定 JavaScript 代码为异步执行，不是造成阻塞效果，JavaScript 代码默认是同步执行。</li>
+<li><code>defer</code>：该属性指定 JavaScript 代码不是立即执行，而是页面解析完成后执行。</li>
+<li><code>crossorigin</code>：如果采用这个属性，就会采用跨域的方式加载外部脚本，即 HTTP 请求的头信息会加上<code>origin</code>字段。</li>
+<li><code>integrity</code>：给出外部脚本的哈希值，防止脚本被篡改。只有哈希值相符的外部脚本，才会执行。</li>
+<li><code>nonce</code>：一个密码随机数，由服务器在 HTTP 头信息里面给出，每次加载脚本都不一样。它相当于给出了内嵌脚本的白名单，只有在白名单内的脚本才能执行。</li>
+<li><code>referrerpolicy</code>：HTTP 请求的<code>Referer</code>字段的处理方法。</li>
+</ul>
+<h2 id="6-noscript">6. &lt;noscript&gt;</h2>
+<p><code>&lt;noscript&gt;</code>标签用于浏览器不支持或关闭 <code>JavaScript</code> 时，所要显示的内容。用户关闭 <code>JavaScript</code> 可能是为了节省带宽，以延长手机电池寿命，或者为了防止追踪，保护隐私。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">noscript</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  您的浏览器不能执行 JavaScript 语言，页面无法正常显示。
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">noscript</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面这段代码，只有浏览器不能执行 <code>JavaScript</code> 代码时才会显示，否则就不会显示。</p>
+<h1 id="3-多媒体标签">3. 多媒体标签</h1>
+<p>除了图像，网页还可以放置视频和音频。</p>
+<h2 id="1-video">1. &lt;video&gt;</h2>
+<p><code>&lt;video&gt;</code>标签是一个块级元素，用于放置视频。如果浏览器支持加载的视频格式，就会显示一个播放器，否则显示<code>&lt;video&gt;</code>内部的子元素。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">video</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;example.mp4&#34;</span> <span class="na">controls</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>你的浏览器不支持 HTML5 视频，请下载<span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;example.mp4&#34;</span><span class="p">&gt;</span>视频文件<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">video</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，如果浏览器不支持该种格式的视频，就会显示<code>&lt;video&gt;</code>内部的文字提示。</p>
+<p><code>&lt;video&gt;</code>有以下属性。</p>
+<ul>
+<li><code>src</code>：视频文件的网址。</li>
+<li><code>controls</code>：播放器是否显示控制栏。该属性是布尔属性，不用赋值，只要写上属性名，就表示打开。如果不想使用浏览器默认的播放器，而想使用自定义播放器，就不要使用该属性。</li>
+<li><code>width</code>：视频播放器的宽度，单位像素。</li>
+<li><code>height</code>：视频播放器的高度，单位像素。</li>
+<li><code>autoplay</code>：视频是否自动播放，该属性为布尔属性。</li>
+<li><code>loop</code>：视频是否循环播放，该属性为布尔属性。</li>
+<li><code>muted</code>：是否默认静音，该属性为布尔属性。</li>
+<li><code>poster</code>：视频播放器的封面图片的 URL。</li>
+<li><code>preload</code>：视频播放之前，是否缓冲视频文件。这个属性仅适合没有设置<code>autoplay</code>的情况。它有三个值，分别是<code>none</code>（不缓冲）、<code>metadata</code>（仅仅缓冲视频文件的元数据）、<code>auto</code>（可以缓冲整个文件）。</li>
+<li><code>playsinline</code>：iPhone 的 Safari 浏览器播放视频时，会自动全屏，该属性可以禁止这种行为。该属性为布尔属性。</li>
+<li><code>crossorigin</code>：是否采用跨域的方式加载视频。它可以取两个值，分别是<code>anonymous</code>（跨域请求时，不发送用户凭证，主要是 Cookie），<code>use-credentials</code>（跨域时发送用户凭证）。</li>
+<li><code>currentTime</code>：指定当前播放位置（双精度浮点数，单位为秒）。如果尚未开始播放，则会从这个属性指定的位置开始播放。</li>
+<li><code>duration</code>：该属性只读，指示时间轴上的持续播放时间（总长度），值为双精度浮点数（单位为秒）。如果是流媒体，没有已知的结束时间，属性值为<code>+Infinity</code>。</li>
+</ul>
+<p>下面是一个例子。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">video</span> <span class="na">width</span><span class="o">=</span><span class="s">&#34;400&#34;</span> <span class="na">height</span><span class="o">=</span><span class="s">&#34;400&#34;</span>
+</span></span><span class="line"><span class="cl">       <span class="na">autoplay</span> <span class="na">loop</span> <span class="na">muted</span>
+</span></span><span class="line"><span class="cl">       <span class="na">poster</span><span class="o">=</span><span class="s">&#34;poster.png&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">video</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，视频播放器的大小是 400 x 400，会自动播放和循环播放，并且静音，还带有封面图。这是网站首页背景视频的常见写法。</p>
+<p>HTML 标准没有规定浏览器需要支持哪些视频格式，完全由浏览器厂商自己决定。为了避免浏览器不支持视频格式，可以使用<code>&lt;source&gt;</code>标签，放置同一个视频的多种格式。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">video</span> <span class="na">controls</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">source</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;example.mp4&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;video/mp4&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">source</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;example.webm&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;video/webm&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>你的浏览器不支持 HTML5 视频，请下载<span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;example.mp4&#34;</span><span class="p">&gt;</span>视频文件<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">video</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，<code>&lt;source&gt;</code>标签的<code>type</code>属性的值是视频文件的 MIME 类型，上例指定了两种格式的视频文件：<code>MP4</code> 和 <code>WebM</code>。如果浏览器支持 <code>MP4</code>，就加载 <code>MP4</code> 格式的视频，不再往下执行了。如果不支持 <code>MP4</code>，就检查是否支持 <code>WebM</code>，如果还是不支持，则显示提示。</p>
+<h2 id="2-audio">2. &lt;audio&gt;</h2>
+<p><code>&lt;audio&gt;</code>标签是一个块级元素，用于放置音频，用法与<code>&lt;video&gt;</code>标签基本一致。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">audio</span> <span class="na">controls</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">source</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;foo.mp3&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;audio/mp3&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">source</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;foo.ogg&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;audio/ogg&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>你的浏览器不支持 HTML5 音频，请直接下载<span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;foo.mp3&#34;</span><span class="p">&gt;</span>音频文件<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">audio</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，<code>&lt;audio&gt;</code>标签内部使用<code>&lt;source&gt;</code>标签，指定了两种音频格式：优先使用 MP3 格式，如果浏览器不支持则使用 Ogg 格式。如果浏览器不能播放音频，则提供下载链接。</p>
+<p><code>&lt;audio&gt;</code>标签的属性与<code>&lt;video&gt;</code>标签类似，参见上一节。</p>
+<ul>
+<li><code>autoplay</code>：是否自动播放，布尔属性。</li>
+<li><code>controls</code>：是否显示播放工具栏，布尔属性。如果不设置，浏览器不显示播放界面，通常用于背景音乐。</li>
+<li><code>crossorigin</code>：是否使用跨域方式请求。</li>
+<li><code>loop</code>：是否循环播放，布尔属性。</li>
+<li><code>muted</code>：是否静音，布尔属性。</li>
+<li><code>preload</code>：音频文件的缓冲设置。</li>
+<li><code>src</code>：音频文件网址。</li>
+</ul>
+<h2 id="3-track">3. &lt;track&gt;</h2>
+<p><code>&lt;track&gt;</code>标签用于指定视频的字幕，格式是 <code>WebVTT</code> （<code>.vtt</code>文件），放置在<code>&lt;video&gt;</code>标签内部。它是一个单独使用的标签，没有结束标签。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">video</span> <span class="na">controls</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;sample.mp4&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">   <span class="p">&lt;</span><span class="nt">track</span> <span class="na">label</span><span class="o">=</span><span class="s">&#34;英文&#34;</span> <span class="na">kind</span><span class="o">=</span><span class="s">&#34;subtitles&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;subtitles_en.vtt&#34;</span> <span class="na">srclang</span><span class="o">=</span><span class="s">&#34;en&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">   <span class="p">&lt;</span><span class="nt">track</span> <span class="na">label</span><span class="o">=</span><span class="s">&#34;中文&#34;</span> <span class="na">kind</span><span class="o">=</span><span class="s">&#34;subtitles&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;subtitles_cn.vtt&#34;</span> <span class="na">srclang</span><span class="o">=</span><span class="s">&#34;cn&#34;</span> <span class="na">default</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">video</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码指定视频文件的英文字幕和中文字幕。</p>
+<p><code>&lt;track&gt;</code>标签有以下属性。</p>
+<ul>
+<li><code>label</code>：播放器显示的字幕名称，供用户选择。</li>
+<li><code>kind</code>：字幕的类型，默认是<code>subtitles</code>，表示将原始声音成翻译外国文字，比如英文视频提供中文字幕。另一个常见的值是<code>captions</code>，表示原始声音的文字描述，通常是视频原始使用的语言，比如英文视频提供英文字幕。</li>
+<li><code>src</code>：vtt 字幕文件的网址。</li>
+<li><code>srclang</code>：字幕的语言，必须是有效的语言代码。</li>
+<li><code>default</code>：是否默认打开，布尔属性。</li>
+</ul>
+<h2 id="4-source">4. &lt;source&gt;</h2>
+<p><code>&lt;source&gt;</code>标签用于<code>&lt;picture&gt;</code>、<code>&lt;video&gt;</code>、<code>&lt;audio&gt;</code>的内部，用于指定一项外部资源。单标签是单独使用的，没有结束标签。</p>
+<p>它有如下属性，具体示例请参见相应的容器标签。</p>
+<ul>
+<li><code>type</code>：指定外部资源的 MIME 类型。</li>
+<li><code>src</code>：指定源文件，用于<code>&lt;video&gt;</code>和<code>&lt;audio&gt;</code>。</li>
+<li><code>srcset</code>：指定不同条件下加载的图像文件，用于<code>&lt;picture&gt;</code>。</li>
+<li><code>media</code>：指定媒体查询表达式，用于<code>&lt;picture&gt;</code>。</li>
+<li><code>sizes</code>：指定不同设备的显示大小，用于<code>&lt;picture&gt;</code>，必须跟<code>srcset</code>搭配使用。</li>
+</ul>
+<h2 id="5-embed">5. &lt;embed&gt;</h2>
+<p><code>&lt;embed&gt;</code>标签用于嵌入外部内容，这个外部内容通常由浏览器插件负责控制。由于浏览器的默认插件都不一致，很可能不是所有浏览器的用户都能访问这部分内容，建议谨慎使用。</p>
+<p>下面是嵌入视频播放器的例子。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">embed</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;video/webm&#34;</span>
+</span></span><span class="line"><span class="cl">       <span class="na">src</span><span class="o">=</span><span class="s">&#34;/media/examples/flower.mp4&#34;</span>
+</span></span><span class="line"><span class="cl">       <span class="na">width</span><span class="o">=</span><span class="s">&#34;250&#34;</span>
+</span></span><span class="line"><span class="cl">       <span class="na">height</span><span class="o">=</span><span class="s">&#34;200&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码嵌入的视频，将由浏览器插件负责控制。如果浏览器没有安装 MP4 插件，视频就无法播放。</p>
+<p><code>&lt;embed&gt;</code>标签具有如下的通用属性。</p>
+<ul>
+<li><code>height</code>：显示高度，单位为像素，不允许百分比。</li>
+<li><code>width</code>：显示宽度，单位为像素，不允许百分比。</li>
+<li><code>src</code>：嵌入的资源的 URL。</li>
+<li><code>type</code>：嵌入资源的 MIME 类型。</li>
+</ul>
+<p>浏览器通过<code>type</code>属性得到嵌入资源的 MIME 类型，一旦该种类型已经被某个插件注册了，就会启动该插件，负责处理嵌入的资源。</p>
+<p>下面是 <code>QuickTime</code> 插件播放 <code>MOV</code> 视频文件的例子。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">embed</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;video/quicktime&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;movie.mov&#34;</span> <span class="na">width</span><span class="o">=</span><span class="s">&#34;640&#34;</span> <span class="na">height</span><span class="o">=</span><span class="s">&#34;480&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>下面是启动 Flash 插件的例子。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">embed</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;whoosh.swf&#34;</span> <span class="na">quality</span><span class="o">=</span><span class="s">&#34;medium&#34;</span>
+</span></span><span class="line"><span class="cl">       <span class="na">bgcolor</span><span class="o">=</span><span class="s">&#34;#ffffff&#34;</span> <span class="na">width</span><span class="o">=</span><span class="s">&#34;550&#34;</span> <span class="na">height</span><span class="o">=</span><span class="s">&#34;400&#34;</span>
+</span></span><span class="line"><span class="cl">       <span class="na">name</span><span class="o">=</span><span class="s">&#34;whoosh&#34;</span> <span class="na">align</span><span class="o">=</span><span class="s">&#34;middle&#34;</span> <span class="na">allowScriptAccess</span><span class="o">=</span><span class="s">&#34;sameDomain&#34;</span>
+</span></span><span class="line"><span class="cl">       <span class="na">allowFullScreen</span><span class="o">=</span><span class="s">&#34;false&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;application/x-shockwave-flash&#34;</span>
+</span></span><span class="line"><span class="cl">       <span class="na">pluginspage</span><span class="o">=</span><span class="s">&#34;http://www.macromedia.com/go/getflashplayer&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，如果浏览器没有安装 Flash 插件，就会提示去<code>pluginspage</code>属性指定的网址下载。</p>
+<h2 id="6-objectparam">6. &lt;object&gt;,&lt;param&gt;</h2>
+<p><code>&lt;object&gt;</code>标签作用跟<code>&lt;embed&gt;</code>相似，也是插入外部资源，由浏览器插件处理。它可以视为<code>&lt;embed&gt;</code>的替代品，有标准化行为，只限于插入少数几种通用资源，没有历史遗留问题，因此更推荐使用。</p>
+<p>下面是插入 <code>PDF</code> 文件的例子。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">object</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;application/pdf&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">data</span><span class="o">=</span><span class="s">&#34;/media/examples/In-CC0.pdf&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">width</span><span class="o">=</span><span class="s">&#34;250&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">height</span><span class="o">=</span><span class="s">&#34;200&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">object</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，如果浏览器安装了 <code>PDF</code> 插件，就会在网页显示 <code>PDF</code> 浏览窗口。</p>
+<p><code>&lt;object&gt;</code>具有如下的通用属性。</p>
+<ul>
+<li><code>data</code>：嵌入的资源的 URL。</li>
+<li><code>form</code>：当前网页中相关联表单的<code>id</code>属性（如果有的话）。</li>
+<li><code>height</code>：资源的显示高度，单位为像素，不能使用百分比。</li>
+<li><code>width</code>：资源的显示宽度，单位为像素，不能使用百分比。</li>
+<li><code>type</code>：资源的 MIME 类型。</li>
+<li><code>typemustmatch</code>：布尔属性，表示<code>data</code>属性与<code>type</code>属性是否必须匹配。</li>
+</ul>
+<p>下面是插入 Flash 影片的例子。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">object</span> <span class="na">data</span><span class="o">=</span><span class="s">&#34;movie.swf&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">type</span><span class="o">=</span><span class="s">&#34;application/x-shockwave-flash&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">object</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>&lt;object&gt;</code>标签是一个容器元素，内部可以使用<code>&lt;param&gt;</code>标签，给出插件所需要的运行参数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">object</span> <span class="na">data</span><span class="o">=</span><span class="s">&#34;movie.swf&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;application/x-shockwave-flash&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">param</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;foo&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;bar&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">object</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">punk1u</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2022-06-12
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/web/">web</a>
+          <a href="/tags/html/">html</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/html-note-%E6%A0%87%E7%AD%BE-%E8%A1%A8%E6%A0%BC%E8%A1%A8%E5%8D%95%E6%A0%87%E7%AD%BE/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">html学习笔记(6)——表格、表单标签</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/html-note-%E6%A0%87%E7%AD%BE-%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE%E5%92%8C%E5%88%97%E8%A1%A8%E6%A0%87%E7%AD%BE/">
+            <span class="next-text nav-default">html学习笔记(4)——文本标签和列表标签</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:punk1u@protonmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://www.github.com/punk1u" class="iconfont icon-github" title="github"></a>
+  <a href="https://punk1u.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>punk1u</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.191509a5c8442abdb6eb5020a332fd59bdd83a7e78a2d2241108df9113504292.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

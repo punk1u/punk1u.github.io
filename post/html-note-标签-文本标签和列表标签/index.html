@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>html学习笔记(4)——文本标签和列表标签 - 想自由的Punk 1u</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="punk1u" /><meta name="description" content="本文来自于对 HTML教程 的整理。 1. 文本标签 历史上，网页的主要功能是文本展示。所以，HTML 提供了大量的文本处理标签。 1. &amp;lt;div&amp;gt; &amp;lt;div&amp;gt" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.100.1 with theme even" />
+
+
+<link rel="canonical" href="https://punk1u.github.io/post/html-note-%E6%A0%87%E7%AD%BE-%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE%E5%92%8C%E5%88%97%E8%A1%A8%E6%A0%87%E7%AD%BE/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="html学习笔记(4)——文本标签和列表标签" />
+<meta property="og:description" content="本文来自于对 HTML教程 的整理。 1. 文本标签 历史上，网页的主要功能是文本展示。所以，HTML 提供了大量的文本处理标签。 1. &lt;div&gt; &lt;div&gt" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://punk1u.github.io/post/html-note-%E6%A0%87%E7%AD%BE-%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE%E5%92%8C%E5%88%97%E8%A1%A8%E6%A0%87%E7%AD%BE/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-06-11T23:32:39+08:00" />
+<meta property="article:modified_time" content="2022-06-11T23:32:39+08:00" />
+
+<meta itemprop="name" content="html学习笔记(4)——文本标签和列表标签">
+<meta itemprop="description" content="本文来自于对 HTML教程 的整理。 1. 文本标签 历史上，网页的主要功能是文本展示。所以，HTML 提供了大量的文本处理标签。 1. &lt;div&gt; &lt;div&gt"><meta itemprop="datePublished" content="2022-06-11T23:32:39+08:00" />
+<meta itemprop="dateModified" content="2022-06-11T23:32:39+08:00" />
+<meta itemprop="wordCount" content="10152">
+<meta itemprop="keywords" content="web,html," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="html学习笔记(4)——文本标签和列表标签"/>
+<meta name="twitter:description" content="本文来自于对 HTML教程 的整理。 1. 文本标签 历史上，网页的主要功能是文本展示。所以，HTML 提供了大量的文本处理标签。 1. &lt;div&gt; &lt;div&gt"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Punk 1u</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Punk 1u</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">html学习笔记(4)——文本标签和列表标签</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-06-11 </span>
+        <div class="post-category">
+            <a href="/categories/web/"> web </a>
+            <a href="/categories/html/"> html </a>
+            </div>
+          <span class="more-meta"> 约 10152 字 </span>
+          <span class="more-meta"> 预计阅读 21 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-文本标签">1. 文本标签</a>
+      <ul>
+        <li><a href="#1-div">1. &lt;div&gt;</a></li>
+        <li><a href="#2-p">2. &lt;p&gt;</a></li>
+        <li><a href="#3-span">3. &lt;span&gt;</a></li>
+        <li><a href="#4-brwbr">4. &lt;br&gt;,&lt;wbr&gt;</a></li>
+        <li><a href="#5-hr">5. &lt;hr&gt;</a></li>
+        <li><a href="#6-pre">6. &lt;pre&gt;</a></li>
+        <li><a href="#7-strongb">7. &lt;strong&gt;,&lt;b&gt;</a></li>
+        <li><a href="#8-emi">8. &lt;em&gt;,&lt;i&gt;</a></li>
+        <li><a href="#9-subsupvar">9. &lt;sub&gt;,&lt;sup&gt;,&lt;var&gt;</a></li>
+        <li><a href="#10-us">10. &lt;u&gt;,&lt;s&gt;</a></li>
+        <li><a href="#11-blockquoteciteq">11. &lt;blockquote&gt;,&lt;cite&gt;,&lt;q&gt;</a></li>
+        <li><a href="#12-code">12. &lt;code&gt;</a></li>
+        <li><a href="#13-kbdsamp">13. &lt;kbd&gt;,&lt;samp&gt;</a></li>
+        <li><a href="#14-mark">14. &lt;mark&gt;</a></li>
+        <li><a href="#15-small">15. &lt;small&gt;</a></li>
+        <li><a href="#16-timedata">16. &lt;time&gt;,&lt;data&gt;</a></li>
+        <li><a href="#17-address">17. &lt;address&gt;</a></li>
+        <li><a href="#18-abbr">18. &lt;abbr&gt;</a></li>
+        <li><a href="#19-insdel">19. &lt;ins&gt;,&lt;del&gt;</a></li>
+        <li><a href="#20-dfn">20. &lt;dfn&gt;</a></li>
+        <li><a href="#21-ruby">21. &lt;ruby&gt;</a></li>
+        <li><a href="#22-bdodbi">22. &lt;bdo&gt;,&lt;dbi&gt;</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-列表标签">2. 列表标签</a>
+      <ul>
+        <li><a href="#1-ol">1. &lt;ol&gt;</a></li>
+        <li><a href="#2-ul">2. &lt;ul&gt;</a></li>
+        <li><a href="#3-li">3. &lt;li&gt;</a></li>
+        <li><a href="#4-dldtdd">4. &lt;dl&gt;,&lt;dt&gt;,&lt;dd&gt;</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>本文来自于对 <a href="https://wangdoc.com/html/">HTML教程</a> 的整理。</p>
+<h1 id="1-文本标签">1. 文本标签</h1>
+<p>历史上，网页的主要功能是文本展示。所以，HTML 提供了大量的文本处理标签。</p>
+<h2 id="1-div">1. &lt;div&gt;</h2>
+<p><code>&lt;div&gt;</code>是一个通用标签，表示一个区块（<code>division</code>）。它没有语义，如果网页需要一个块级元素容器，又没有其他合适的标签，就可以使用这个标签。</p>
+<p>它的最常见用途就是提供 <code>CSS</code> 的钩子，用来指定各种样式。所以在早期，下面层层包裹的<code>&lt;div&gt;</code>就很常见。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;main&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;article&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;title&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>文章标题<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码读起来很费力，因为不带有语义。后来，<code>HTML 5</code> 就提出了语义标签，改进了上面的代码。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">main</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">article</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">header</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>文章标题<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">header</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">article</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">main</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>&lt;div&gt;</code>是无语义的块级元素。下面的例子使用<code>&lt;div&gt;</code>，将图像和文字组合在一起，构成一个警告区块。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;warning.jpg&#34;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&#34;警告&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>小心<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>只要样式上需要多个块级元素组合在一起，就可以使用<code>&lt;div&gt;</code>。但是，这应该是最后的措施，带有语义的块级标签（比如<code>&lt;article&gt;</code>、<code>&lt;section&gt;</code>、<code>&lt;aside&gt;</code>、<code>&lt;nav&gt;</code>等）始终应该优先使用，当且仅当没有其他语义元素合适时，才可以使用<code>&lt;div&gt;</code>。</p>
+<h2 id="2-p">2. &lt;p&gt;</h2>
+<p><code>&lt;p&gt;</code>标签是一个块级元素，代表文章的一个段落（<code>paragraph</code>）。不仅是文本，任何想以段落显示的内容，比如图片和表单项，都可以放进<code>&lt;p&gt;</code>元素。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>hello world<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码就是一个简单的段落。</p>
+<h2 id="3-span">3. &lt;span&gt;</h2>
+<p><code>&lt;span&gt;</code>是一个通用目的的行内标签（即不会产生换行），不带有任何语义。它通常用作 <code>CSS</code> 样式的钩子，如果需要对某些行内内容指定样式，就可以把它们放置在<code>&lt;span&gt;</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>这是一句<span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>重要<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>的句子。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，句子里面需要强调的部分，就可以放在<code>&lt;span&gt;</code>。</p>
+<h2 id="4-brwbr">4. &lt;br&gt;,&lt;wbr&gt;</h2>
+<p><code>&lt;br&gt;</code>让网页产生一个换行效果。该标签是单独使用的，没有闭合标签。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">hello<span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>world
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>浏览器渲染上面代码时，会分成两行，<code>hello</code>和<code>world</code>各占一行。</p>
+<p><code>&lt;br&gt;</code>对于诗歌和地址的换行非常有用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  床前明月光，<span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  疑是地上霜。<span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  举头望明月，<span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  低头思故乡。
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的代码如果不用<code>&lt;br&gt;</code>，会显示成一行。</p>
+<p>注意，块级元素的间隔，不要使用<code>&lt;br&gt;</code>来产生，而要使用 <code>CSS</code> 指定。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>第一段<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>第二段<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的代码希望段落之间有两个换行，这时不应该使用<code>&lt;br&gt;</code>，而应该使用 <code>CSS</code>。</p>
+<p><code>&lt;wbr&gt;</code>标签跟<code>&lt;br&gt;</code>很相似，表示一个可选的断行。如果一行的宽度足够，则不断行；如果宽度不够，需要断行，就在<code>&lt;wbr&gt;</code>的位置的断行。它是为了防止浏览器在一个很长的单词中间，不正确地断行或者不断行，所以事先标明可以断行的位置，主要用于欧洲一些单词很长的语言或者 <code>URL</code> 的断行。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">Fernstraßen<span class="p">&lt;</span><span class="nt">wbr</span><span class="p">&gt;</span>bau<span class="p">&lt;</span><span class="nt">wbr</span><span class="p">&gt;</span>privat<span class="p">&lt;</span><span class="nt">wbr</span><span class="p">&gt;</span>finanzierungs<span class="p">&lt;</span><span class="nt">wbr</span><span class="p">&gt;</span>gesetz
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码是一个很长的德语单词，为了防止不正确断行，事先用<code>&lt;wbr&gt;</code>告诉浏览器，可以选择在哪里断行。</p>
+<h2 id="5-hr">5. &lt;hr&gt;</h2>
+<p><code>&lt;hr&gt;</code>用来在一篇文章中分隔两个不同的主题，浏览器会将其渲染为一根水平线。该标签是单独使用的，没有闭合标签。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>第一个主题<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">hr</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>第二个主题<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码的渲染结果是，两段之间会出现一根水平线。</p>
+<p>该标签是历史遗留下来的，建议尽量避免使用。主题之间的分隔可以使用<code>&lt;section&gt;</code>，如果想要水平线的效果，可以使用 <code>CSS</code>。</p>
+<h2 id="6-pre">6. &lt;pre&gt;</h2>
+<p><code>&lt;pre&gt;</code>是一个块级元素，表示保留原来的格式（<code>preformatted</code>），即浏览器会保留该标签内部原始的换行和空格。浏览器默认以等宽字体显示标签内容。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">pre</span><span class="p">&gt;</span>hello
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   world<span class="p">&lt;/</span><span class="nt">pre</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，换行和连续空格都会由于<code>&lt;pre&gt;</code>标签，而被保留下来，浏览器按照原样输出。</p>
+<p>注意，HTML 标签在<code>&lt;pre&gt;</code>里面还是起作用的。<code>&lt;pre&gt;</code>只保留空格和换行，不会保留 <code>HTML</code> 标签。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">pre</span><span class="p">&gt;&lt;</span><span class="nt">strong</span><span class="p">&gt;</span>hello world<span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;&lt;/</span><span class="nt">pre</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，<code>&lt;pre&gt;</code>标签的内容会加粗显示。</p>
+<h2 id="7-strongb">7. &lt;strong&gt;,&lt;b&gt;</h2>
+<p><code>&lt;strong&gt;</code>是一个行内元素，表示它包含的内容具有很强的重要性，需要引起注意。浏览器会以粗体显示内容。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>开会时间是<span class="p">&lt;</span><span class="nt">strong</span><span class="p">&gt;</span>下午两点<span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;</span>。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>&lt;b&gt;</code>与<code>&lt;strong&gt;</code>很相似，也表示它包含的内容需要引起注意，浏览器会加粗显示。它是 Boldface 的缩写。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>开会时间是<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>下午两点<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span>。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>它与<code>&lt;strong&gt;</code>的区别在于，由于历史原因，它没有语义，是一个纯样式的标签，违反了语义与样式分离的原则，因此不建议使用，应该优先使用<code>&lt;strong&gt;</code>标签。</p>
+<h2 id="8-emi">8. &lt;em&gt;,&lt;i&gt;</h2>
+<p><code>&lt;em&gt;</code>是一个行内标签，表示强调（<code>emphasize</code>），浏览器会以斜体显示它包含的内容。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>我们<span class="p">&lt;</span><span class="nt">em</span><span class="p">&gt;</span>已经<span class="p">&lt;/</span><span class="nt">em</span><span class="p">&gt;</span>讨论过这件事情了。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>虽然浏览器通常会以斜体显示<code>&lt;em&gt;</code>，但无法保证一定如此，所以最好还是用 <code>CSS</code> 指定一下这个标签的样式。</p>
+<p><code>&lt;i&gt;</code>标签与<code>&lt;em&gt;</code>相似，也表示与其他地方有所区别，浏览器会以斜体显示。它是 Italic 的缩写。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>我心想，这件事是<span class="p">&lt;</span><span class="nt">i</span><span class="p">&gt;</span>真的<span class="p">&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>吗？<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>&lt;i&gt;</code>标签的语义不强，更接近是一个纯样式的标签，建议优先使用<code>&lt;em&gt;</code>标签代替它。</p>
+<h2 id="9-subsupvar">9. &lt;sub&gt;,&lt;sup&gt;,&lt;var&gt;</h2>
+<p><code>&lt;sub&gt;</code>标签将内容变为下标，<code>&lt;sup&gt;</code>标签将内容变为上标。它们都是行内元素，主要用于数学公式、分子式等。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>水分子是 H<span class="p">&lt;</span><span class="nt">sub</span><span class="p">&gt;</span>2<span class="p">&lt;/</span><span class="nt">sub</span><span class="p">&gt;</span>O。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>&lt;var&gt;</code>标签表示代码或数学公式的变量。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>勾股定理是
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">var</span><span class="p">&gt;</span>a<span class="p">&lt;/</span><span class="nt">var</span><span class="p">&gt;&lt;</span><span class="nt">sup</span><span class="p">&gt;</span>2<span class="p">&lt;/</span><span class="nt">sup</span><span class="p">&gt;</span> + <span class="p">&lt;</span><span class="nt">var</span><span class="p">&gt;</span>b<span class="p">&lt;/</span><span class="nt">var</span><span class="p">&gt;&lt;</span><span class="nt">sup</span><span class="p">&gt;</span>2<span class="p">&lt;/</span><span class="nt">sup</span><span class="p">&gt;</span> = <span class="p">&lt;</span><span class="nt">var</span><span class="p">&gt;</span>c<span class="p">&lt;/</span><span class="nt">var</span><span class="p">&gt;&lt;</span><span class="nt">sup</span><span class="p">&gt;</span>2<span class="p">&lt;/</span><span class="nt">sup</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="10-us">10. &lt;u&gt;,&lt;s&gt;</h2>
+<p><code>&lt;u&gt;</code>标签是一个行内元素，表示对内容提供某种注释，提醒用户这里可能有问题，基本上只用来表示拼写错误。浏览器默认以下划线渲染内容。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">一个容易写错的成语是把<span class="p">&lt;</span><span class="nt">em</span><span class="p">&gt;</span>安分守己<span class="p">&lt;/</span><span class="nt">em</span><span class="p">&gt;</span>写成<span class="p">&lt;</span><span class="nt">u</span><span class="p">&gt;</span>安份守己<span class="p">&lt;/</span><span class="nt">u</span><span class="p">&gt;</span>。
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，<code>&lt;u&gt;</code>提示用户这是一个拼写错误，“安份守己”的下方会有一个下划线。</p>
+<p>注意，<code>&lt;u&gt;</code>会产生下划线，由于链接也默认带有下划线，所以必须非常小心使用<code>&lt;u&gt;</code>标签，避免用户误以为可以点击。万一确有必要使用，最好使用 <code>CSS</code> 改变<code>&lt;u&gt;</code>的默认样式。</p>
+<p><code>&lt;s&gt;</code>标签是一个行内元素，为内容加上删除线。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>今天特价商品：<span class="p">&lt;</span><span class="nt">s</span><span class="p">&gt;</span>三文鱼<span class="p">&lt;/</span><span class="nt">s</span><span class="p">&gt;</span>（售完）<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，“三文鱼”会有一根删除线。</p>
+<h2 id="11-blockquoteciteq">11. &lt;blockquote&gt;,&lt;cite&gt;,&lt;q&gt;</h2>
+<p><code>&lt;blockquote&gt;</code>是一个块级标签，表示引用他人的话。浏览器会在样式上，与正常文本区别显示。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">blockquote</span> <span class="na">cite</span><span class="o">=</span><span class="s">&#34;https://quote.example.com&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>天才就是 1% 的天赋和99%的汗水。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">blockquote</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>&lt;blockquote&gt;</code>标签有一个<code>cite</code>属性，它的值是一个网址，表示引言来源，不会显示在网页上。</p>
+<p><code>&lt;cite&gt;</code>标签表示引言出处或者作者，浏览器默认使用斜体显示这部分内容。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">blockquote</span> <span class="na">cite</span><span class="o">=</span><span class="s">&#34;https://quote.example.com&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>天才就是 1% 的天赋和99%的汗水。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">blockquote</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">cite</span><span class="p">&gt;</span>-- 爱迪生<span class="p">&lt;/</span><span class="nt">cite</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>&lt;cite&gt;</code>不一定跟<code>&lt;blockquote&gt;</code>一起使用。如果文章中提到资料来源，也可以单独使用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>更多资料请看<span class="p">&lt;</span><span class="nt">cite</span><span class="p">&gt;</span>维基百科<span class="p">&lt;/</span><span class="nt">cite</span><span class="p">&gt;</span>。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>&lt;q&gt;</code>是一个行内标签，也表示引用。它与<code>&lt;blockquote&gt;</code>的区别，就是它不会产生换行。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  莎士比亚的《哈姆雷特》有一句著名的台词：
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">q</span> <span class="na">cite</span><span class="o">=</span><span class="s">&#34;https://quote.example.com&#34;</span><span class="p">&gt;</span>活着还是死亡，这是一个问题。<span class="p">&lt;/</span><span class="nt">q</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，引言部分跟前面的说明部分是在同一行里面。</p>
+<p>另外，跟<code>&lt;blockquote&gt;</code>一样，<code>&lt;q&gt;</code>也有<code>cite</code>属性，表示引言的来源网址。</p>
+<p>注意，浏览器默认会斜体显示<code>&lt;q&gt;</code>的内容，并且会自动添加半角的双引号。所以，引用中文内容时要小心。</p>
+<h2 id="12-code">12. &lt;code&gt;</h2>
+<p><code>&lt;code&gt;</code>标签是一个行内元素，表示标签内容是计算机代码，浏览器默认会以等宽字体显示。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">code</span><span class="p">&gt;</span>alert()<span class="p">&lt;/</span><span class="nt">code</span><span class="p">&gt;</span>的作用是让网页弹出一个提示框。
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果要表示多行代码，<code>&lt;code&gt;</code>标签必须放在<code>&lt;pre&gt;</code>内部。<code>&lt;code&gt;</code>本身仅表示一行代码。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">pre</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">code</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  let a = 1;
+</span></span><span class="line"><span class="cl">  console.log(a);
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">code</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">pre</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="13-kbdsamp">13. &lt;kbd&gt;,&lt;samp&gt;</h2>
+<p><code>&lt;kbd&gt;</code>标签是一个行内元素，原意是用户从键盘输入的内容，现在扩展到各种输入，包括语音输入。浏览器默认以等宽字体显示标签内容。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Windows 可以按下 <span class="p">&lt;</span><span class="nt">kbd</span><span class="p">&gt;</span>Ctrl<span class="p">&lt;/</span><span class="nt">kbd</span><span class="p">&gt;</span> + <span class="p">&lt;</span><span class="nt">kbd</span><span class="p">&gt;</span>Shift<span class="p">&lt;/</span><span class="nt">kbd</span><span class="p">&gt;</span> + <span class="p">&lt;</span><span class="nt">kbd</span><span class="p">&gt;</span>Del<span class="p">&lt;/</span><span class="nt">kbd</span><span class="p">&gt;</span> 重启。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>&lt;kbd&gt;</code>可以嵌套，方便指定样式。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Windows 可以按下
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">kbd</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">kbd</span><span class="p">&gt;</span>Ctrl<span class="p">&lt;/</span><span class="nt">kbd</span><span class="p">&gt;</span> + <span class="p">&lt;</span><span class="nt">kbd</span><span class="p">&gt;</span>Shift<span class="p">&lt;/</span><span class="nt">kbd</span><span class="p">&gt;</span> + <span class="p">&lt;</span><span class="nt">kbd</span><span class="p">&gt;</span>Del<span class="p">&lt;/</span><span class="nt">kbd</span><span class="p">&gt;</span> <span class="p">&lt;/</span><span class="nt">kbd</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">重启。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>&lt;samp&gt;</code>标签是一个行内元素，表示计算机程序输出内容的一个例子。浏览器默认以等宽字体显示。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>如果使用没有定义的变量，浏览器会报错：
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">samp</span><span class="p">&gt;</span>Uncaught ReferenceError: foo is not defined<span class="p">&lt;/</span><span class="nt">samp</span><span class="p">&gt;</span>。
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="14-mark">14. &lt;mark&gt;</h2>
+<p><code>&lt;mark&gt;</code>是一个行内标签，表示突出显示的内容。Chrome 浏览器默认会以亮黄色背景，显示该标签的内容。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>我们讨论以后决定，<span class="p">&lt;</span><span class="nt">mark</span><span class="p">&gt;</span>运行会在下周三举办<span class="p">&lt;/</span><span class="nt">mark</span><span class="p">&gt;</span>。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>&lt;mark&gt;</code>很适合在引用的内容（<code>&lt;q&gt;</code>或<code>&lt;blockquote&gt;</code>）中，标记出需要关注的句子。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">blockquote</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">床前明月光，疑是地上霜。<span class="p">&lt;</span><span class="nt">mark</span><span class="p">&gt;</span>举头望明月，低头思故乡。<span class="p">&lt;/</span><span class="nt">mark</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">blockquote</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>除了标记感兴趣的文本，<code>&lt;mark&gt;</code>还可以用于在搜索结果中，标记出匹配的关键词。</p>
+<p>注意，不要只为了高亮的效果，而使用这个标签，因为不能保证浏览器的处理方式。如果要保证高亮，还是要使用 <code>CSS</code> 样式。</p>
+<h2 id="15-small">15. &lt;small&gt;</h2>
+<p><code>&lt;small&gt;</code>是一个行内标签，浏览器会将它包含的内容，以小一号的字号显示，不需要使用 <code>CSS</code> 样式。它通常用于文章附带的版权信息或法律信息。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>文章正文<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">small</span><span class="p">&gt;</span>以上内容使用创意共享许可证。<span class="p">&lt;/</span><span class="nt">small</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="16-timedata">16. &lt;time&gt;,&lt;data&gt;</h2>
+<p><code>&lt;time&gt;</code>是一个行内标签，为跟时间相关的内容提供机器可读的格式。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>运动会预定<span class="p">&lt;</span><span class="nt">time</span> <span class="na">datetime</span><span class="o">=</span><span class="s">&#34;2015-06-10&#34;</span><span class="p">&gt;</span>下周三<span class="p">&lt;/</span><span class="nt">time</span><span class="p">&gt;</span>举行。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，<code>&lt;time&gt;</code>表示下周三的具体日期。这方便搜索引擎抓取，或者下一步的其他处理。</p>
+<p><code>&lt;time&gt;</code>的<code>datetime</code>属性，用来指定机器可读的日期，可以有多种格式。</p>
+<ul>
+<li>有效年份：<code>2011</code></li>
+<li>有效月份：<code>2011-11</code></li>
+<li>有效日期：<code>2011-11-18</code></li>
+<li>无年份的日期：<code>11-18</code></li>
+<li>年度的第几周：<code>2011-W47</code></li>
+<li>有效时间：<code>14:54</code>、<code>14:54:39</code>、<code>14:54:39.929</code></li>
+<li>日期和时间：<code>2011-11-18T14:54:39.929</code></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>音乐会在<span class="p">&lt;</span><span class="nt">time</span> <span class="na">datetime</span><span class="o">=</span><span class="s">&#34;20:00&#34;</span><span class="p">&gt;</span>晚上八点<span class="p">&lt;/</span><span class="nt">time</span><span class="p">&gt;</span>开始。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>&lt;data&gt;</code>标签与<code>&lt;time&gt;</code>类似，也是提供机器可读的内容，但是用于非时间的场合。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>本次马拉松比赛第一名是<span class="p">&lt;</span><span class="nt">data</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;39&#34;</span><span class="p">&gt;</span>张三<span class="p">&lt;/</span><span class="nt">data</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>。
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，选手的机读数据就放在<code>&lt;data&gt;</code>标签的<code>value</code>属性。</p>
+<h2 id="17-address">17. &lt;address&gt;</h2>
+<p><code>&lt;address&gt;</code>标签是一个块级元素，表示某人或某个组织的联系方式。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>作者的联系方式：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">address</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;mailto:foo@example.com&#34;</span><span class="p">&gt;</span>foo@example.com<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;tel:+555-34762301&#34;</span><span class="p">&gt;</span>+555-34762301<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">address</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>该标签有几个注意点。</p>
+<p>（1）如果是文章里提到的地址（比如提到搬家前的地址），而不是联系信息，不要使用<code>&lt;address&gt;</code>标签。</p>
+<p>（2）<code>&lt;address&gt;</code>的内容不得有非联系信息，比如发布日期。</p>
+<p>（3）<code>&lt;address&gt;</code>不能嵌套，并且内部不能有标题标签（<code>&lt;h1&gt;</code>~<code>&lt;h6&gt;</code>），也不能有<code>&lt;article&gt;</code>、<code>&lt;aside&gt;</code>、<code>&lt;section&gt;</code>、<code>&lt;nav&gt;</code>、<code>&lt;header&gt;</code>、<code>&lt;footer&gt;</code>等标签。</p>
+<p>（4）通常，<code>&lt;address&gt;</code>会放在<code>&lt;footer&gt;</code>里面，下面是一个例子。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">footer</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">address</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    文章的相关问题请联系<span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;mailto:zhangsan@example.com&#34;</span><span class="p">&gt;</span>张三
+</span></span><span class="line"><span class="cl">    McClure<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>。
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">address</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">footer</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="18-abbr">18. &lt;abbr&gt;</h2>
+<p><code>&lt;abbr&gt;</code>标签是一个行内元素，表示标签内容是一个缩写。它的<code>title</code>属性给出缩写的完整形式，或者缩写的描述。鼠标悬停在该元素上方时，<code>title</code>属性值作为提示，会完整显示出来。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">abbr</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;HyperText Markup Language&#34;</span><span class="p">&gt;</span>HTML<span class="p">&lt;/</span><span class="nt">abbr</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意，某些浏览器可能对该标签提供圆点下划线。</p>
+<h2 id="19-insdel">19. &lt;ins&gt;,&lt;del&gt;</h2>
+<p><code>&lt;ins&gt;</code>标签是一个行内元素，表示原始文档添加（<code>insert</code>）的内容。<code>&lt;del&gt;</code>与之类似，表示删除（<code>delete</code>）的内容。它们通常用于展示文档的删改。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">del</span><span class="p">&gt;&lt;</span><span class="nt">p</span><span class="p">&gt;</span>会议定于5月8日举行。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;&lt;/</span><span class="nt">del</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">ins</span><span class="p">&gt;&lt;</span><span class="nt">p</span><span class="p">&gt;</span>会议定于5月9日举行。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;&lt;/</span><span class="nt">ins</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>浏览器默认为<code>&lt;del&gt;</code>标签的内容加上删除线，为<code>&lt;ins&gt;</code>标签的内容加上下划线。</p>
+<p>这两个标签都有以下属性。</p>
+<ul>
+<li><code>cite</code>：该属性的值是一个 URL，表示该网址可以解释本次删改。</li>
+<li><code>datetime</code>：表示删改发生的时间。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">ins</span> <span class="na">cite</span><span class="o">=</span><span class="s">&#34;./why.html&#34;</span> <span class="na">datetime</span><span class="o">=</span><span class="s">&#34;2018-05&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>项目比原定时间提前两周结束。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">ins</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="20-dfn">20. &lt;dfn&gt;</h2>
+<p><code>&lt;dfn&gt;</code>是一个行内元素，表示标签内容是一个术语（<code>definition</code>），本段或本句包含它的定义。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">通过 TCP/IP 协议连接的全球性计算机网络，叫做 <span class="p">&lt;</span><span class="nt">dfn</span><span class="p">&gt;</span>Internet<span class="p">&lt;/</span><span class="nt">dfn</span><span class="p">&gt;</span>。
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>为了脚本操作的方便，可以把术语的定义写入<code>&lt;dfn&gt;</code>标签的<code>title</code>属性。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">通过 TCP/IP 协议连接的全球性计算机网络，叫做
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">dfn</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;全球性计算机网络&#34;</span><span class="p">&gt;</span>Internet<span class="p">&lt;/</span><span class="nt">dfn</span><span class="p">&gt;</span>。
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，<code>title</code>属性的一个作用是，鼠标悬浮的时候，术语的解释会以提示的形式显示出来。</p>
+<p>某些时候，术语本身是一个缩写，这时<code>&lt;dfn&gt;</code>和<code>&lt;abbr&gt;</code>可以结合使用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">dfn</span><span class="p">&gt;&lt;</span><span class="nt">abbr</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;acquired immune deficiency syndrome&#34;</span><span class="p">&gt;</span>AIDS<span class="p">&lt;/</span><span class="nt">abbr</span><span class="p">&gt;&lt;/</span><span class="nt">dfn</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">的全称是获得性免疫缺陷综合征。
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="21-ruby">21. &lt;ruby&gt;</h2>
+<p><code>&lt;ruby&gt;</code>标签表示文字的语音注释，主要用于东亚文字，比如汉语拼音和日语的片假名。它默认将语音注释，以小字体显示在文字的上方。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">ruby</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">汉<span class="p">&lt;</span><span class="nt">rp</span><span class="p">&gt;</span>(<span class="p">&lt;/</span><span class="nt">rp</span><span class="p">&gt;&lt;</span><span class="nt">rt</span><span class="p">&gt;</span>han<span class="p">&lt;/</span><span class="nt">rt</span><span class="p">&gt;&lt;</span><span class="nt">rp</span><span class="p">&gt;</span>)<span class="p">&lt;/</span><span class="nt">rp</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">字<span class="p">&lt;</span><span class="nt">rp</span><span class="p">&gt;</span>(<span class="p">&lt;/</span><span class="nt">rp</span><span class="p">&gt;&lt;</span><span class="nt">rt</span><span class="p">&gt;</span>zi<span class="p">&lt;/</span><span class="nt">rt</span><span class="p">&gt;&lt;</span><span class="nt">rp</span><span class="p">&gt;</span>)<span class="p">&lt;/</span><span class="nt">rp</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">ruby</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码的渲染结果是，<code>汉字</code>上方有小字体的拼音<code>han zi</code>。</p>
+<p><code>&lt;ruby&gt;</code>标签是一个行内元素，也是一个容器标签。如果要使用语音注释，就必须把文字和注释都放在这个标签里面。</p>
+<p><code>&lt;ruby&gt;</code>的内部还有许多配套的标签。</p>
+<p><strong>（1）<code>&lt;rp&gt;</code></strong></p>
+<p><code>&lt;rp&gt;</code>标签的用处，是为不支持语音注释的浏览器，提供一个兼容方案。对于那些支持语音注释的浏览器，该标签的内容不显示。</p>
+<p><code>&lt;rp&gt;</code>标签一般用于放置圆括号，如果遇到不支持的浏览器，就会将语音注释显示在括号里面。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">ruby</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">汉<span class="p">&lt;</span><span class="nt">rp</span><span class="p">&gt;</span>(<span class="p">&lt;/</span><span class="nt">rp</span><span class="p">&gt;&lt;</span><span class="nt">rt</span><span class="p">&gt;</span>han<span class="p">&lt;/</span><span class="nt">rt</span><span class="p">&gt;&lt;</span><span class="nt">rp</span><span class="p">&gt;</span>)<span class="p">&lt;/</span><span class="nt">rp</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">字<span class="p">&lt;</span><span class="nt">rp</span><span class="p">&gt;</span>(<span class="p">&lt;/</span><span class="nt">rp</span><span class="p">&gt;&lt;</span><span class="nt">rt</span><span class="p">&gt;</span>zi<span class="p">&lt;/</span><span class="nt">rt</span><span class="p">&gt;&lt;</span><span class="nt">rp</span><span class="p">&gt;</span>)<span class="p">&lt;/</span><span class="nt">rp</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">ruby</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码在不支持语音注释的浏览器中，渲染结果为<code>汉(han)字(zi)</code>。遇到支持语音注释的浏览器，就不会显示圆括号。</p>
+<p><strong>（2）<code>&lt;rt&gt;</code></strong></p>
+<p><code>&lt;rt&gt;</code>标签用于放置语音注释。</p>
+<p><strong>（3）<code>&lt;rb&gt;</code></strong></p>
+<p><code>&lt;rb&gt;</code>标签用于划分文字单位，与语音注释一一对应。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">ruby</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">rb</span><span class="p">&gt;</span>汉<span class="p">&lt;/</span><span class="nt">rb</span><span class="p">&gt;&lt;</span><span class="nt">rb</span><span class="p">&gt;</span>字<span class="p">&lt;/</span><span class="nt">rb</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">rp</span><span class="p">&gt;</span>(<span class="p">&lt;/</span><span class="nt">rp</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">rt</span><span class="p">&gt;</span>han<span class="p">&lt;/</span><span class="nt">rt</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">rt</span><span class="p">&gt;</span>zi<span class="p">&lt;/</span><span class="nt">rt</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">rp</span><span class="p">&gt;</span>)<span class="p">&lt;/</span><span class="nt">rp</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">ruby</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>（4）<code>&lt;rbc&gt;</code>，<code>&lt;rtc&gt;</code></strong></p>
+<p><code>&lt;rbc&gt;</code>标签表示一组文字，通常包含多个<code>&lt;rb&gt;</code>元素。<code>&lt;rtc&gt;</code>标签表示一组语音注释，跟<code>&lt;rbc&gt;</code>对应。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">ruby</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;ruby-position: under;&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">rbc</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">rb</span><span class="p">&gt;</span>汉<span class="p">&lt;/</span><span class="nt">rb</span><span class="p">&gt;&lt;</span><span class="nt">rp</span><span class="p">&gt;</span>(<span class="p">&lt;/</span><span class="nt">rp</span><span class="p">&gt;&lt;</span><span class="nt">rt</span><span class="p">&gt;</span>han<span class="p">&lt;/</span><span class="nt">rt</span><span class="p">&gt;&lt;</span><span class="nt">rp</span><span class="p">&gt;</span>)<span class="p">&lt;/</span><span class="nt">rp</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">rb</span><span class="p">&gt;</span>字<span class="p">&lt;/</span><span class="nt">rb</span><span class="p">&gt;&lt;</span><span class="nt">rp</span><span class="p">&gt;</span>(<span class="p">&lt;/</span><span class="nt">rp</span><span class="p">&gt;&lt;</span><span class="nt">rt</span><span class="p">&gt;</span>zi<span class="p">&lt;/</span><span class="nt">rt</span><span class="p">&gt;&lt;</span><span class="nt">rp</span><span class="p">&gt;</span>)<span class="p">&lt;/</span><span class="nt">rp</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">rbc</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">rtc</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;ruby-position: over;&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">rp</span><span class="p">&gt;</span>(<span class="p">&lt;/</span><span class="nt">rp</span><span class="p">&gt;&lt;</span><span class="nt">rt</span><span class="p">&gt;</span>Chinese<span class="p">&lt;/</span><span class="nt">rt</span><span class="p">&gt;&lt;</span><span class="nt">rp</span><span class="p">&gt;</span>)<span class="p">&lt;/</span><span class="nt">rp</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">rtc</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">ruby</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，<code>汉字</code>这两个字有两组语音注释，分别是汉语拼音与英语。一组语音注释放在<code>&lt;rbc&gt;</code>标签中，另一组语音注释放在<code>&lt;rtc&gt;</code>，用来对应<code>&lt;rbc&gt;</code>。同时，分别使用<code>style</code>属性，指定汉语拼音显示在文字下方，英语显示在文字上方。</p>
+<p>注意，Chrome 浏览器目前不支持这两个标签。</p>
+<h2 id="22-bdodbi">22. &lt;bdo&gt;,&lt;dbi&gt;</h2>
+<p>大部分文字的阅读方向是从左到右，但是有些文字的方向是从右到左，比如阿拉伯语、希伯来语等。<code>&lt;bdo&gt;</code>标签是一个行内元素，表示文字方向与网页主体内容的方向不一致。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>床前明月光，<span class="p">&lt;</span><span class="nt">bdo</span> <span class="na">dir</span><span class="o">=</span><span class="s">&#34;rtl&#34;</span><span class="p">&gt;</span>霜上地是疑<span class="p">&lt;/</span><span class="nt">bdo</span><span class="p">&gt;</span>。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，<code>&lt;bdo&gt;</code>标签里面的文字，会以相反的方向渲染，结果就是“床前明月光，疑是地上霜”。</p>
+<p><code>&lt;bdo&gt;</code>的<code>dir</code>属性，指定具体的文字方向。它有两个值，<code>ltr</code>表示从左到右，<code>rtl</code>表示从右到左。</p>
+<p><code>&lt;bdi&gt;</code>标签用于不确定文字方向的情况。比如，网页有一个部分是用户输入的内容，但是不知道输入内容的文字方向。这种情况就可以使用<code>&lt;bdi&gt;</code>标签，告诉浏览器，不确定文字的方向，由浏览器自己决定。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">bdi</span><span class="p">&gt;</span>床前明月光，疑是地上霜。<span class="p">&lt;/</span><span class="nt">bdi</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="2-列表标签">2. 列表标签</h1>
+<p>列表是一系列排列好的项目，主要分成两类：有序列表和无序列表。</p>
+<p>有序列表是每个列表项前面有编号，呈现出顺序，就像下面这样。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">1. 列表项 A
+</span></span><span class="line"><span class="cl">2. 列表项 B
+</span></span><span class="line"><span class="cl">3. 列表项 C
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>无序列表则是列表项前面没有编号，只有一个列表符号，默认是一个圆点。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">· 列表项 A
+</span></span><span class="line"><span class="cl">· 列表项 B
+</span></span><span class="line"><span class="cl">· 列表项 C
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="1-ol">1. &lt;ol&gt;</h2>
+<p><code>&lt;ol&gt;</code>标签是一个有序列表容器（<code>ordered list</code>），会在内部的列表项前面产生数字编号。列表项的顺序有意义时，比如排名，就会采用这个标签。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">ol</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>列表项 A<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>列表项 B<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>列表项 C<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">ol</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码会在列表项 A、B、C 前面，分别产生1、2、3的编号。</p>
+<p><code>&lt;ol&gt;</code>标签内部可以嵌套<code>&lt;ol&gt;</code>标签或<code>&lt;ul&gt;</code>标签，形成多级列表。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">ol</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>列表项 A<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>列表项 B
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">ol</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>列表项 B1<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>列表项 B2<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>列表项 B3<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">ol</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>列表项 C<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">ol</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，一个有序列表内部嵌套了另一个有序列表，渲染结果如下。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">1. 列表项 A
+</span></span><span class="line"><span class="cl">2. 列表项 B
+</span></span><span class="line"><span class="cl">  1. 列表项 B1
+</span></span><span class="line"><span class="cl">  2. 列表项 B2
+</span></span><span class="line"><span class="cl">  3. 列表项 B3
+</span></span><span class="line"><span class="cl">3. 列表项 C
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>该标签有以下属性。</p>
+<ol>
+<li>
+<p>reversed</p>
+<p><code>reversed</code>属性产生倒序的数字列表。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">ol</span> <span class="na">reversed</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>列表项 A<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>列表项 B<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>列表项 C<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">ol</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，列表项 A、B、C 前面，产生的编号是3、2、1。</p>
+</li>
+<li>
+<p>start</p>
+<p><code>start</code>属性的值是一个整数，表示数字列表的起始编号。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">ol</span> <span class="na">start</span><span class="o">=</span><span class="s">&#34;5&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>列表项 A<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>列表项 B<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>列表项 C<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">ol</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，列表项 A、B、C 前面，产生的编号是5、6、7。</p>
+</li>
+<li>
+<p>type</p>
+<p><code>type</code>属性指定数字编号的样式。目前，浏览器支持以下样式。</p>
+<ul>
+<li><code>a</code>：小写字母</li>
+<li><code>A</code>：大写字母</li>
+<li><code>i</code>：小写罗马数字</li>
+<li><code>I</code>：大写罗马数字</li>
+<li><code>1</code>：整数（默认值）</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">ol</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;a&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>列表项 A<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>列表项 B<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>列表项 C<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">ol</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，列表项 A、B、C 前面的编号，分别是英文小写字母a、b、c。</p>
+<p>注意，即使编号是字母，<code>start</code>属性也依然使用整数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">ol</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;a&#34;</span> <span class="na">start</span><span class="o">=</span><span class="s">&#34;3&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>列表项 A<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>列表项 B<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>列表项 C<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">ol</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，<code>type</code>属性指定编号采用小写英文字母，<code>start</code>属性等于<code>3</code>，表示从<code>c</code>开始编号。</p>
+</li>
+</ol>
+<h2 id="2-ul">2. &lt;ul&gt;</h2>
+<p><code>&lt;ul&gt;</code>标签是一个无序列表容器（<code>unordered list</code>），会在内部的列表项前面产生实心小圆点，作为列表符号。列表项的顺序无意义时，采用这个标签。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>列表项 A<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>列表项 B<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>列表项 C<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码的渲染结果是，列表项 A、B、C 前面，分别产生一个实心小圆点，作为列表符号。</p>
+<p><code>&lt;ul&gt;</code>标签内部可以嵌套<code>&lt;ul&gt;</code>或<code>&lt;ol&gt;</code>，形成多级列表。</p>
+<h2 id="3-li">3. &lt;li&gt;</h2>
+<p><code>&lt;li&gt;</code>表示列表项，用在<code>&lt;ol&gt;</code>或<code>&lt;ul&gt;</code>容器之中。</p>
+<p>有序列表<code>&lt;ol&gt;</code>之中，<code>&lt;li&gt;</code>有一个<code>value</code>属性，定义当前列表项的编号，后面列表项会从这个值开始编号。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">ol</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>列表项 A<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;4&#34;</span><span class="p">&gt;</span>列表项 B<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>列表项 C<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">ol</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，<code>value</code>属性指定第二个列表项的编号是<code>4</code>，因此三个列表项的编号，分别为1、4、5。</p>
+<h2 id="4-dldtdd">4. &lt;dl&gt;,&lt;dt&gt;,&lt;dd&gt;</h2>
+<p><code>&lt;dl&gt;</code>标签是一个块级元素，表示一组术语的列表（<code>description list</code>）。术语名（<code>description term</code>）由<code>&lt;dt&gt;</code>标签定义，术语解释（<code>description detail</code>）由<code>&lt;dd&gt;</code>标签定义。<code>&lt;dl&gt;</code>常用来定义词汇表。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">dl</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">dt</span><span class="p">&gt;</span>CPU<span class="p">&lt;/</span><span class="nt">dt</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">dd</span><span class="p">&gt;</span>中央处理器<span class="p">&lt;/</span><span class="nt">dd</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">dt</span><span class="p">&gt;</span>Memory<span class="p">&lt;/</span><span class="nt">dt</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">dd</span><span class="p">&gt;</span>内存<span class="p">&lt;/</span><span class="nt">dd</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">dt</span><span class="p">&gt;</span>Hard Disk<span class="p">&lt;/</span><span class="nt">dt</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">dd</span><span class="p">&gt;</span>硬盘<span class="p">&lt;/</span><span class="nt">dd</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">dl</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>&lt;dt&gt;</code>和<code>&lt;dd&gt;</code>都是块级元素，<code>&lt;dd&gt;</code>默认会在<code>&lt;dt&gt;</code>下方缩进显示。上面代码的默认渲染结果如下。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">CPU
+</span></span><span class="line"><span class="cl">  中央处理器
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Memory
+</span></span><span class="line"><span class="cl">  内存
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Hard Disk
+</span></span><span class="line"><span class="cl">  硬盘
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>多个术语（<code>&lt;dt&gt;</code>）对应一个解释（<code>&lt;dd&gt;</code>），或者多个解释（<code>&lt;dd&gt;</code>）对应一个术语（<code>&lt;dt&gt;</code>），都是合法的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">dl</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">dt</span><span class="p">&gt;</span>A<span class="p">&lt;/</span><span class="nt">dt</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">dt</span><span class="p">&gt;</span>B<span class="p">&lt;/</span><span class="nt">dt</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">dd</span><span class="p">&gt;</span>C<span class="p">&lt;/</span><span class="nt">dd</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">dt</span><span class="p">&gt;</span>D<span class="p">&lt;/</span><span class="nt">dt</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">dd</span><span class="p">&gt;</span>E<span class="p">&lt;/</span><span class="nt">dd</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">dd</span><span class="p">&gt;</span>F<span class="p">&lt;/</span><span class="nt">dd</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">dl</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码中，<code>A</code>和<code>B</code>有共同的解释<code>C</code>，而<code>D</code>有两个解释<code>E</code>和<code>F</code>。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">punk1u</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2022-06-11
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/web/">web</a>
+          <a href="/tags/html/">html</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/html-note-%E6%A0%87%E7%AD%BE-%E5%9B%BE%E5%83%8F%E5%A4%9A%E5%AA%92%E4%BD%93%E5%92%8C%E9%93%BE%E6%8E%A5%E6%A0%87%E7%AD%BE/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">html学习笔记(5)——图像、多媒体和链接标签</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/html-note-%E8%AF%AD%E4%B9%89%E7%BB%93%E6%9E%84/">
+            <span class="next-text nav-default">html学习笔记(3)——语义结构</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:punk1u@protonmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://www.github.com/punk1u" class="iconfont icon-github" title="github"></a>
+  <a href="https://punk1u.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>punk1u</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.191509a5c8442abdb6eb5020a332fd59bdd83a7e78a2d2241108df9113504292.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
