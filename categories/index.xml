@@ -6,22 +6,31 @@
     <description>Recent content in Categories on 想自由的Punk 1u</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 15 Jun 2022 23:32:39 +0800</lastBuildDate><atom:link href="https://punk1u.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 22 Jun 2022 20:32:39 +0800</lastBuildDate><atom:link href="https://punk1u.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>html</title>
-      <link>https://punk1u.github.io/categories/html/</link>
-      <pubDate>Wed, 15 Jun 2022 23:32:39 +0800</pubDate>
+      <title>javascript</title>
+      <link>https://punk1u.github.io/categories/javascript/</link>
+      <pubDate>Wed, 22 Jun 2022 20:32:39 +0800</pubDate>
       
-      <guid>https://punk1u.github.io/categories/html/</guid>
+      <guid>https://punk1u.github.io/categories/javascript/</guid>
       <description></description>
     </item>
     
     <item>
       <title>web</title>
       <link>https://punk1u.github.io/categories/web/</link>
-      <pubDate>Wed, 15 Jun 2022 23:32:39 +0800</pubDate>
+      <pubDate>Wed, 22 Jun 2022 20:32:39 +0800</pubDate>
       
       <guid>https://punk1u.github.io/categories/web/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>html</title>
+      <link>https://punk1u.github.io/categories/html/</link>
+      <pubDate>Wed, 15 Jun 2022 23:32:39 +0800</pubDate>
+      
+      <guid>https://punk1u.github.io/categories/html/</guid>
       <description></description>
     </item>
     

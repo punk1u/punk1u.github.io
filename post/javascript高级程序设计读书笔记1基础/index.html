@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>JavaScript高级程序设计读书笔记(1)——基础 - 想自由的Punk 1u</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="punk1u" /><meta name="description" content="JavaScript概述 JavaScript和 ECMAScript 基本上是同义词，但 JavaScript远远不限于ECMA-262 所定义的那样。 没错，完整的 JavaScript" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.100.1 with theme even" />
+
+
+<link rel="canonical" href="https://punk1u.github.io/post/javascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B01%E5%9F%BA%E7%A1%80/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="JavaScript高级程序设计读书笔记(1)——基础" />
+<meta property="og:description" content="JavaScript概述 JavaScript和 ECMAScript 基本上是同义词，但 JavaScript远远不限于ECMA-262 所定义的那样。 没错，完整的 JavaScript" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://punk1u.github.io/post/javascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B01%E5%9F%BA%E7%A1%80/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-06-22T20:32:39+08:00" />
+<meta property="article:modified_time" content="2022-06-22T20:32:39+08:00" />
+
+<meta itemprop="name" content="JavaScript高级程序设计读书笔记(1)——基础">
+<meta itemprop="description" content="JavaScript概述 JavaScript和 ECMAScript 基本上是同义词，但 JavaScript远远不限于ECMA-262 所定义的那样。 没错，完整的 JavaScript"><meta itemprop="datePublished" content="2022-06-22T20:32:39+08:00" />
+<meta itemprop="dateModified" content="2022-06-22T20:32:39+08:00" />
+<meta itemprop="wordCount" content="5174">
+<meta itemprop="keywords" content="web,javascript," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="JavaScript高级程序设计读书笔记(1)——基础"/>
+<meta name="twitter:description" content="JavaScript概述 JavaScript和 ECMAScript 基本上是同义词，但 JavaScript远远不限于ECMA-262 所定义的那样。 没错，完整的 JavaScript"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Punk 1u</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Punk 1u</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">JavaScript高级程序设计读书笔记(1)——基础</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-06-22 </span>
+        <div class="post-category">
+            <a href="/categories/web/"> web </a>
+            <a href="/categories/javascript/"> javascript </a>
+            </div>
+          <span class="more-meta"> 约 5174 字 </span>
+          <span class="more-meta"> 预计阅读 11 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#javascript概述">JavaScript概述</a>
+      <ul>
+        <li><a href="#ecmascript">ECMAScript</a></li>
+        <li><a href="#dom">DOM</a></li>
+        <li><a href="#bom">BOM</a></li>
+      </ul>
+    </li>
+    <li><a href="#html中的javascript">HTML中的JavaScript</a>
+      <ul>
+        <li><a href="#script元素">&lt;script&gt;元素</a>
+          <ul>
+            <li><a href="#标签位置">标签位置</a></li>
+            <li><a href="#推迟执行脚本">推迟执行脚本</a></li>
+            <li><a href="#异步执行脚本">异步执行脚本</a></li>
+            <li><a href="#动态加载脚本">动态加载脚本</a></li>
+          </ul>
+        </li>
+        <li><a href="#行内代码与外部文件">行内代码与外部文件</a></li>
+        <li><a href="#文档模式">文档模式</a></li>
+        <li><a href="#noscript元素">&lt;noscript&gt;元素</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="javascript概述">JavaScript概述</h1>
+<p><code>JavaScript</code>和 <code>ECMAScript</code> 基本上是同义词，但 JavaScript远远不限于<code>ECMA-262</code> 所定义的那样。 没错，完整的 JavaScript 实现包含以下几个部分：</p>
+<ol>
+<li>核心(<code>ECMAScript</code>)</li>
+<li>文档对象模型(<code>DOM</code>)</li>
+<li>浏览器对象模型(<code>BOM</code>)</li>
+</ol>
+<h2 id="ecmascript">ECMAScript</h2>
+<p><code>ECMAScript</code>，即 <code>ECMA-262</code> 定义的语言，并不局限于 Web 浏览器。事实上，这门语言没有输入和 输出之类的方法。<code>ECMA-262</code> 将这门语言作为一个基准来定义，以便在它之上再构建更稳健的脚本语言。 Web 浏览器只是 <code>ECMAScript</code> 实现可能存在的一种宿主环境（host environment）。宿主环境提供 <code>ECMAScript </code>的基准实现和与环境自身交互必需的扩展。扩展（比如 <code>DOM</code>）使用 <code>ECMAScript</code> 核心类型 和语法，提供特定于环境的额外功能。其他宿主环境还有服务器端 <code>JavaScript</code> 平台 <code>Node.js</code> 和即将被淘汰 的 <code>Adobe Flash</code>。</p>
+<p>如果不涉及浏览器的话，<code>ECMA-262</code> 到底定义了什么？在基本的层面，它描述这门语言的如下部分：</p>
+<ul>
+<li>语法</li>
+<li>类型</li>
+<li>语句</li>
+<li>关键字</li>
+<li>保留字</li>
+<li>操作符</li>
+<li>全局对象</li>
+</ul>
+<p><code>ECMAScript</code> 只是对实现这个规范描述的所有方面的一门语言的称呼。<code>JavaScript</code> 实现了 <code>ECMAScript</code>，而 <code>Adobe ActionScript</code> 同样也实现了 <code>ECMAScript</code>。</p>
+<h2 id="dom">DOM</h2>
+<p>文档对象模型（DOM，Document Object Model）是一个应用编程接口（API），用于在 HTML 中使 用扩展的 XML。DOM 将整个页面抽象为一组分层节点。HTML 或 XML 页面的每个组成部分都是一种 节点，包含不同的数据。比如下面的 HTML 页面：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Sample Page<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span> Hello World!<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这些代码通过 DOM 可以表示为一组分层节点，如图所示。</p>
+<p><img src="https://www.punklu.tech/assets/DOM-1.png" alt=""></p>
+<p><code>DOM</code> 通过创建表示文档的树，让开发者可以随心所欲地控制网页的内容和结构。使用 <code>DOM API</code>， 可以轻松地删除、添加、替换、修改节点。</p>
+<h2 id="bom">BOM</h2>
+<p>IE3 和 Netscape Navigator 3 提供了浏览器对象模型（BOM） API，用于支持访问和操作浏览器的窗 口。使用 BOM，开发者可以操控浏览器显示页面之外的部分。而 BOM 真正独一无二的地方，当然也是 问题最多的地方，就是它是唯一一个没有相关标准的 JavaScript 实现。HTML5 改变了这个局面，这个版 本的 HTML 以正式规范的形式涵盖了尽可能多的 BOM 特性。由于 HTML5 的出现，之前很多与 BOM 有关的问题都迎刃而解了。</p>
+<p>总体来说，BOM 主要针对浏览器窗口和子窗口（frame），不过人们通常会把任何特定于浏览器的 扩展都归在 BOM 的范畴内。比如，下面就是这样一些扩展：</p>
+<ul>
+<li>弹出新浏览器窗口的能力</li>
+<li>移动、缩放和关闭浏览器窗口的能力</li>
+<li>navigator对象，提供关于浏览器的详尽信息</li>
+<li>location对象，提供浏览器加载页面的详尽信息</li>
+<li>screen对象，提供关于用户屏幕分辨率的详尽信息</li>
+<li>performance对象，提供浏览器内存占用，导航行为和时间统计的详尽信息</li>
+<li>对cookie的支持</li>
+<li>其他自定义对象，如<code>XMLHttpRequest</code> 和 IE 的 <code>ActiveXObject</code>。</li>
+</ul>
+<p>因为在很长时间内都没有标准，所以每个浏览器实现的都是自己的 BOM。有一些所谓的事实标准， 比如对于 window 对象和 navigator 对象，每个浏览器都会给它们定义自己的属性和方法。现在有了 HTML5，BOM 的实现细节应该会日趋一致。</p>
+<h1 id="html中的javascript">HTML中的JavaScript</h1>
+<h2 id="script元素">&lt;script&gt;元素</h2>
+<p>将 JavaScript 插入 HTML 的主要方法是使用&lt;script&gt;元素。&lt;script&gt;元素有下列 8 个属性。</p>
+<ol>
+<li>
+<p>async</p>
+<p>可选。表示应该立即开始下载脚本，但不能阻止其他页面动作，比如下载资源或等待其他脚本加载。只对外部脚本文件有效。</p>
+</li>
+<li>
+<p>charset</p>
+<p>可选。使用 src 属性指定的代码字符集。这个属性很少使用，因为大多数浏览器不在乎它的值。</p>
+</li>
+<li>
+<p>crossorigin</p>
+<p>可选。配置相关请求的CORS（跨源资源共享）设置。默认不使用CORS。crossorigin=  &ldquo;anonymous&quot;配置文件请求不必设置凭据标志。crossorigin=&ldquo;use-credentials&quot;设置凭据 标志，意味着出站请求会包含凭据。</p>
+</li>
+<li>
+<p>defer</p>
+<p>可选。表示脚本可以延迟到文档完全被解析和显示之后再执行。只对外部脚本文件有效。 在 IE7 及更早的版本中，对行内脚本也可以指定这个属性。</p>
+</li>
+<li>
+<p>integrity</p>
+<p>可选。允许比对接收到的资源和指定的加密签名以验证子资源完整性（SRI， Subresource Integrity）。如果接收到的资源的签名与这个属性指定的签名不匹配，则页面会报错， 脚本不会执行。这个属性可以用于确保内容分发网络（CDN，Content Delivery Network）不会提供恶意内容。</p>
+</li>
+<li>
+<p>language</p>
+<p>废弃。最初用于表示代码块中的脚本语言（如&quot;JavaScript&rdquo;、&ldquo;JavaScript 1.2&rdquo; 或&quot;VBScript&rdquo;）。大多数浏览器都会忽略这个属性，不应该再使用它。</p>
+</li>
+<li>
+<p>src</p>
+<p>可选。表示包含要执行的代码的外部文件。</p>
+</li>
+<li>
+<p>type</p>
+<p>可选。代替 language，表示代码块中脚本语言的内容类型（也称 MIME 类型）。按照惯例，这个值始终都是&quot;text/javascript&quot;，尽管&quot;text/javascript&quot;和&quot;text/ecmascript&quot; 都已经废弃了。JavaScript 文件的 MIME 类型通常是&quot;application/x-javascript&quot;，不过给 type 属性这个值有可能导致脚本被忽略。在非 IE 的浏览器中有效的其他值还有 &ldquo;application/javascript&quot;和&quot;application/ecmascript&rdquo;。<code>如果这个值是 module，则代 码会被当成 ES6 模块，而且只有这时候代码中才能出现 import 和 export 关键字。</code></p>
+</li>
+</ol>
+<p>&lt;script&gt;元素的一个最为强大、同时也备受争议的特性是，它可以包含来自外部域的 <code>JavaScript</code>文件。跟&lt;img&gt;元素很像，&lt;script&gt;元素的 <code>src</code> 属性可以是一个完整的 <code>URL</code>，而且这个 <code>URL</code> 指向的资源可以跟包含它的 <code>HTML</code> 页面不在同一个域中，比如这个例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;http://www.somewhere.com/afile.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>浏览器在解析这个资源时，会向 src 属性指定的路径发送一个 GET 请求，以取得相应资源，假定 是一个 <code>JavaScript</code> 文件。这个初始的请求不受浏览器同源策略限制，但返回并被执行的 <code>JavaScript</code> 则受限 制。当然，这个请求仍然受父页面 <code>HTTP/HTTPS</code> 协议的限制。</p>
+<p>来自外部域的代码会被当成加载它的页面的一部分来加载和解释。这个能力可以让我们通过不同的 域分发 <code>JavaScript</code>。不过，引用了放在别人服务器上的 <code>JavaScript</code> 文件时要格外小心，因为恶意的程序员 随时可能替换这个文件。在包含外部域的 <code>JavaScript</code> 文件时，要确保该域是自己所有的，或者该域是一个可信的来源。&lt;script&gt;标签的 integrity 属性是防范这种问题的一个武器，但这个属性也不是所有
+浏览器都支持。</p>
+<p>不管包含的是什么代码，浏览器都会按照&lt;script&gt;在页面中出现的顺序依次解释它们，前提是它们没有使用 <code>defer</code> 和 <code>async</code> 属性。第二个&lt;script&gt;元素的代码必须在第一个&lt;script&gt;元素的代码解释完毕才能开始解释，第三个则必须等第二个解释完，以此类推。</p>
+<h3 id="标签位置">标签位置</h3>
+<p>过去，所有&lt;script&gt;元素都被放在页面的&lt;head&gt;标签内，如下面的例子所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE html&gt;</span> 
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Example HTML Page<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;example1.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;example2.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="c">&lt;!-- 这里是页面内容 --&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这种做法的主要目的是把外部的 <code>CSS</code> 和<code>JavaScript</code> 文件都集中放到一起。不过，把所有<code>JavaScript</code> 文件都放在里，也就意味着必须把所有 <code>JavaScript</code> 代码都下载、解析和解释完成后，才能开始渲染页面（页面在浏览器解析到的起始标签时开始渲染）。对于需要很多 <code>JavaScript</code> 的页面，这会 导致页面渲染的明显延迟，在此期间浏览器窗口完全空白。为解决这个问题，现代 Web 应用程序通常 将所有 <code>JavaScript</code> 引用放在元素中的页面内容后面，如下面的例子所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE html&gt;</span> 
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Example HTML Page<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="c">&lt;!-- 这里是页面内容 --&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;example1.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;example2.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这样一来，页面会在处理 JavaScript 代码之前完全渲染页面。用户会感觉页面加载更快了，因为浏览器显示空白页面的时间短了。</p>
+<h3 id="推迟执行脚本">推迟执行脚本</h3>
+<p>HTML 4.01 为&lt;script&gt;元素定义了一个叫 <code>defer</code> 的属性。这个属性表示脚本在执行的时候不会改变页面的结构。也就是说，脚本会被延迟到整个页面都解析完毕后再运行。因此，在&lt;script&gt;元素上设置 defer 属性，相当于告诉浏览器立即下载，但延迟执行。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE html&gt;</span> 
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Example HTML Page<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;</span><span class="nt">script</span> <span class="na">defer</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;example1.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;</span><span class="nt">script</span> <span class="na">defer</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;example2.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="c">&lt;!-- 这里是页面内容 --&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>虽然这个例子中的&lt;script&gt;元素包含在页面的&lt;head&gt;中，但它们会在浏览器解析到结束的&lt;/html&gt;标签后才会执行。HTML5 规范要求脚本应该按照它们出现的顺序执行，因此第一个推迟的脚本会在第二个推迟的脚本之前执行，而且两者都会在 <code>DOMContentLoaded</code> 事件之前执行。不过在实际当中，推迟执行的脚本不一定总会按顺序执行或者在 <code>DOMContentLoaded</code>事件之前执行，因此最好只包含一个这样的脚本。</p>
+<p>如前所述，<code>defer</code> 属性只对外部脚本文件才有效。这是 <code>HTML5</code> 中明确规定的，因此支持 HTML5 的浏览器会忽略行内脚本的 defer 属性。IE4~7 展示出的都是旧的行为，IE8 及更高版本则支持 <code>HTML5</code> 定义的行为。且并不是所有版本的浏览器都支持这个属性，考虑到这一点，还是把要推迟执行的脚本放在页面底部比较好。</p>
+<h3 id="异步执行脚本">异步执行脚本</h3>
+<p><code>HTML5</code> 为&lt;script&gt;元素定义了 <code>async</code> 属性。从改变脚本处理方式上看，<code>async</code> 属性与 <code>defer</code> 类似。当然，它们两者也都只适用于外部脚本，都会告诉浏览器立即开始下载。不过，与 <code>defer</code> 不同的 是，标记为 <code>async</code> 的脚本并不保证能按照它们出现的次序执行，比如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE html&gt;</span> 
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Example HTML Page<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;</span><span class="nt">script</span> <span class="na">async</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;example1.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;</span><span class="nt">script</span> <span class="na">async</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;example2.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="c">&lt;!-- 这里是页面内容 --&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在这个例子中，第二个脚本可能先于第一个脚本执行。因此，重点在于它们之间没有依赖关系。给 脚本添加 async 属性的目的是告诉浏览器，不必等脚本下载和执行完后再加载页面，同样也不必等到 该异步脚本下载和执行后再加载其他脚本。正因为如此，异步脚本不应该在加载期间修改 <code>DOM</code>。</p>
+<p>异步脚本保证会在页面的 <code>load</code> 事件前执行，但可能会在 <code>DOMContentLoaded</code>之前或之后。使用 async 也会告诉页面你不会使用 <code>document.write</code>，不过好的 Web 开发实践根本就不推荐使用这个方法。</p>
+<h3 id="动态加载脚本">动态加载脚本</h3>
+<p>除了&lt;script&gt;标签，还有其他方式可以加载脚本。因为 <code>JavaScript</code> 可以使用 <code>DOM API</code>，所以通过向 <code>DOM</code> 中动态添加 <code>script</code> 元素同样可以加载指定的脚本。只要创建一个 <code>script</code> 元素并将其添加到<code>DOM</code> 即可。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">script</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl"><span class="nx">script</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s1">&#39;gibberish.js&#39;</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl"><span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">script</span><span class="p">);</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当然，在把 HTMLElement 元素添加到 DOM 且执行到这段代码之前不会发送请求。默认情况下， 以这种方式创建的&lt;script&gt;元素是以异步方式加载的，相当于添加了 <code>async</code> 属性。不过这样做可能会有问题，因为所有浏览器都支持 <code>createElement()</code>方法，但不是所有浏览器都支持 <code>async</code> 属性。因此，如果要统一动态脚本的加载行为，可以明确将其设置为同步加载：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">script</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl"><span class="nx">script</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s1">&#39;gibberish.js&#39;</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl"><span class="nx">script</span><span class="p">.</span><span class="kr">async</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl"><span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">script</span><span class="p">);</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>以这种方式获取的资源对浏览器预加载器是不可见的。这会严重影响它们在资源获取队列中的优先 级。根据应用程序的工作方式以及怎么使用，这种方式可能会严重影响性能。要想让预加载器知道这些 动态请求文件的存在，可以在文档头部显式声明它们:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;preload&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;gibberish.js&#34;</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="行内代码与外部文件">行内代码与外部文件</h2>
+<p>虽然可以直接在 <code>HTML</code> 文件中嵌入 <code>JavaScript</code> 代码，但通常认为最佳实践是尽可能将 <code>JavaScript</code> 代 码放在外部文件中。不过这个最佳实践并不是明确的强制性规则。推荐使用外部文件的理由如下。</p>
+<ol>
+<li>
+<p>可维护性</p>
+<p>JavaScript 代码如果分散到很多 <code>HTML</code> 页面，会导致维护困难。而用一个目录保存 所有 <code>JavaScript</code> 文件，则更容易维护，这样开发者就可以独立于使用它们的 HTML 页面来编辑代码。</p>
+</li>
+<li>
+<p>缓存</p>
+<p>浏览器会根据特定的设置缓存所有外部链接的 <code>JavaScript</code>文件，这意味着如果两个页面都 用到同一个文件，则该文件只需下载一次。这最终意味着页面加载更快。</p>
+</li>
+</ol>
+<h2 id="文档模式">文档模式</h2>
+<p>IE5.5 发明了文档模式的概念，即可以使用 doctype 切换文档模式。最初的文档模式有两种：混杂 模式（quirks mode）和标准模式（standards mode）。前者让 IE 像 IE5 一样（支持一些非标准的特性）， 后者让 IE 具有兼容标准的行为。虽然这两种模式的主要区别只体现在通过 CSS 渲染的内容方面，但对 JavaScript 也有一些关联影响，或称为副作用。</p>
+<p>混杂模式在所有浏览器中都以省略文档开头的 doctype 声明作为开关。这种约定并不合理，因为 混杂模式在不同浏览器中的差异非常大，不使用黑科技基本上就没有浏览器一致性可言。</p>
+<p>标准模式通过下列几种文档类型声明开启：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="c">&lt;!-- HTML 4.01 Strict --&gt;</span> 
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE HTML PUBLIC &#34;-//W3C//DTD HTML 4.01//EN&#34; 
+</span></span></span><span class="line"><span class="cl"><span class="cp">&#34;http://www.w3.org/TR/html4/strict.dtd&#34;&gt;</span> 
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- XHTML 1.0 Strict --&gt;</span> 
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE html PUBLIC 
+</span></span></span><span class="line"><span class="cl"><span class="cp">&#34;-//W3C//DTD XHTML 1.0 Strict//EN&#34; 
+</span></span></span><span class="line"><span class="cl"><span class="cp">&#34;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&#34;&gt;</span> 
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- HTML5 --&gt;</span> 
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="noscript元素">&lt;noscript&gt;元素</h2>
+<p>针对早期浏览器不支持 JavaScript 的问题，需要一个页面优雅降级的处理方案。最终， 元素出现，被用于给不支持 JavaScript 的浏览器提供替代内容。虽然如今的浏览器已经 100%支持 JavaScript，但对于禁用 JavaScript 的浏览器来说，这个元素仍然有它的用处。</p>
+<p>下面是一个例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;</span><span class="nt">noscript</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>This page requires a JavaScript-enabled browser.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"> <span class="p">&lt;/</span><span class="nt">noscript</span><span class="p">&gt;</span> 
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">punk1u</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2022-06-22
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/web/">web</a>
+          <a href="/tags/javascript/">javascript</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/html-note-%E6%A0%87%E7%AD%BE-%E5%85%B6%E4%BB%96%E6%A0%87%E7%AD%BE/">
+            <span class="next-text nav-default">html学习笔记(7)——其他标签</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:punk1u@protonmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://www.github.com/punk1u" class="iconfont icon-github" title="github"></a>
+  <a href="https://punk1u.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>punk1u</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.191509a5c8442abdb6eb5020a332fd59bdd83a7e78a2d2241108df9113504292.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
